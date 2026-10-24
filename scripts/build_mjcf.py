@@ -42,8 +42,9 @@ def main():
         j = spec.joint(jn); j.armature = 0.002
         a = spec.add_actuator(); a.name = jn.replace("_link_joint", "_motor"); a.target = jn; a.trntype = mujoco.mjtTrn.mjTRN_JOINT
         a.biastype = mujoco.mjtBias.mjBIAS_AFFINE
-        a.gainprm = [0.1] + [0.0] * 9; a.biasprm = [0.0, 0.0, -0.1] + [0.0] * 7      # velocity servo kv=0.1
+        a.gainprm = [1.0] + [0.0] * 9; a.biasprm = [0.0, 0.0, -1.0] + [0.0] * 7      # velocity servo kv=1
         a.ctrlrange = [-32.0, 32.0]; a.ctrllimited = True
+        a.forcerange = [-2.0, 2.0]; a.forcelimited = True                   # wheel motor torque limit (URDF <limit effort>)
     # cameras: MuJoCo cameras look along -z with +y up, ROS optical frames along +z with +y down -> flip about x
     for name, frame, body, fovy in CAMERAS:
         if frame not in urdf.link_map:
@@ -56,7 +57,14 @@ def main():
     q = R.from_matrix(T[:3, :3]).as_quat()
     s = spec.body("arm_gripper_link").add_site(); s.name = "gripper_frame"; s.pos = T[:3, 3]; s.quat = [q[3], q[0], q[1], q[2]]
     s.size = [0.004, 0, 0]; s.group = 3
-    # world: floor, lights, free-floating rover
+    # collision geometry -> group 3 (hidden by default) so it never covers the cameras or the viewer
+    for g in spec.geoms:
+        if g.contype or g.conaffinity:
+            g.group = 3
+    # world: sky, floor, lights, free-floating rover
+    sky = spec.add_texture(); sky.name = "sky"; sky.type = mujoco.mjtTexture.mjTEXTURE_SKYBOX
+    sky.builtin = mujoco.mjtBuiltin.mjBUILTIN_GRADIENT; sky.rgb1 = [0.86, 0.88, 0.91]; sky.rgb2 = [0.60, 0.63, 0.68]
+    sky.width = 512; sky.height = 3072
     spec.worldbody.add_geom(type=mujoco.mjtGeom.mjGEOM_PLANE, size=[3, 3, 0.1], name="floor", rgba=[0.55, 0.55, 0.58, 1])
     for pos, d in [([1.0, -1.5, 2.0], [-0.4, 0.6, -0.8]), ([-1.5, 1.0, 1.5], [0.6, -0.4, -0.6])]:
         L = spec.worldbody.add_light(); L.pos = pos; L.dir = d; L.diffuse = [0.7, 0.7, 0.7]; L.specular = [0.2, 0.2, 0.2]; L.castshadow = False

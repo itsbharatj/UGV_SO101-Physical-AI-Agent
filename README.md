@@ -13,11 +13,11 @@ photos in `reference_photos/`.
 |---|---|---|
 | Lower body, LiDAR, front OAK-D Lite, 4 driven wheels | Waveshare `ugv_description/urdf/ugv_rover.urdf` | body mesh cut at its real flat top (0.093 m); Waveshare's mesh carries a 2.8 cm cover the Jetson kit does not have |
 | 2 passive middle wheels | added | the rover has 6 wheels, 4 driven; collision cylinders, the body mesh draws them |
-| Upper deck, 4 brass standoffs, Jetson Orin Nano | added, schematic boxes | deck top 0.175 m above ground (measured) |
+| Upper deck, brass pillars, Jetson Orin Nano | added, schematic boxes | folded tray (125 mm top, sloped walls to 160 mm), top 0.175 m above ground (measured); the printed plate overhangs its rear edge by ~27 mm as on the robot |
 | Printed adapter plate | `SO101_UGV_Rover_Mount/FINAL_FILES/01_adapter_print_1.stl` | bolted flat on the deck, triangle toward the rear |
 | SO-101 follower arm | TheRobotStudio `Simulation/SO101/so101_new_calib.urdf` | links prefixed `arm_`; joint names unchanged and in LeRobot order: `shoulder_pan shoulder_lift elbow_flex wrist_flex wrist_roll gripper`; reaches **forward** over the LiDAR |
 | Wrist camera | `SO101_OAK_RGB_v2` bracket + Waveshare USB camera module | camera tied where the bracket rods meet the U-frame, aimed at the fixed-finger pad |
-| Optional | 3S Li-ion arm battery (`--arm-battery`), 6 mm spacers (`--spacer 0.006`) | not fitted as built |
+| Optional | 3S Li-ion arm battery (`--arm-battery`, stands on the lower body behind the Jetson; the deck top has no room), 6 mm spacers (`--spacer 0.006`) | not fitted as built |
 
 **Frames** follow ROS conventions. `base_footprint` is on the ground and `base_link` is 0.081 m up, with x forward and z up.
 
@@ -32,11 +32,11 @@ photos in `reference_photos/`.
 
 | Sensor | Field of view | Range |
 |---|---|---|
-| Front OAK-D Lite (RGB) | 69° × 54° | 0.05 to 20 m |
+| Front OAK-D Lite (RGB) | 69° × 54° at 4:3 | 0.05 to 20 m |
 | Wrist USB camera | 160° fisheye; simulated as 120° pinhole | 0.02 to 5 m |
 | LiDAR | 360° | 0.02 to 12 m |
 
-All three are in the URDF's `<gazebo>` blocks. The MJCF carries the two cameras as `front_camera` and `wrist_camera`, plus a `gripper_frame` site.
+All three are in the URDF's `<gazebo>` blocks. The MJCF carries the two cameras as `front_camera` and `wrist_camera`, plus a `gripper_frame` site. Collision shapes are in MuJoCo group 3, hidden by default, so they never block a camera.
 
 ## Files
 
@@ -66,7 +66,7 @@ reference_photos/              photos of the real robot the model was matched to
 **MuJoCo**: `python -m mujoco.viewer --mjcf mujoco/so101_rover.xml`. The control vector is:
 
 1. the 6 arm joint targets in radians, in LeRobot order;
-2. then the 4 driven wheel speeds in rad/s: left up, left down, right up, right down.
+2. then the 4 driven wheel speeds in rad/s: left up, left down, right up, right down (velocity servos, torque limited to 2 Nm).
 
 Use the MJCF, not the URDF. Loaded raw, the URDF welds the rover to the world.
 
@@ -79,14 +79,21 @@ python3 scripts/build_urdf.py [options] && python3 scripts/build_mjcf.py
 python3 tests/check_model.py && python3 tests/export_views.py
 ```
 
+The build writes `urdf/build_params.json`, and the test checks the model against those parameters. Every option in the table below builds and passes.
+
+```bash
+# example
+python3 scripts/build_urdf.py --spacer 0.006 --arm-battery && python3 scripts/build_mjcf.py
+```
+
 | Option | Default | Use |
 |---|---|---|
 | `--deck-height` | 0.175 | ground to top of the upper metal deck, m |
 | `--lidar-to-yaw` | 0.065 | LiDAR centre to the arm's yaw axis, m (read off the photos) |
 | `--spacer` | 0 | spacer height under the plate, m |
-| `--arm-battery` | off | add the 3S arm battery on the deck |
+| `--arm-battery` | off | add the 3S arm battery, standing on the lower body behind the Jetson |
 | `--wrist-mount none` | v2 | arm without the wrist camera |
-| `--arm-facing rear` | front | the plate's other orientation (arm reaches backward) |
+| `--arm-facing rear` | front | the plate's other orientation (arm reaches backward); needs `--lidar-to-yaw 0.09` or more, or the base hits the LiDAR |
 
 Python needs `numpy scipy lxml yourdfpy mujoco trimesh pillow`.
 
@@ -98,7 +105,7 @@ Python needs `numpy scipy lxml yourdfpy mujoco trimesh pillow`.
 | Ground → underside of the SO-101 base | 0.185 m (deck + 10 mm plate) |
 | Ground → top of the lower body | 0.093 m (from the photos; 9.2 cm from the lower body to the arm base) |
 | LiDAR centre → arm yaw axis | 0.065 m |
-| Wheel diameter | 0.080 m, 6 wheels, 4 driven |
+| Wheels | 80 mm diameter, 6 wheels (4 driven), 85.5 mm pitch (Waveshare CAD, matches their 253 mm overall length) |
 | Total mass | 4.46 kg (rover body 2.37 + 6 wheels 1.24, arm 0.63, plate 0.11, LiDAR + OAK 0.09, wrist camera 0.03; no battery) |
 
 ## Known approximations
@@ -106,7 +113,7 @@ Python needs `numpy scipy lxml yourdfpy mujoco trimesh pillow`.
 1. **Lower body to arm base:** 9.2 cm in the model against your 8.5 cm tape measurement. The photos give 9.3 cm, so the model follows the photos.
 2. **Arm fore/aft position:** read off the photos, good to about ±1 cm. Measure the LiDAR centre to the centre of the arm's first motor and pass `--lidar-to-yaw` to make it exact.
 3. **Wrist camera:** the USB board is tied by hand to a bracket designed for the OAK-D Lite, so its pose is approximate. Calibrate it against a real image if precise extrinsics matter, then edit `USB_CAM_LENS` in `scripts/build_urdf.py`.
-4. **Deck, standoffs and Jetson:** simple boxes at measured positions.
+4. **Deck, pillars and Jetson:** simple boxes at the positions and heights measured from the photos.
 5. **Printed parts:** box inertias. The rover and arm inertias are the upstream values.
 
 ## Printing the parts

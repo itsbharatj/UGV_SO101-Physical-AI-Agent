@@ -8,6 +8,7 @@
   </visual>
 
   <asset>
+    <texture type="skybox" colorspace="auto" name="sky" builtin="gradient" rgb1="0.86 0.88 0.91" rgb2="0.6 0.63 0.68" width="512" height="3072"/>
     <mesh name="base_link_jetson_kit" file="../meshes/rover/base_link_jetson_kit.stl"/>
     <mesh name="left_up_wheel_link" file="../meshes/rover/left_up_wheel_link.stl"/>
     <mesh name="left_down_wheel_link" file="../meshes/rover/left_down_wheel_link.stl"/>
@@ -43,124 +44,134 @@
       <camera name="front_camera" quat="-0.5 -0.499998 0.5 0.500002" pos="0.0827701 6.50856e-10 0.157" fovy="54"/>
       <frame pos="0.000460088 6.50856e-10 0.081212">
         <geom quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.09 0.09 0.1 1" density="0" mesh="base_link_jetson_kit"/>
-        <geom size="0.1225 0.115 0.02825" pos="0 0 -0.01675" type="box" rgba="0.09 0.09 0.1 1"/>
-        <geom size="0.0915 0.08 0.0015" pos="0.0015 0 0.092288" type="box" contype="0" conaffinity="0" group="1" rgba="0.26 0.27 0.3 1" density="0"/>
-        <geom size="0.0915 0.08 0.0015" pos="0.0015 0 0.092288" type="box" rgba="0.26 0.27 0.3 1"/>
-        <geom size="0.0865 0.001 0.01" pos="-0.0035 0.079 0.083788" type="box" contype="0" conaffinity="0" group="1" rgba="0.26 0.27 0.3 1" density="0"/>
-        <geom size="0.0865 0.001 0.01" pos="-0.0035 -0.079 0.083788" type="box" contype="0" conaffinity="0" group="1" rgba="0.26 0.27 0.3 1" density="0"/>
-        <geom size="0.003 0.039644" pos="0.033 0.043 0.051144" type="cylinder" contype="0" conaffinity="0" group="1" rgba="0.72 0.58 0.3 1" density="0"/>
-        <geom size="0.003 0.039644" pos="0.033 -0.043 0.051144" type="cylinder" contype="0" conaffinity="0" group="1" rgba="0.72 0.58 0.3 1" density="0"/>
-        <geom size="0.003 0.039644" pos="-0.025 0.043 0.051144" type="cylinder" contype="0" conaffinity="0" group="1" rgba="0.72 0.58 0.3 1" density="0"/>
-        <geom size="0.003 0.039644" pos="-0.025 -0.043 0.051144" type="cylinder" contype="0" conaffinity="0" group="1" rgba="0.72 0.58 0.3 1" density="0"/>
-        <geom size="0.05 0.0395 0.007" pos="0.004 0 0.0235" type="box" contype="0" conaffinity="0" group="1" rgba="0.1 0.35 0.2 1" density="0"/>
-        <geom size="0.035 0.0225 0.014" pos="0.004 0 0.0445" type="box" contype="0" conaffinity="0" group="1" rgba="0.45 0.46 0.48 1" density="0"/>
+        <geom size="0.1225 0.115 0.02825" pos="0 0 -0.01675" type="box" group="3" rgba="0.09 0.09 0.1 1"/>
+        <geom size="0.078 0.0625 0.0015" pos="0.012 0 0.092288" type="box" contype="0" conaffinity="0" group="1" rgba="0.26 0.27 0.3 1" density="0"/>
+        <geom size="0.078 0.0625 0.0015" pos="0.012 0 0.092288" type="box" group="3" rgba="0.26 0.27 0.3 1"/>
+        <geom size="0.078 0.0125524 0.001" pos="0.012 0.07125 0.084788" quat="0.921162 -0.38918 0 0" type="box" contype="0" conaffinity="0" group="1" rgba="0.26 0.27 0.3 1" density="0"/>
+        <geom size="0.078 0.0096469 0.001" pos="0.012 0.07175 0.070788" quat="0.269074 -0.96312 0 0" type="box" contype="0" conaffinity="0" group="1" rgba="0.26 0.27 0.3 1" density="0"/>
+        <geom size="0.078 0.0125524 0.001" pos="0.012 -0.07125 0.084788" quat="0.38918 -0.921162 0 0" type="box" contype="0" conaffinity="0" group="1" rgba="0.26 0.27 0.3 1" density="0"/>
+        <geom size="0.078 0.0096469 0.001" pos="0.012 -0.07175 0.070788" quat="0.963119 -0.269075 0 0" type="box" contype="0" conaffinity="0" group="1" rgba="0.26 0.27 0.3 1" density="0"/>
+        <geom size="0.0028 0.009" pos="0.0395 0.043 0.021788" type="cylinder" contype="0" conaffinity="0" group="1" rgba="0.45 0.46 0.48 1" density="0"/>
+        <geom size="0.0028 0.0095" pos="0.0395 0.043 0.040288" type="cylinder" contype="0" conaffinity="0" group="1" rgba="0.72 0.58 0.3 1" density="0"/>
+        <geom size="0.0028 0.019" pos="0.0395 0.043 0.071788" type="cylinder" contype="0" conaffinity="0" group="1" rgba="0.72 0.58 0.3 1" density="0"/>
+        <geom size="0.0028 0.009" pos="0.0395 -0.043 0.021788" type="cylinder" contype="0" conaffinity="0" group="1" rgba="0.45 0.46 0.48 1" density="0"/>
+        <geom size="0.0028 0.0095" pos="0.0395 -0.043 0.040288" type="cylinder" contype="0" conaffinity="0" group="1" rgba="0.72 0.58 0.3 1" density="0"/>
+        <geom size="0.0028 0.019" pos="0.0395 -0.043 0.071788" type="cylinder" contype="0" conaffinity="0" group="1" rgba="0.72 0.58 0.3 1" density="0"/>
+        <geom size="0.0028 0.009" pos="-0.0185 0.043 0.021788" type="cylinder" contype="0" conaffinity="0" group="1" rgba="0.45 0.46 0.48 1" density="0"/>
+        <geom size="0.0028 0.0095" pos="-0.0185 0.043 0.040288" type="cylinder" contype="0" conaffinity="0" group="1" rgba="0.72 0.58 0.3 1" density="0"/>
+        <geom size="0.0028 0.019" pos="-0.0185 0.043 0.071788" type="cylinder" contype="0" conaffinity="0" group="1" rgba="0.72 0.58 0.3 1" density="0"/>
+        <geom size="0.0028 0.009" pos="-0.0185 -0.043 0.021788" type="cylinder" contype="0" conaffinity="0" group="1" rgba="0.45 0.46 0.48 1" density="0"/>
+        <geom size="0.0028 0.0095" pos="-0.0185 -0.043 0.040288" type="cylinder" contype="0" conaffinity="0" group="1" rgba="0.72 0.58 0.3 1" density="0"/>
+        <geom size="0.0028 0.019" pos="-0.0185 -0.043 0.071788" type="cylinder" contype="0" conaffinity="0" group="1" rgba="0.72 0.58 0.3 1" density="0"/>
+        <geom size="0.0395 0.05 0.0015" pos="0.0105 0 0.051288" type="box" contype="0" conaffinity="0" group="1" rgba="0.1 0.35 0.2 1" density="0"/>
+        <geom size="0.0325 0.0325 0.012" pos="0.0105 0 0.064788" type="box" contype="0" conaffinity="0" group="1" rgba="0.45 0.46 0.48 1" density="0"/>
         <body name="left_up_wheel_link" pos="0.0855 0.08726 -0.041212" quat="0.707105 0.707108 0 0">
           <inertial pos="0 0 0" quat="0.499999 0.500001 -0.500001 0.499999" mass="0.207086" diaginertia="0.000170742 0.000116542 0.000116542"/>
           <joint name="left_up_wheel_link_joint" actuatorfrcrange="-2 2" armature="0.002" damping="0.02" axis="0 0 -1"/>
           <geom quat="0.707105 0.707108 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.06 0.06 0.06 1" density="0" mesh="left_up_wheel_link"/>
-          <geom size="0.04 0.0213" type="cylinder" rgba="0.06 0.06 0.06 1"/>
+          <geom size="0.04 0.0213" type="cylinder" group="3" rgba="0.06 0.06 0.06 1"/>
         </body>
         <body name="left_down_wheel_link" pos="-0.0855 0.08726 -0.041212" quat="0.707105 0.707108 0 0">
           <inertial pos="0 0 0" quat="0.499999 0.500001 -0.500001 0.499999" mass="0.207086" diaginertia="0.000170742 0.000116542 0.000116542"/>
           <joint name="left_down_wheel_link_joint" actuatorfrcrange="-2 2" armature="0.002" damping="0.02" axis="0 0 -1"/>
           <geom quat="0.707105 0.707108 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.06 0.06 0.06 1" density="0" mesh="left_down_wheel_link"/>
-          <geom size="0.04 0.0213" type="cylinder" rgba="0.06 0.06 0.06 1"/>
+          <geom size="0.04 0.0213" type="cylinder" group="3" rgba="0.06 0.06 0.06 1"/>
         </body>
         <body name="right_up_wheel_link" pos="0.0855 -0.08726 -0.041212" quat="0.707105 0.707108 0 0">
           <inertial pos="0 0 0" quat="0.499999 0.500001 -0.500001 0.499999" mass="0.207086" diaginertia="0.000170742 0.000116542 0.000116542"/>
           <joint name="right_up_wheel_link_joint" actuatorfrcrange="-2 2" armature="0.002" damping="0.02" axis="0 0 -1"/>
           <geom quat="0.707105 0.707108 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.06 0.06 0.06 1" density="0" mesh="right_up_wheel_link"/>
-          <geom size="0.04 0.0213" type="cylinder" rgba="0.06 0.06 0.06 1"/>
+          <geom size="0.04 0.0213" type="cylinder" group="3" rgba="0.06 0.06 0.06 1"/>
         </body>
         <body name="right_down_wheel_link" pos="-0.0855 -0.08726 -0.041212" quat="0.707105 0.707108 0 0">
           <inertial pos="0 0 0" quat="0.499999 0.500001 -0.500001 0.499999" mass="0.207086" diaginertia="0.000170742 0.000116542 0.000116542"/>
           <joint name="right_down_wheel_link_joint" actuatorfrcrange="-2 2" armature="0.002" damping="0.02" axis="0 0 -1"/>
           <geom quat="0.707105 0.707108 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.06 0.06 0.06 1" density="0" mesh="right_down_wheel_link"/>
-          <geom size="0.04 0.0213" type="cylinder" rgba="0.06 0.06 0.06 1"/>
+          <geom size="0.04 0.0213" type="cylinder" group="3" rgba="0.06 0.06 0.06 1"/>
         </body>
         <body name="left_mid_wheel_link" pos="0 0.08726 -0.041212" quat="0.707105 0.707108 0 0">
           <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="0.207086" diaginertia="0.000170742 0.000116542 0.000116542"/>
           <joint name="left_mid_wheel_link_joint" damping="0.002" axis="0 0 -1"/>
-          <geom size="0.04 0.0213" type="cylinder"/>
+          <geom size="0.04 0.0213" type="cylinder" group="3"/>
         </body>
         <body name="right_mid_wheel_link" pos="0 -0.08726 -0.041212" quat="0.707105 0.707108 0 0">
           <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="0.207086" diaginertia="0.000170742 0.000116542 0.000116542"/>
           <joint name="right_mid_wheel_link_joint" damping="0.002" axis="0 0 -1"/>
-          <geom size="0.04 0.0213" type="cylinder"/>
+          <geom size="0.04 0.0213" type="cylinder" group="3"/>
         </body>
         <frame pos="0.06531 0 0.075788">
           <geom quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.36 0.37 0.4 1" density="0" mesh="3d_camera_link"/>
-          <geom quat="1 0 0 0" type="mesh" rgba="0.36 0.37 0.4 1" mesh="3d_camera_link"/>
+          <geom quat="1 0 0 0" type="mesh" group="3" rgba="0.36 0.37 0.4 1" mesh="3d_camera_link"/>
           <frame pos="0.017 0 0" quat="0.499998 -0.5 0.500002 -0.5"/>
         </frame>
         <frame pos="0.0398146 0 0.093788" quat="0.707105 0 0 0.707108">
           <geom quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.14 0.14 0.17 1" density="0" mesh="base_lidar_link"/>
-          <geom quat="1 0 0 0" type="mesh" rgba="0.14 0.14 0.17 1" mesh="base_lidar_link"/>
+          <geom quat="1 0 0 0" type="mesh" group="3" rgba="0.14 0.14 0.17 1" mesh="base_lidar_link"/>
         </frame>
         <frame pos="-0.0852207 0 0.093788">
           <geom quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.03 0.03 0.03 1" density="0" mesh="rover_adapter_plate"/>
-          <geom size="0.051 0.064 0.005" pos="0.043 0 0.005" type="box" rgba="0.03 0.03 0.03 1"/>
+          <geom size="0.051 0.064 0.005" pos="0.043 0 0.005" type="box" group="3" rgba="0.03 0.03 0.03 1"/>
         </frame>
         <frame pos="-0.0640207 0 0.106188">
           <geom pos="-0.00636471 -9.94414e-05 -0.0024" quat="0.499998 0.5 0.500002 0.5" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.93 0.93 0.95 1" density="0" mesh="base_motor_holder_so101_v1"/>
-          <geom pos="-0.00636471 -9.94414e-05 -0.0024" quat="0.499998 0.5 0.500002 0.5" type="mesh" rgba="0.93 0.93 0.95 1" mesh="base_motor_holder_so101_v1"/>
+          <geom pos="-0.00636471 -9.94414e-05 -0.0024" quat="0.499998 0.5 0.500002 0.5" type="mesh" group="3" rgba="0.93 0.93 0.95 1" mesh="base_motor_holder_so101_v1"/>
           <geom pos="-0.00636471 -8.97657e-09 -0.0024" quat="0.499998 0.5 0.500002 0.5" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.93 0.93 0.95 1" density="0" mesh="base_so101_v2"/>
-          <geom pos="-0.00636471 -8.97657e-09 -0.0024" quat="0.499998 0.5 0.500002 0.5" type="mesh" rgba="0.93 0.93 0.95 1" mesh="base_so101_v2"/>
+          <geom pos="-0.00636471 -8.97657e-09 -0.0024" quat="0.499998 0.5 0.500002 0.5" type="mesh" group="3" rgba="0.93 0.93 0.95 1" mesh="base_so101_v2"/>
           <geom pos="0.0263353 -8.97657e-09 0.0437" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.1 0.1 0.1 1" density="0" mesh="sts3215_03a_v1"/>
-          <geom pos="0.0263353 -8.97657e-09 0.0437" quat="1 0 0 0" type="mesh" rgba="0.1 0.1 0.1 1" mesh="sts3215_03a_v1"/>
+          <geom pos="0.0263353 -8.97657e-09 0.0437" quat="1 0 0 0" type="mesh" group="3" rgba="0.1 0.1 0.1 1" mesh="sts3215_03a_v1"/>
           <geom pos="-0.0309827 -0.000199441 0.0474" quat="0.499998 0.5 0.500002 0.5" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.93 0.93 0.95 1" density="0" mesh="waveshare_mounting_plate_so101_v2"/>
-          <geom pos="-0.0309827 -0.000199441 0.0474" quat="0.499998 0.5 0.500002 0.5" type="mesh" rgba="0.93 0.93 0.95 1" mesh="waveshare_mounting_plate_so101_v2"/>
+          <geom pos="-0.0309827 -0.000199441 0.0474" quat="0.499998 0.5 0.500002 0.5" type="mesh" group="3" rgba="0.93 0.93 0.95 1" mesh="waveshare_mounting_plate_so101_v2"/>
           <body name="arm_shoulder_link" pos="0.0388353 -8.97657e-09 0.0624" quat="1.76036e-12 1.32679e-06 -1 -1.32679e-06">
             <inertial pos="-0.0307604 -1.66727e-05 -0.0252713" quat="0.999865 0.00149568 0.0097084 0.0132043" mass="0.100006" diaginertia="8.37836e-05 8.10388e-05 2.39552e-05"/>
             <joint name="shoulder_pan" range="-1.91986 1.91986" actuatorfrcrange="-10 10" armature="0.028" damping="0.6" frictionloss="0.05"/>
             <geom pos="-0.0303992 0.000422241 -0.0417" quat="0.499998 0.5 0.5 -0.500002" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.1 0.1 0.1 1" density="0" mesh="sts3215_03a_v1"/>
-            <geom pos="-0.0303992 0.000422241 -0.0417" quat="0.499998 0.5 0.5 -0.500002" type="mesh" rgba="0.1 0.1 0.1 1" mesh="sts3215_03a_v1"/>
+            <geom pos="-0.0303992 0.000422241 -0.0417" quat="0.499998 0.5 0.5 -0.500002" type="mesh" group="3" rgba="0.1 0.1 0.1 1" mesh="sts3215_03a_v1"/>
             <geom pos="-0.0675992 -0.000177759 0.0158499" quat="0.499998 0.5 -0.5 0.500002" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.93 0.93 0.95 1" density="0" mesh="motor_holder_so101_base_v1"/>
-            <geom pos="-0.0675992 -0.000177759 0.0158499" quat="0.499998 0.5 -0.5 0.500002" type="mesh" rgba="0.93 0.93 0.95 1" mesh="motor_holder_so101_base_v1"/>
+            <geom pos="-0.0675992 -0.000177759 0.0158499" quat="0.499998 0.5 -0.5 0.500002" type="mesh" group="3" rgba="0.93 0.93 0.95 1" mesh="motor_holder_so101_base_v1"/>
             <geom pos="0.0122008 2.22413e-05 0.0464" quat="0.707105 -0.707108 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.93 0.93 0.95 1" density="0" mesh="rotation_pitch_so101_v1"/>
-            <geom pos="0.0122008 2.22413e-05 0.0464" quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.93 0.93 0.95 1" mesh="rotation_pitch_so101_v1"/>
+            <geom pos="0.0122008 2.22413e-05 0.0464" quat="0.707105 -0.707108 0 0" type="mesh" group="3" rgba="0.93 0.93 0.95 1" mesh="rotation_pitch_so101_v1"/>
             <body name="arm_upper_arm_link" pos="-0.0303992 -0.0182778 -0.0542" quat="0.499998 -0.5 -0.5 -0.500002">
               <inertial pos="-0.0898471 -0.00838224 0.0184089" quat="0.453195 0.454063 0.541891 0.542951" mass="0.103" diaginertia="0.000150873 0.000142487 3.72451e-05"/>
               <joint name="shoulder_lift" range="-1.74533 1.74533" actuatorfrcrange="-10 10" armature="0.028" damping="0.6" frictionloss="0.05"/>
               <geom pos="-0.11257 -0.0155 0.0187" quat="9.38184e-07 -0.707105 0.707108 -9.38187e-07" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.1 0.1 0.1 1" density="0" mesh="sts3215_03a_v1"/>
-              <geom pos="-0.11257 -0.0155 0.0187" quat="9.38184e-07 -0.707105 0.707108 -9.38187e-07" type="mesh" rgba="0.1 0.1 0.1 1" mesh="sts3215_03a_v1"/>
+              <geom pos="-0.11257 -0.0155 0.0187" quat="9.38184e-07 -0.707105 0.707108 -9.38187e-07" type="mesh" group="3" rgba="0.1 0.1 0.1 1" mesh="sts3215_03a_v1"/>
               <geom pos="-0.065085 0.012 0.0182" quat="1.32679e-06 1 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.93 0.93 0.95 1" density="0" mesh="upper_arm_so101_v1"/>
-              <geom pos="-0.065085 0.012 0.0182" quat="1.32679e-06 1 0 0" type="mesh" rgba="0.93 0.93 0.95 1" mesh="upper_arm_so101_v1"/>
+              <geom pos="-0.065085 0.012 0.0182" quat="1.32679e-06 1 0 0" type="mesh" group="3" rgba="0.93 0.93 0.95 1" mesh="upper_arm_so101_v1"/>
               <body name="arm_lower_arm_link" pos="-0.11257 -0.028 0" quat="0.707105 0 0 0.707108">
                 <inertial pos="-0.0980701 0.00324376 0.0182831" quat="0.510729 0.517006 0.487966 0.483477" mass="0.104" diaginertia="0.000160262 0.000145304 2.83125e-05"/>
                 <joint name="elbow_flex" range="-1.69 1.69" actuatorfrcrange="-10 10" armature="0.028" damping="0.6" frictionloss="0.05"/>
                 <geom pos="-0.0648499 -0.032 0.0182" quat="1.32679e-06 1 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.93 0.93 0.95 1" density="0" mesh="under_arm_so101_v1"/>
-                <geom pos="-0.0648499 -0.032 0.0182" quat="1.32679e-06 1 0 0" type="mesh" rgba="0.93 0.93 0.95 1" mesh="under_arm_so101_v1"/>
+                <geom pos="-0.0648499 -0.032 0.0182" quat="1.32679e-06 1 0 0" type="mesh" group="3" rgba="0.93 0.93 0.95 1" mesh="under_arm_so101_v1"/>
                 <geom pos="-0.0648499 -0.032 0.018" quat="1.32679e-06 -1 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.93 0.93 0.95 1" density="0" mesh="motor_holder_so101_wrist_v1"/>
-                <geom pos="-0.0648499 -0.032 0.018" quat="1.32679e-06 -1 0 0" type="mesh" rgba="0.93 0.93 0.95 1" mesh="motor_holder_so101_wrist_v1"/>
+                <geom pos="-0.0648499 -0.032 0.018" quat="1.32679e-06 -1 0 0" type="mesh" group="3" rgba="0.93 0.93 0.95 1" mesh="motor_holder_so101_wrist_v1"/>
                 <geom pos="-0.1224 0.0052 0.0187" quat="1.76036e-12 -1.32679e-06 1 -1.32679e-06" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.1 0.1 0.1 1" density="0" mesh="sts3215_03a_v1"/>
-                <geom pos="-0.1224 0.0052 0.0187" quat="1.76036e-12 -1.32679e-06 1 -1.32679e-06" type="mesh" rgba="0.1 0.1 0.1 1" mesh="sts3215_03a_v1"/>
+                <geom pos="-0.1224 0.0052 0.0187" quat="1.76036e-12 -1.32679e-06 1 -1.32679e-06" type="mesh" group="3" rgba="0.1 0.1 0.1 1" mesh="sts3215_03a_v1"/>
                 <body name="arm_wrist_link" pos="-0.1349 0.0052 0" quat="0.707105 0 0 -0.707108">
                   <inertial pos="-0.000103312 -0.0386143 0.0281156" quat="0.967143 0.254226 0.00162226 -0.000146307" mass="0.079" diaginertia="3.68265e-05 2.74474e-05 1.89434e-05"/>
                   <joint name="wrist_flex" range="-1.65806 1.65806" actuatorfrcrange="-10 10" armature="0.028" damping="0.6" frictionloss="0.05"/>
                   <geom pos="0 -0.0424 0.0306" quat="0.499998 0.5 0.5 -0.500002" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.1 0.1 0.1 1" density="0" mesh="sts3215_03a_no_horn_v1"/>
-                  <geom pos="0 -0.0424 0.0306" quat="0.499998 0.5 0.5 -0.500002" type="mesh" rgba="0.1 0.1 0.1 1" mesh="sts3215_03a_no_horn_v1"/>
+                  <geom pos="0 -0.0424 0.0306" quat="0.499998 0.5 0.5 -0.500002" type="mesh" group="3" rgba="0.1 0.1 0.1 1" mesh="sts3215_03a_no_horn_v1"/>
                   <geom pos="0 -0.028 0.0181" quat="0.499998 -0.5 -0.5 -0.500002" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.93 0.93 0.95 1" density="0" mesh="wrist_roll_pitch_so101_v2"/>
-                  <geom pos="0 -0.028 0.0181" quat="0.499998 -0.5 -0.5 -0.500002" type="mesh" rgba="0.93 0.93 0.95 1" mesh="wrist_roll_pitch_so101_v2"/>
+                  <geom pos="0 -0.028 0.0181" quat="0.499998 -0.5 -0.5 -0.500002" type="mesh" group="3" rgba="0.93 0.93 0.95 1" mesh="wrist_roll_pitch_so101_v2"/>
                   <body name="arm_gripper_link" pos="0 -0.0611 0.0181" quat="0.0172101 -0.0172081 0.706899 0.706896">
                     <inertial pos="0.0066135 0.0197791 -0.0200554" quat="0.463604 0.381089 -0.692114 0.401025" mass="0.115" diaginertia="0.000224128 0.000204085 5.83971e-05"/>
                     <joint name="wrist_roll" range="-2.74385 2.84121" actuatorfrcrange="-10 10" armature="0.028" damping="0.6" frictionloss="0.05"/>
                     <geom pos="0.0077 0.0001 -0.0234" quat="0.707105 -0.707108 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.1 0.1 0.1 1" density="0" mesh="sts3215_03a_v1"/>
-                    <geom pos="0.0077 0.0001 -0.0234" quat="0.707105 -0.707108 0 0" type="mesh" rgba="0.1 0.1 0.1 1" mesh="sts3215_03a_v1"/>
+                    <geom pos="0.0077 0.0001 -0.0234" quat="0.707105 -0.707108 0 0" type="mesh" group="3" rgba="0.1 0.1 0.1 1" mesh="sts3215_03a_v1"/>
                     <geom pos="0 -0.000218214 0.000949706" quat="1.32679e-06 -1 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.93 0.93 0.95 1" density="0" mesh="wrist_roll_follower_so101_v1"/>
-                    <geom pos="0 -0.000218214 0.000949706" quat="1.32679e-06 -1 0 0" type="mesh" rgba="0.93 0.93 0.95 1" mesh="wrist_roll_follower_so101_v1"/>
+                    <geom pos="0 -0.000218214 0.000949706" quat="1.32679e-06 -1 0 0" type="mesh" group="3" rgba="0.93 0.93 0.95 1" mesh="wrist_roll_follower_so101_v1"/>
                     <site name="gripper_frame" size="0.004" pos="-0.0079 -0.000218121 -0.0981274" quat="1.32679e-06 0 1 0" group="3"/>
                     <camera name="wrist_camera" quat="0.151447 0.0901886 0.50364 0.84574" pos="0.02 0.089782 -0.00705024" fovy="105"/>
                     <body name="arm_moving_jaw_so101_v1_link" pos="0.0202 0.0188 -0.0234" quat="0.707105 0.707108 -1.85362e-08 1.85363e-08">
                       <inertial pos="-0.00157495 -0.0300244 0.0192755" quat="0.695265 0.717965 -0.0245618 -0.0230097" mass="0.012" diaginertia="6.63582e-06 5.29092e-06 1.86523e-06"/>
                       <joint name="gripper" range="-0.174533 1.74533" actuatorfrcrange="-10 10" armature="0.028" damping="0.6" frictionloss="0.05"/>
                       <geom pos="0 0 0.0189" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.93 0.93 0.95 1" density="0" mesh="moving_jaw_so101_v1"/>
-                      <geom pos="0 0 0.0189" quat="1 0 0 0" type="mesh" rgba="0.93 0.93 0.95 1" mesh="moving_jaw_so101_v1"/>
+                      <geom pos="0 0 0.0189" quat="1 0 0 0" type="mesh" group="3" rgba="0.93 0.93 0.95 1" mesh="moving_jaw_so101_v1"/>
                     </body>
                     <frame pos="-0.0079 -0.000218121 -0.0981274" quat="1.32679e-06 0 1 0"/>
                     <frame pos="0 -0.000218 0.00095" quat="1.32679e-06 1 0 0">
                       <geom pos="0 0 0" quat="1 0 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.92 0.92 0.92 1" density="0" mesh="wrist_cam_bracket_v2"/>
-                      <geom size="0.02 0.0375 0.01" pos="0.005 -0.065 0.01" quat="0.955336 0 0 -0.29552" type="box" rgba="0.92 0.92 0.92 1"/>
+                      <geom size="0.02 0.0375 0.01" pos="0.005 -0.065 0.01" quat="0.955336 0 0 -0.29552" type="box" group="3" rgba="0.92 0.92 0.92 1"/>
                       <frame pos="0.02 -0.09 0.008" quat="-0.201679 0.553874 0.795507 0.140421">
                         <geom pos="-0.017 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.12 0.25 0.18 1" density="0" mesh="usb_camera"/>
                         <frame quat="0.499998 -0.5 0.500002 -0.5"/>
@@ -183,9 +194,9 @@
     <general name="wrist_flex" joint="wrist_flex" ctrlrange="-1.65806 1.65806" ctrllimited="true" forcelimited="true" forcerange="-3 3" biastype="affine" gainprm="20" biasprm="0 -20 -1"/>
     <general name="wrist_roll" joint="wrist_roll" ctrlrange="-2.74385 2.84121" ctrllimited="true" forcelimited="true" forcerange="-3 3" biastype="affine" gainprm="20" biasprm="0 -20 -1"/>
     <general name="gripper" joint="gripper" ctrlrange="-0.174533 1.74533" ctrllimited="true" forcelimited="true" forcerange="-3 3" biastype="affine" gainprm="20" biasprm="0 -20 -1"/>
-    <general name="left_up_wheel_motor" joint="left_up_wheel_link_joint" ctrlrange="-32 32" ctrllimited="true" biastype="affine" gainprm="0.1" biasprm="0 0 -0.1"/>
-    <general name="left_down_wheel_motor" joint="left_down_wheel_link_joint" ctrlrange="-32 32" ctrllimited="true" biastype="affine" gainprm="0.1" biasprm="0 0 -0.1"/>
-    <general name="right_up_wheel_motor" joint="right_up_wheel_link_joint" ctrlrange="-32 32" ctrllimited="true" biastype="affine" gainprm="0.1" biasprm="0 0 -0.1"/>
-    <general name="right_down_wheel_motor" joint="right_down_wheel_link_joint" ctrlrange="-32 32" ctrllimited="true" biastype="affine" gainprm="0.1" biasprm="0 0 -0.1"/>
+    <general name="left_up_wheel_motor" joint="left_up_wheel_link_joint" ctrlrange="-32 32" ctrllimited="true" forcelimited="true" forcerange="-2 2" biastype="affine" biasprm="0 0 -1"/>
+    <general name="left_down_wheel_motor" joint="left_down_wheel_link_joint" ctrlrange="-32 32" ctrllimited="true" forcelimited="true" forcerange="-2 2" biastype="affine" biasprm="0 0 -1"/>
+    <general name="right_up_wheel_motor" joint="right_up_wheel_link_joint" ctrlrange="-32 32" ctrllimited="true" forcelimited="true" forcerange="-2 2" biastype="affine" biasprm="0 0 -1"/>
+    <general name="right_down_wheel_motor" joint="right_down_wheel_link_joint" ctrlrange="-32 32" ctrllimited="true" forcelimited="true" forcerange="-2 2" biastype="affine" biasprm="0 0 -1"/>
   </actuator>
 </mujoco>

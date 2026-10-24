@@ -6,7 +6,7 @@ Sources (geometry and inertia unchanged, only renamed / re-pathed):
   * TheRobotStudio SO-ARM100 -> Simulation/SO101/so101_new_calib.urdf        (arm, "new calibration" zero = mid range)
 Added here, from the physical build (photos in reference_photos/):
   * lower body cut at its real flat top (the Waveshare mesh carries a 2.8 cm cover the Jetson kit does not have)
-  * Jetson-kit upper deck: folded metal tray on 4 brass standoffs, Jetson Orin Nano under it (schematic boxes)
+  * Jetson-kit upper deck: folded metal tray on brass pillars, Jetson Orin Nano stack under it (schematic boxes)
   * printed adapter plate (SO101_UGV_Rover_Mount/FINAL_FILES) bolted flat on the deck, triangle toward the REAR
   * SO-101 base on the plate, arm reaching FORWARD over the LiDAR
   * revision-2 wrist bracket (SO101_OAK_RGB_v2) with the Waveshare 160 deg USB camera tied at the rod / frame corner
@@ -15,9 +15,9 @@ Added here, from the physical build (photos in reference_photos/):
 Measured on the robot (24 Oct 2026): ground -> top of the upper metal deck = 0.175 m.
 Usage:
   python3 scripts/build_urdf.py                       # as built, then: python3 scripts/build_mjcf.py
-  python3 scripts/build_urdf.py --lidar-to-yaw 0.060 --spacer 0.006 --arm-battery
+  python3 scripts/build_urdf.py --lidar-to-yaw 0.060 --spacer 0.006 --arm-battery && python3 scripts/build_mjcf.py
 """
-import argparse, copy, math, os
+import argparse, copy, json, math, os
 from lxml import etree as ET
 import numpy as np
 from scipy.spatial.transform import Rotation as R
@@ -38,8 +38,15 @@ CAM_BELOW_DECK = 0.018         # front OAK-D Lite centre sits 18 mm below the de
 WHEEL_X, WHEEL_Y, WHEEL_Z = 0.0855, 0.08726, -0.041212
 MID_WHEEL_MASS = 0.207085933743005
 # upper deck (folded tray), base_link frame, from the photos
-DECK_X0, DECK_X1, DECK_W, DECK_T, FLANGE_H = -0.090, 0.093, 0.160, 0.003, 0.020
-STANDOFFS = [(0.033, 0.043), (0.033, -0.043), (-0.025, 0.043), (-0.025, -0.043)]
+# folded tray: 125 mm flat top, side walls slope out to 160 mm 18 mm down, then back in to 127 mm 28 mm down;
+# the printed plate overhangs its rear edge by ~27 mm (side photo)
+DECK_X0, DECK_X1, DECK_TOP_W, DECK_T = -0.066, 0.090, 0.125, 0.003
+DECK_WALL = [(0.0625, 0.0), (0.080, -0.018), (0.0635, -0.028)]     # (y, z below deck top) corner points of one side wall
+# Jetson Orin Nano carrier: 79 x 100 mm board on a 58 x 86 mm hole pattern; heights above ground from the photos
+JETSON_X = 0.0105
+STANDOFFS = [(JETSON_X + 0.029, 0.043), (JETSON_X + 0.029, -0.043), (JETSON_X - 0.029, 0.043), (JETSON_X - 0.029, -0.043)]
+JETSON_BOARD_Z = (0.131, 0.134)        # carrier board bottom / top, m above ground
+SPACER_Z, LOWER_BRASS_Z = (0.094, 0.112), (0.112, 0.131)
 # printed plate, "Codex" frame: X=-8..94 (triangle at X=-8), Y=+-64; arm holes wide pair X=7.5; chassis bolts X=4,40 Y=+-43
 PLATE_WIDE_PAIR_X = 0.0075
 PLATE_BOLTS = [(0.004, 0.043), (0.004, -0.043), (0.040, 0.043), (0.040, -0.043)]
@@ -202,17 +209,23 @@ def build(mesh_prefix, out_path, deck_height=0.175, spacer=0.0, lidar_to_yaw=0.0
                 body_bot = -0.045                                 # body underside 0.036 m above ground
                 add_box(n, (0.245, 0.230, LOWER_BODY_TOP - body_bot), xyz=(0, 0, (LOWER_BODY_TOP + body_bot) / 2),
                         visual=False, collision=True)
-                # Jetson-kit upper deck: folded tray (top + side flanges) on 4 brass standoffs, Jetson Orin Nano under it
-                rise = deck_z - DECK_T - LOWER_BODY_TOP
+                # Jetson-kit upper deck: folded tray on brass pillars, Jetson Orin Nano stack under it (schematic)
+                gz = lambda h: h - BASE_LINK_Z                    # height above ground -> base_link z
                 cx, L = (DECK_X0 + DECK_X1) / 2, DECK_X1 - DECK_X0
-                add_box(n, (L, DECK_W, DECK_T), xyz=(cx, 0, deck_z - DECK_T / 2), material="deck_metal", collision=True)
+                add_box(n, (L, DECK_TOP_W, DECK_T), xyz=(cx, 0, deck_z - DECK_T / 2), material="deck_metal", collision=True)
                 for sy in (1, -1):
-                    add_box(n, (L - 0.01, 0.002, FLANGE_H), xyz=(cx - 0.005, sy * (DECK_W / 2 - 0.001), deck_z - FLANGE_H / 2),
-                            material="deck_metal")
+                    for (y0, z0), (y1, z1) in zip(DECK_WALL[:-1], DECK_WALL[1:]):
+                        dy, dz = sy * (y1 - y0), z1 - z0
+                        add_box(n, (L, math.hypot(dy, dz), 0.002), xyz=(cx, sy * (y0 + y1) / 2, deck_z + (z0 + z1) / 2),
+                                rpy=(math.atan2(dz, dy), 0, 0), material="deck_metal")
+                b0, b1 = JETSON_BOARD_Z
                 for (px, py) in STANDOFFS:
-                    add_cylinder(n, 0.003, rise, xyz=(px, py, LOWER_BODY_TOP + rise / 2), material="brass")
-                add_box(n, (0.100, 0.079, 0.014), xyz=(0.004, 0, LOWER_BODY_TOP + 0.012), material="pcb_green")   # carrier board
-                add_box(n, (0.070, 0.045, 0.028), xyz=(0.004, 0, LOWER_BODY_TOP + 0.033), material="heatsink")    # module + fan
+                    for (z0, z1, mat) in [(gz(SPACER_Z[0]), gz(SPACER_Z[1]), "heatsink"),
+                                          (gz(LOWER_BRASS_Z[0]), gz(LOWER_BRASS_Z[1]), "brass"),
+                                          (gz(b1), deck_z - DECK_T, "brass")]:          # pillars from the board up to the deck
+                        add_cylinder(n, 0.0028, z1 - z0, xyz=(px, py, (z0 + z1) / 2), material=mat)
+                add_box(n, (0.079, 0.100, b1 - b0), xyz=(JETSON_X, 0, gz((b0 + b1) / 2)), material="pcb_green")   # carrier board
+                add_box(n, (0.065, 0.065, 0.024), xyz=(JETSON_X, 0, gz(b1) + 0.012), material="heatsink")       # module, heatsink, fan
             elif name.endswith("wheel_link"):
                 for c in n.findall("collision"):
                     n.remove(c)
@@ -244,6 +257,8 @@ def build(mesh_prefix, out_path, deck_height=0.175, spacer=0.0, lidar_to_yaw=0.0
 
     # ---------------- arm position: yaw axis lidar_to_yaw behind the LiDAR centre, on the centreline
     yaw_x = LIDAR_X - lidar_to_yaw
+    if arm_facing == "rear" and lidar_to_yaw < 0.09:
+        raise SystemExit("--arm-facing rear puts the SO-101 base into the LiDAR unless --lidar-to-yaw is at least 0.09 m")
     if arm_facing == "front":
         # AS BUILT: plate triangle to the rear, SO-101 motor-holder end (wide pair) at the rear, arm reaches forward
         arm_yaw = 0.0; arm_x = yaw_x - SO101_YAW_X
@@ -311,17 +326,17 @@ def build(mesh_prefix, out_path, deck_height=0.175, spacer=0.0, lidar_to_yaw=0.0
         add_fixed_joint(robot, "wrist_camera_optical_joint", "wrist_camera_link", "wrist_camera_optical_frame",
                         rpy=(-math.pi / 2, 0, -math.pi / 2))
 
-    # ---------------- optional arm battery (3S 26700 Li-ion pack, 80x27x72 mm, 0.3 kg) on the deck beside the plate
+    # ---------------- optional arm battery (3S 26700 Li-ion pack, 0.3 kg): there is no room on the 125 mm deck top,
+    # so it stands on the lower body behind the Jetson, 27 mm thick along x, 80 mm across, 72 mm tall (clears the deck)
     if arm_battery:
         b = el(robot, "link", name="arm_battery_link")
-        ixx, iyy, izz = box_inertia(0.30, 0.080, 0.027, 0.072)
+        ixx, iyy, izz = box_inertia(0.30, 0.027, 0.080, 0.072)
         add_inertial(b, 0.30, (0, 0, 0.036), ixx, iyy, izz)
-        add_box(b, (0.080, 0.027, 0.072), xyz=(0, 0, 0.036), material="battery_black", collision=True)
-        add_fixed_joint(robot, "arm_battery_joint", "base_link", "arm_battery_link",
-                        xyz=(plate_x0 + plate_sign * 0.043, 0.080 if DECK_W / 2 > 0.07 else 0.07, deck_z))
+        add_box(b, (0.027, 0.080, 0.072), xyz=(0, 0, 0.036), material="battery_black", collision=True)
+        add_fixed_joint(robot, "arm_battery_joint", "base_link", "arm_battery_link", xyz=(-0.050, 0, LOWER_BODY_TOP))
 
     # ---------------- simulator extensions (ignored by robot_state_publisher and Isaac Sim)
-    gazebo_camera(robot, "3d_camera_link", "front_camera", math.radians(69), 1280, 720, 0.05, 20.0)
+    gazebo_camera(robot, "3d_camera_link", "front_camera", math.radians(69), 1280, 960, 0.05, 20.0)   # 69 x 54 deg at 4:3
     if wrist_mount == "v2":
         gazebo_camera(robot, "wrist_camera_link", "wrist_camera", math.radians(120), 640, 480, 0.02, 5.0)
     g = el(robot, "gazebo", reference="base_lidar_link")
@@ -347,9 +362,11 @@ if __name__ == "__main__":
                     help="front = as built (plate triangle to the rear); rear = Codex's drawing orientation")
     ap.add_argument("--wrist-mount", choices=["v2", "none"], default="v2",
                     help="v2 = fixed bracket + Waveshare USB camera (as built); none = no wrist camera")
-    ap.add_argument("--arm-battery", action="store_true", help="add the 3S Li-ion arm battery pack on the deck")
+    ap.add_argument("--arm-battery", action="store_true", help="add the 3S Li-ion arm battery pack behind the Jetson")
     a = ap.parse_args()
     kw = dict(deck_height=a.deck_height, spacer=a.spacer, lidar_to_yaw=a.lidar_to_yaw, arm_facing=a.arm_facing,
               wrist_mount=a.wrist_mount, arm_battery=a.arm_battery)
     print("wrote", build("package://so101_rover_description/meshes", os.path.join(PKG, "urdf", "so101_rover.urdf"), **kw))
     print("wrote", build("../meshes", os.path.join(PKG, "mujoco", "so101_rover_sim.urdf"), **kw))
+    with open(os.path.join(PKG, "urdf", "build_params.json"), "w") as f:      # read by tests/check_model.py
+        json.dump(kw, f, indent=2)

@@ -16,7 +16,7 @@ photos in `reference_photos/`.
 | Upper deck, brass pillars, Jetson Orin Nano | added, schematic boxes | folded tray (125 mm top, sloped walls to 160 mm), top 0.175 m above ground (measured); the printed plate overhangs its rear edge by ~27 mm as on the robot |
 | Printed adapter plate | `SO101_UGV_Rover_Mount/FINAL_FILES/01_adapter_print_1.stl` | bolted flat on the deck, triangle toward the rear |
 | SO-101 follower arm | TheRobotStudio `Simulation/SO101/so101_new_calib.urdf` | links prefixed `arm_`; joint names unchanged and in LeRobot order: `shoulder_pan shoulder_lift elbow_flex wrist_flex wrist_roll gripper`; reaches **forward** over the LiDAR |
-| Wrist camera | `SO101_OAK_RGB_v2` bracket + Waveshare USB camera module | camera tied where the bracket rods meet the U-frame, aimed at the fixed-finger pad |
+| Wrist camera | official SO-101 wrist mount redrawn for the 25×24 mm Pi-board camera (`scripts/make_wrist_mount.py`) + Waveshare 160° USB camera | same mount pose and optical axis as TheRobotStudio's wrist camera; `--wrist-mount v2` gives the old rod bracket |
 | Optional | 3S Li-ion arm battery (`--arm-battery`, stands on the lower body behind the Jetson; the deck top has no room), 6 mm spacers (`--spacer 0.006`) | not fitted as built |
 
 **Frames** follow ROS conventions. `base_footprint` is on the ground and `base_link` is 0.081 m up, with x forward and z up.
@@ -92,7 +92,7 @@ python3 scripts/build_urdf.py --spacer 0.006 --arm-battery && python3 scripts/bu
 | `--lidar-to-yaw` | 0.065 | LiDAR centre to the arm's yaw axis, m (read off the photos) |
 | `--spacer` | 0 | spacer height under the plate, m |
 | `--arm-battery` | off | add the 3S arm battery, standing on the lower body behind the Jetson |
-| `--wrist-mount none` | v2 | arm without the wrist camera |
+| `--wrist-mount` | pi | `pi` = current mount; `v2` = the rod bracket that broke; `none` = no wrist camera |
 | `--arm-facing rear` | front | the plate's other orientation (arm reaches backward); needs `--lidar-to-yaw 0.09` or more, or the base hits the LiDAR |
 
 Python needs `numpy scipy lxml yourdfpy mujoco trimesh pillow`.
@@ -112,7 +112,7 @@ Python needs `numpy scipy lxml yourdfpy mujoco trimesh pillow`.
 
 1. **Lower body to arm base:** 9.2 cm in the model against your 8.5 cm tape measurement. The photos give 9.3 cm, so the model follows the photos.
 2. **Arm fore/aft position:** read off the photos, good to about ±1 cm. Measure the LiDAR centre to the centre of the arm's first motor and pass `--lidar-to-yaw` to make it exact.
-3. **Wrist camera:** the USB board is tied by hand to a bracket designed for the OAK-D Lite, so its pose is approximate. Calibrate it against a real image if precise extrinsics matter, then edit `USB_CAM_LENS` in `scripts/build_urdf.py`.
+3. **Wrist camera:** placed at TheRobotStudio's official wrist-camera pose. The real lens may sit a few mm off, depending on where the board lands in the slots; calibrate against a real image if precise extrinsics matter.
 4. **Deck, pillars and Jetson:** simple boxes at the positions and heights measured from the photos.
 5. **Printed parts:** box inertias. The rover and arm inertias are the upstream values.
 
@@ -121,7 +121,11 @@ Python needs `numpy scipy lxml yourdfpy mujoco trimesh pillow`.
 The two printed parts on the robot are in `meshes/mount/`, at true size in millimetres:
 
 - `rover_adapter_plate.stl`: black PETG, 60% infill.
-- `wrist_cam_bracket_v2.stl`: white PETG or ASA, 40% infill.
+- `wrist_cam_mount_pi_board.stl`: the wrist camera mount. Print `export/print/wrist_cam_mount_pi_board_PRINT.stl`
+  as supplied (standing on its 35 mm-wide edge, the orientation with the least overhang): PETG or ASA, 0.2 mm layers,
+  4 walls, 40% infill, supports from the build plate only, 5 mm brim. Fit the camera with 4 × M2 × 8 screws and M2
+  nuts; the slots take 20–21 × 12.5–13.5 mm hole patterns. Two M3 × 8 screws hold it to the wrist's two threaded holes.
+- `wrist_cam_bracket_v2.stl`: the earlier rod bracket, kept for `--wrist-mount v2`.
 
 ## Licences
 

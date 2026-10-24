@@ -3,6 +3,6 @@
   "spacer": 0.0,
   "lidar_to_yaw": 0.065,
   "arm_facing": "front",
-  "wrist_mount": "v2",
+  "wrist_mount": "pi",
   "arm_battery": false
 }

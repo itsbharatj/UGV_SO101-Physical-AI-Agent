@@ -9,7 +9,7 @@ Added here, from the physical build (photos in reference_photos/):
   * Jetson-kit upper deck: folded metal tray on brass pillars, Jetson Orin Nano stack under it (schematic boxes)
   * printed adapter plate (SO101_UGV_Rover_Mount/FINAL_FILES) bolted flat on the deck, triangle toward the REAR
   * SO-101 base on the plate, arm reaching FORWARD over the LiDAR
-  * revision-2 wrist bracket (SO101_OAK_RGB_v2) with the Waveshare 160 deg USB camera tied at the rod / frame corner
+  * wrist camera: official SO-101 wrist mount redrawn for the Waveshare 160 deg Pi-board camera (scripts/make_wrist_mount.py)
   * passive middle wheels, camera and LiDAR frames, Gazebo sensors, <mujoco> compiler block
 
 Measured on the robot (24 Oct 2026): ground -> top of the upper metal deck = 0.175 m.
@@ -148,7 +148,7 @@ def gazebo_camera(robot, link, name, hfov_rad, width, height, near, far, rate=30
 
 
 def build(mesh_prefix, out_path, deck_height=0.175, spacer=0.0, lidar_to_yaw=0.065, arm_facing="front",
-          wrist_mount="v2", arm_battery=False):
+          wrist_mount="pi", arm_battery=False):
     deck_z = deck_height - BASE_LINK_Z                      # top of the upper metal deck, base_link frame
     plate_z = deck_z + spacer                               # underside of the printed plate
     arm_base_z = plate_z + PLATE_T - SO101_BASE_BOTTOM      # SO-101 base_link origin
@@ -302,8 +302,27 @@ def build(mesh_prefix, out_path, deck_height=0.175, spacer=0.0, lidar_to_yaw=0.0
         robot.append(n)
     add_fixed_joint(robot, "arm_mount_joint", "base_link", "arm_base_link", xyz=(arm_x, 0, arm_base_z), rpy=(0, 0, arm_yaw))
 
-    # ---------------- wrist camera: v2 bracket + Waveshare USB camera tied at the rod / U-frame corner
-    if wrist_mount == "v2":
+    # ---------------- wrist camera, official-style mount redrawn for the 25 x 24 mm Pi-board camera (scripts/make_wrist_mount.py)
+    if wrist_mount == "pi":
+        # mount and camera poses are TheRobotStudio's (so101_new_calib_camera.urdf): same optical axis as the official wrist camera
+        mt = el(robot, "link", name="wrist_cam_mount_link")
+        ixx, iyy, izz = box_inertia(0.014, 0.066, 0.043, 0.035)
+        add_inertial(mt, 0.014, (-0.035, -0.025, 0.0175), ixx, iyy, izz)
+        add_mesh(mt, f"{mesh_prefix}/mount/wrist_cam_mount_pi_board.stl", scale=0.001, material="printed_white", collision=True)
+        add_fixed_joint(robot, "wrist_cam_mount_joint", "arm_gripper_link", "wrist_cam_mount_link",
+                        xyz=(-0.0150, 0.0240, -0.0315), rpy=(-1.5708, -0.0008, -1.5708))
+        cam = el(robot, "link", name="wrist_camera_link")       # x = view direction (ROS camera_link convention)
+        add_inertial(cam, 0.012, (-0.004, 0, 0), 1e-6, 1e-6, 1e-6)
+        add_mesh(cam, f"{mesh_prefix}/rover/usb_camera.stl", xyz=(-0.017, 0, 0), material="camera_board")
+        # official camera mesh: body extends along +z away from the plate, lens at the -z end looking through the window
+        # toward the gripper; our camera_link has +x along the lens, so map +x -> official -z
+        Rz_lens = R.from_euler("xyz", [0, -1.5708, -2.0076]).as_matrix() @ R.from_euler("y", -math.pi / 2).as_matrix()
+        add_fixed_joint(robot, "wrist_camera_joint", "wrist_cam_mount_link", "wrist_camera_link",
+                        xyz=(-0.04941, -0.03813, 0.0175), rpy=rpy_from_matrix(Rz_lens))
+        el(robot, "link", name="wrist_camera_optical_frame")
+        add_fixed_joint(robot, "wrist_camera_optical_joint", "wrist_camera_link", "wrist_camera_optical_frame",
+                        rpy=(-math.pi / 2, 0, -math.pi / 2))
+    elif wrist_mount == "v2":
         br = el(robot, "link", name="wrist_cam_bracket_link")
         ixx, iyy, izz = box_inertia(0.016, 0.10, 0.08, 0.04)
         add_inertial(br, 0.016, (0.030, -0.070, 0.005), ixx, iyy, izz)
@@ -337,7 +356,7 @@ def build(mesh_prefix, out_path, deck_height=0.175, spacer=0.0, lidar_to_yaw=0.0
 
     # ---------------- simulator extensions (ignored by robot_state_publisher and Isaac Sim)
     gazebo_camera(robot, "3d_camera_link", "front_camera", math.radians(69), 1280, 960, 0.05, 20.0)   # 69 x 54 deg at 4:3
-    if wrist_mount == "v2":
+    if wrist_mount in ("v2", "pi"):
         gazebo_camera(robot, "wrist_camera_link", "wrist_camera", math.radians(120), 640, 480, 0.02, 5.0)
     g = el(robot, "gazebo", reference="base_lidar_link")
     s = el(g, "sensor", name="lidar", type="gpu_lidar")
@@ -360,8 +379,9 @@ if __name__ == "__main__":
     ap.add_argument("--lidar-to-yaw", type=float, default=0.065, help="LiDAR centre to arm yaw axis, m (from the photos)")
     ap.add_argument("--arm-facing", choices=["front", "rear"], default="front",
                     help="front = as built (plate triangle to the rear); rear = Codex's drawing orientation")
-    ap.add_argument("--wrist-mount", choices=["v2", "none"], default="v2",
-                    help="v2 = fixed bracket + Waveshare USB camera (as built); none = no wrist camera")
+    ap.add_argument("--wrist-mount", choices=["pi", "v2", "none"], default="pi",
+                    help="pi = official-style wrist mount redrawn for the 25x24 mm Pi-board camera (current); "
+                         "v2 = the rod bracket that broke; none = no wrist camera")
     ap.add_argument("--arm-battery", action="store_true", help="add the 3S Li-ion arm battery pack behind the Jetson")
     a = ap.parse_args()
     kw = dict(deck_height=a.deck_height, spacer=a.spacer, lidar_to_yaw=a.lidar_to_yaw, arm_facing=a.arm_facing,

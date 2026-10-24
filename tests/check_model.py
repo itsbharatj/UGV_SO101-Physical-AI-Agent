@@ -19,12 +19,12 @@ cfg = {n: 0.0 for n in robot.actuated_joint_names}
 robot.update_cfg(cfg)
 T = lambda frame: robot.get_transform(frame, "base_footprint")
 for f in ["base_link", "base_lidar_link", "3d_camera_link", "arm_mount_plate_link", "arm_base_link", "arm_shoulder_link",
-          "arm_gripper_frame_link", "wrist_camera_optical_frame"]:
+          "arm_gripper_frame_link", "wrist_camera_link", "wrist_camera_optical_frame"]:
     if f in robot.link_map:
         p = T(f)[:3, 3]
         print(f"  {f:28s} x={p[0]:+.4f} y={p[1]:+.4f} z={p[2]:+.4f}  (m, from ground, rover frame)")
 z_base = T("arm_base_link")[2, 3] + (-0.0024)
-print(f"  SO-101 base underside height above ground: {z_base:.4f} m  (tray 0.120 + spacer + 0.010 plate)")
+print(f"  SO-101 base underside height above ground: {z_base:.4f} m  (deck 0.175 measured + 0.010 plate + spacer)")
 lidar_to_yaw = T("base_lidar_link")[0, 3] - T("arm_shoulder_link")[0, 3]
 print(f"  LiDAR centre to arm yaw axis: {lidar_to_yaw*1000:.1f} mm  <- measure this on the real rover to confirm placement")
 # the camera should look forward (+x rover) and down at tilt 45 deg when the arm is in its zero pose
@@ -33,6 +33,8 @@ if "wrist_camera_optical_frame" in robot.link_map:
     print(f"  wrist camera optical axis (world): {np.round(zc, 3)}")
 g = T("arm_gripper_frame_link")[:3, 3]; s = T("arm_shoulder_link")[:3, 3]
 print(f"  arm zero-pose reach direction: {'rover FRONT (+x)' if g[0] > s[0] else 'rover REAR (-x)'}  (gripper {g[0]-s[0]:+.3f} m from the yaw axis)")
+deck_top = T("base_lidar_link")[2, 3]
+print(f"  upper deck top above ground: {deck_top:.4f} m; plate underside-to-deck gap: {T('arm_mount_plate_link')[2,3]-deck_top:.4f} m")
 
 # mesh files exist?
 for l in robot.link_map.values():

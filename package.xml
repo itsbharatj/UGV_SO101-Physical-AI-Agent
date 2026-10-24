@@ -3,11 +3,16 @@
 <package format="3">
   <name>so101_rover_description</name>
   <version>0.1.0</version>
-  <description>URDF of the Waveshare UGV Rover (Jetson Orin ROS2 kit) carrying an SO-101 follower arm on a printed adapter plate, with an OAK-D Lite wrist camera.</description>
+  <description>URDF/MJCF of the Waveshare UGV Rover (Jetson Orin ROS 2 kit) carrying an SO-101 follower arm on a printed adapter plate, with a Waveshare 160 deg USB camera on the wrist and the OAK-D Lite at the front.</description>
   <maintainer email="bharatjain.acc@gmail.com">Bharat Jain</maintainer>
-  <license>MIT (package); Apache-2.0 (SO-101 meshes, TheRobotStudio); Waveshare ugv_description (rover meshes)</license>
+  <license>MIT</license>  <!-- package, adapter plate, wrist bracket -->
+  <license>Apache-2.0</license>  <!-- meshes/so101 and source_models/so101_new_calib.urdf (TheRobotStudio) -->
+  <!-- meshes/rover and source_models/ugv_rover.urdf: Waveshare ugv_ws (github.com/waveshareteam/ugv_ws), see that repository -->
 
   <buildtool_depend>ament_cmake</buildtool_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>ament_index_python</exec_depend>
   <exec_depend>robot_state_publisher</exec_depend>
   <exec_depend>joint_state_publisher_gui</exec_depend>
   <exec_depend>rviz2</exec_depend>

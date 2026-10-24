@@ -1,0 +1,7 @@
+.DS_Store
+**/.DS_Store
+MUJOCO_LOG.TXT
+__pycache__/
+*.pyc
+tests/out/
+tests/render_*.png

@@ -1,116 +1,110 @@
 #!/usr/bin/env python3
-"""Validate the generated model: URDF parse + frame checks (yourdfpy), MuJoCo load + 3 s simulation,
-MJCF export with actuators, and a rendered picture.  Run from the package root:
-    python3 tests/check_model.py
+"""Validate the model without changing any tracked file:
+  1. URDF: tree, mesh paths, inertias, limits, key heights and directions (yourdfpy)
+  2. MJCF: loads, 3 s simulation (arm holds pose, rover drives forward), cameras render
+Run from anywhere:   python3 tests/check_model.py      (renders go to tests/out/, which git ignores)
 """
-import os, sys, math, numpy as np
+import os, sys, json, math, numpy as np
 PKG = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SIM_URDF = os.path.join(PKG, "mujoco", "so101_rover_sim.urdf")
-ROS_URDF = os.path.join(PKG, "urdf", "so101_rover.urdf")
-ok = True
+MJCF = os.path.join(PKG, "mujoco", "so101_rover.xml")
+OUT = os.path.join(PKG, "tests", "out"); os.makedirs(OUT, exist_ok=True)
+problems = []
+with open(os.path.join(PKG, "urdf", "build_params.json")) as f:
+    P = json.load(f)                                  # parameters the URDF was built with (scripts/build_urdf.py)
+DECK, PLATE_TOP = P["deck_height"], P["deck_height"] + P["spacer"] + 0.010
+def check(cond, msg):
+    print(("  ok   " if cond else "  FAIL ") + msg)
+    if not cond:
+        problems.append(msg)
 
-# ---------------------------------------------------------------- 1. URDF structure + forward kinematics
 import yourdfpy
-robot = yourdfpy.URDF.load(SIM_URDF, build_scene_graph=True, load_meshes=True, load_collision_meshes=False)
-print(f"links={len(robot.link_map)} joints={len(robot.joint_map)} actuated={robot.actuated_joint_names}")
-missing = [j for j in ["shoulder_pan", "shoulder_lift", "elbow_flex", "wrist_flex", "wrist_roll", "gripper"] if j not in robot.joint_map]
-assert not missing, f"missing arm joints {missing}"
-cfg = {n: 0.0 for n in robot.actuated_joint_names}
-robot.update_cfg(cfg)
-T = lambda frame: robot.get_transform(frame, "base_footprint")
-for f in ["base_link", "base_lidar_link", "3d_camera_link", "arm_mount_plate_link", "arm_base_link", "arm_shoulder_link",
-          "arm_gripper_frame_link", "wrist_camera_optical_frame"]:
-    if f in robot.link_map:
-        p = T(f)[:3, 3]
-        print(f"  {f:28s} x={p[0]:+.4f} y={p[1]:+.4f} z={p[2]:+.4f}  (m, from ground, rover frame)")
-z_base = T("arm_base_link")[2, 3] + (-0.0024)
-print(f"  SO-101 base underside height above ground: {z_base:.4f} m  (tray 0.120 + spacer + 0.010 plate)")
-lidar_to_yaw = T("base_lidar_link")[0, 3] - T("arm_shoulder_link")[0, 3]
-print(f"  LiDAR centre to arm yaw axis: {lidar_to_yaw*1000:.1f} mm  <- measure this on the real rover to confirm placement")
-# the camera should look forward (+x rover) and down at tilt 45 deg when the arm is in its zero pose
+from lxml import etree as ET
+print("1. URDF")
+root = ET.parse(SIM_URDF).getroot()
+links = {l.get("name") for l in root.findall("link")}
+joints = root.findall("joint")
+children = [j.find("child").get("link") for j in joints]
+check(len(set(children)) == len(children) and all(j.find("parent").get("link") in links for j in joints), "every joint connects defined links, no link has two parents")
+check(len(links - set(children)) == 1 and (links - set(children)) == {"base_footprint"}, "single root base_footprint")
+for l in root.findall("link"):
+    for m in l.iter("mesh"):
+        if not os.path.exists(os.path.join(os.path.dirname(SIM_URDF), m.get("filename"))):
+            problems.append("missing mesh " + m.get("filename"))
+    i = l.find("inertial")
+    if i is not None:
+        a = i.find("inertia"); M = float(i.find("mass").get("value"))
+        I = np.array([[float(a.get("ixx")), float(a.get("ixy")), float(a.get("ixz"))], [float(a.get("ixy")), float(a.get("iyy")), float(a.get("iyz"))],
+                      [float(a.get("ixz")), float(a.get("iyz")), float(a.get("izz"))]])
+        if M <= 0 or np.linalg.eigvalsh(I).min() <= 0:
+            problems.append(f"bad inertia on {l.get('name')}")
+check(not any(p.startswith(("missing", "bad")) for p in problems), "all meshes resolve and all inertias are positive definite")
+check(all(j.find("limit") is not None for j in joints if j.get("type") in ("revolute", "continuous")), "every moving joint has a <limit>")
+
+robot = yourdfpy.URDF.load(SIM_URDF, build_scene_graph=True, load_meshes=False)
+robot.update_cfg({n: 0.0 for n in robot.actuated_joint_names})
+T = lambda f: robot.get_transform(f, "base_footprint")
+z = lambda f: T(f)[2, 3]
+print(f"  links={len(robot.link_map)} joints={len(robot.joint_map)} actuated={len(robot.actuated_joint_names)}")
+check(abs(z("base_lidar_link") - DECK) < 1e-4, f"upper deck top / LiDAR base at {z('base_lidar_link'):.4f} m (deck height {DECK})")
+check(abs(z("arm_base_link") - 0.0024 - PLATE_TOP) < 1e-4, f"SO-101 base underside at {z('arm_base_link') - 0.0024:.4f} m (deck + spacer + 10 mm plate)")
+check(all(abs(z(w) - 0.040) < 1e-4 for w in robot.link_map if w.endswith("wheel_link")), "all 6 wheel axles 0.040 m above ground (80 mm wheels)")
+g, s = T("arm_gripper_frame_link")[:3, 3], T("arm_shoulder_link")[:3, 3]
+if P["arm_facing"] == "front":
+    check(g[0] - s[0] > 0.3, f"arm reaches forward: gripper {g[0] - s[0]:+.3f} m ahead of the yaw axis at zero pose")
+    check(T("3d_camera_link")[0, 3] > T("base_lidar_link")[0, 3] > s[0], "front-to-back order: OAK-D Lite, LiDAR, arm yaw axis")
+else:
+    check(s[0] - g[0] > 0.3, f"arm reaches rearward (--arm-facing rear): gripper {g[0] - s[0]:+.3f} m from the yaw axis")
+print(f"  LiDAR centre to arm yaw axis: {(T('base_lidar_link')[0, 3] - s[0]) * 1000:.1f} mm")
 if "wrist_camera_optical_frame" in robot.link_map:
-    zc = T("wrist_camera_optical_frame")[:3, 2]
-    print(f"  wrist camera optical axis (world): {np.round(zc, 3)}")
-g = T("arm_gripper_frame_link")[:3, 3]; s = T("arm_shoulder_link")[:3, 3]
-print(f"  arm zero-pose reach direction: {'rover FRONT (+x)' if g[0] > s[0] else 'rover REAR (-x)'}  (gripper {g[0]-s[0]:+.3f} m from the yaw axis)")
+    zc = T("wrist_camera_optical_frame")[:3, 2]; pc = T("wrist_camera_optical_frame")[:3, 3]
+    v = g - pc
+    ang = math.degrees(math.acos(np.dot(zc, v) / np.linalg.norm(v)))
+    check(ang < 60, f"gripper tip is {ang:.0f} deg off the wrist camera axis (inside the 160 deg lens)")
 
-# mesh files exist?
-for l in robot.link_map.values():
-    for v in l.visuals + l.collisions:
-        if v.geometry.mesh is not None:
-            fn = os.path.join(os.path.dirname(SIM_URDF), v.geometry.mesh.filename)
-            if not os.path.exists(fn):
-                print("MISSING MESH", fn); ok = False
-
-# ---------------------------------------------------------------- 2. MuJoCo: load, add actuators, simulate, export MJCF
+print("2. MuJoCo")
 import mujoco
-spec = mujoco.MjSpec.from_file(SIM_URDF)
-spec.modelname = "so101_rover"
-arm_joints = ["shoulder_pan", "shoulder_lift", "elbow_flex", "wrist_flex", "wrist_roll", "gripper"]
-wheel_joints = ["left_up_wheel_link_joint", "left_down_wheel_link_joint", "right_up_wheel_link_joint", "right_down_wheel_link_joint"]
-for jn in arm_joints:
-    a = spec.add_actuator(); a.name = jn; a.target = jn; a.trntype = mujoco.mjtTrn.mjTRN_JOINT
-    a.biastype = mujoco.mjtBias.mjBIAS_AFFINE; a.gainprm = [20.0] + [0.0] * 9; a.biasprm = [0.0, -20.0, -1.0] + [0.0] * 7   # position servo kp=20, kv=1
-    a.ctrlrange = [-3.2, 3.2]; a.ctrllimited = True; a.forcerange = [-3.0, 3.0]; a.forcelimited = True
-for jn in wheel_joints:
-    a = spec.add_actuator(); a.name = jn.replace("_link_joint", "_motor"); a.target = jn; a.trntype = mujoco.mjtTrn.mjTRN_JOINT
-    a.biastype = mujoco.mjtBias.mjBIAS_AFFINE; a.gainprm = [0.1] + [0.0] * 9; a.biasprm = [0.0, 0.0, -0.1] + [0.0] * 7      # velocity servo kv=0.1 (max ~0.6 Nm)
-    a.ctrlrange = [-20, 20]; a.ctrllimited = True
-for j in spec.joints:
-    if j.name in arm_joints:
-        j.damping[0] = 0.6; j.armature = 0.028; j.frictionloss = 0.05
-    elif j.name in wheel_joints:
-        j.damping[0] = 0.02; j.armature = 0.002
-# free-floating rover on a ground plane
-spec.worldbody.add_geom(type=mujoco.mjtGeom.mjGEOM_PLANE, size=[3, 3, 0.1], name="floor")
-root_body = spec.body("base_footprint")
-root_body.add_freejoint()
-root_body.pos = [0, 0, 0.002]
-spec.option.timestep = 0.001
-spec.visual.global_.offwidth = 1280; spec.visual.global_.offheight = 800
-for (pos, d) in [([1.0, -1.5, 2.0], [-0.4, 0.6, -0.8]), ([-1.5, 1.0, 1.5], [0.6, -0.4, -0.6])]:
-    L = spec.worldbody.add_light(); L.pos = pos; L.dir = d; L.diffuse = [0.7, 0.7, 0.7]; L.specular = [0.2, 0.2, 0.2]; L.castshadow = False
-model = spec.compile()
-data = mujoco.MjData(model)
-print(f"MuJoCo: nbody={model.nbody} njnt={model.njnt} nu={model.nu} ngeom={model.ngeom} mass_total={sum(model.body_mass):.3f} kg")
-mujoco.mj_forward(model, data)
-# hold the arm at zero, drive forward at 6 rad/s wheels for 3 s
+
+
+def seg_model(xml_path):
+    """Same model without the skybox: MuJoCo's segmentation renderer returns garbage ids for sky pixels."""
+    import re, tempfile
+    txt = open(xml_path).read()
+    txt = re.sub(r'<texture[^>]*name="sky"[^>]*/>', "", txt)
+    tmp = os.path.join(os.path.dirname(xml_path), "_seg_tmp.xml")
+    open(tmp, "w").write(txt)
+    mm = mujoco.MjModel.from_xml_path(tmp); os.remove(tmp)
+    return mm
+
+m = mujoco.MjModel.from_xml_path(MJCF); d = mujoco.MjData(m)
+print(f"  nbody={m.nbody} njnt={m.njnt} nu={m.nu} ncam={m.ncam} mass={sum(m.body_mass):.3f} kg")
+check(m.nu == 10 and m.ncam >= 1, "10 actuators and the cameras are present")
+qadr = lambda j: m.jnt_qposadr[mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_JOINT, j)]
+arm = ["shoulder_pan", "shoulder_lift", "elbow_flex", "wrist_flex", "wrist_roll", "gripper"]
+mujoco.mj_forward(m, d)
 for i in range(3000):
-    data.ctrl[:6] = 0.0
-    data.ctrl[6:] = 6.0 if i > 500 else 0.0
-    mujoco.mj_step(model, data)
-    if not np.all(np.isfinite(data.qpos)):
-        print("NaN in simulation"); ok = False; break
-base_pos = data.qpos[:3]
-arm_q = np.array([data.qpos[model.jnt_qposadr[mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_JOINT, j)]] for j in arm_joints])
-print(f"  after 3 s: rover position {np.round(base_pos, 3)}, arm joint error max {np.abs(arm_q).max():.3f} rad")
-print(f"  contacts at end: {[ (mujoco.mj_id2name(model, mujoco.mjtObj.mjOBJ_GEOM, c.geom1), mujoco.mj_id2name(model, mujoco.mjtObj.mjOBJ_GEOM, c.geom2)) for c in data.contact[:data.ncon]][:8]}")
-if base_pos[2] < 0.0 or base_pos[2] > 0.1:
-    print("  rover height looks wrong"); ok = False
-if abs(base_pos[0]) < 0.05 or abs(base_pos[0]) > 1.5:
-    print("  rover did not drive forward"); ok = False
-# export MJCF next to the URDF (mesh paths relative to mujoco/)
-mjcf_path = os.path.join(PKG, "mujoco", "so101_rover.xml")
-with open(mjcf_path, "w") as f:
-    f.write(spec.to_xml())
-print("wrote", mjcf_path)
-m2 = mujoco.MjModel.from_xml_path(mjcf_path); print("  MJCF reloads: nbody", m2.nbody)
-
-# ---------------------------------------------------------------- 3. picture
+    d.ctrl[:6] = 0.0
+    d.ctrl[6:] = 6.0 if i > 500 else 0.0
+    mujoco.mj_step(m, d)
+check(np.all(np.isfinite(d.qpos)), "simulation stays finite for 3 s")
+check(0.2 < d.qpos[0] < 1.5 and abs(d.qpos[1]) < 0.05 and -0.002 <= d.qpos[2] < 0.01, f"rover drives straight: x={d.qpos[0]:.3f} y={d.qpos[1]:.3f} z={d.qpos[2]:.4f}")
+err = max(abs(d.qpos[qadr(j)]) for j in arm)
+check(err < 0.06, f"arm holds its pose while driving (max joint error {err:.3f} rad)")
 try:
-    data = mujoco.MjData(model); mujoco.mj_forward(model, data)
-    r = mujoco.Renderer(model, 720, 1080)
-    cam = mujoco.MjvCamera(); cam.type = mujoco.mjtCamera.mjCAMERA_FREE
-    cam.lookat[:] = [-0.05, 0.0, 0.18]; cam.distance = 0.85; cam.azimuth = 140; cam.elevation = -20
-    opt = mujoco.MjvOption(); opt.geomgroup[:] = 0; opt.geomgroup[2] = 1; opt.geomgroup[1] = 1
-    r.update_scene(data, cam, opt)
     from PIL import Image
-    Image.fromarray(r.render()).save(os.path.join(PKG, "tests", "render_mujoco.png"))
-    cam.azimuth = 40; cam.elevation = -25; r.update_scene(data, cam, opt)
-    Image.fromarray(r.render()).save(os.path.join(PKG, "tests", "render_mujoco_front.png"))
-    print("wrote tests/render_mujoco.png")
+    r = mujoco.Renderer(m, 480, 640)
+    for c in range(m.ncam):
+        name = mujoco.mj_id2name(m, mujoco.mjtObj.mjOBJ_CAMERA, c)
+        r.update_scene(d, camera=c); Image.fromarray(r.render()).save(os.path.join(OUT, f"cam_{name}.png"))
+        if name == "wrist_camera":                    # the jaws must be visible, not hidden behind collision boxes
+            ms = seg_model(MJCF); ds = mujoco.MjData(ms); ds.qpos[:] = d.qpos; mujoco.mj_forward(ms, ds)
+            rs = mujoco.Renderer(ms, 480, 640); rs.enable_segmentation_rendering(); rs.update_scene(ds, camera=c); seg = rs.render()[..., 0]
+            jaw_bodies = {mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_BODY, b) for b in ("arm_gripper_link", "arm_moving_jaw_so101_v1_link")}
+            jaw_geoms = [gi for gi in range(m.ngeom) if m.geom_bodyid[gi] in jaw_bodies and m.geom_group[gi] != 3]
+            frac = np.isin(seg, jaw_geoms).mean()
+            check(frac > 0.01, f"gripper jaws fill {frac * 100:.1f}% of the wrist camera image")
+    print(f"  camera images written to tests/out/")
 except Exception as e:
-    print("render skipped:", e)
-
-print("RESULT:", "OK" if ok else "PROBLEMS FOUND")
-sys.exit(0 if ok else 1)
+    print("  render skipped:", e)
+print("RESULT:", "OK" if not problems else f"{len(problems)} PROBLEM(S): " + "; ".join(problems))
+sys.exit(0 if not problems else 1)

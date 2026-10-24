@@ -1,46 +1,58 @@
 #!/usr/bin/env python3
-"""Build the combined Waveshare UGV Rover + SO-101 follower URDF.
+"""Build the combined Waveshare UGV Rover + SO-101 follower URDF, matched to the robot as built.
 
-Sources (unchanged geometry, only renamed/re-pathed):
-  * Waveshare ugv_ws  ->  src/ugv_main/ugv_description/urdf/ugv_rover.urdf   (rover, wheels, LiDAR, OAK)
-  * TheRobotStudio SO-ARM100 -> Simulation/SO101/so101_new_calib.urdf        (arm, "new calibration")
-Added here:
-  * printed adapter plate + 4 spacers (SO101_UGV_Rover_Mount/FINAL_FILES)
-  * SO-101 base placed on the plate
-  * OAK-D Lite wrist tilt mount (SO101_OAK_Tilt_Mount_v3) with a settable tilt
-  * optical frames for both cameras, <mujoco> extension block
+Sources (geometry and inertia unchanged, only renamed / re-pathed):
+  * Waveshare ugv_ws  ->  src/ugv_main/ugv_description/urdf/ugv_rover.urdf   (lower body, wheels, LiDAR, OAK-D Lite)
+  * TheRobotStudio SO-ARM100 -> Simulation/SO101/so101_new_calib.urdf        (arm, "new calibration" zero = mid range)
+Added here, from the physical build (photos in reference_photos/):
+  * lower body cut at its real flat top (the Waveshare mesh carries a 2.8 cm cover the Jetson kit does not have)
+  * Jetson-kit upper deck: folded metal tray on brass pillars, Jetson Orin Nano stack under it (schematic boxes)
+  * printed adapter plate (SO101_UGV_Rover_Mount/FINAL_FILES) bolted flat on the deck, triangle toward the REAR
+  * SO-101 base on the plate, arm reaching FORWARD over the LiDAR
+  * wrist camera: official SO-101 wrist mount redrawn for the Waveshare 160 deg Pi-board camera (scripts/make_wrist_mount.py)
+  * passive middle wheels, camera and LiDAR frames, Gazebo sensors, <mujoco> compiler block
 
+Measured on the robot (24 Oct 2026): ground -> top of the upper metal deck = 0.175 m.
 Usage:
-  python3 scripts/build_urdf.py                 # writes urdf/so101_rover.urdf (package://) and mujoco/so101_rover_sim.urdf (relative)
-  python3 scripts/build_urdf.py --spacer 0.0 --tilt 45 --arm-battery
+  python3 scripts/build_urdf.py                       # as built, then: python3 scripts/build_mjcf.py
+  python3 scripts/build_urdf.py --lidar-to-yaw 0.060 --spacer 0.006 --arm-battery && python3 scripts/build_mjcf.py
 """
-import argparse, copy, math, os, sys
+import argparse, copy, json, math, os
 from lxml import etree as ET
 import numpy as np
 from scipy.spatial.transform import Rotation as R
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PKG = os.path.dirname(HERE)
-SRC = os.path.join(PKG, "source_models")  # original upstream files kept for reference
+SRC = os.path.join(PKG, "source_models")
 
-# ----------------------------------------------------------------------------- geometry constants (metres)
-TRAY_TOP_Z = 0.040            # top sheet of the rover, in rover base_link frame (Waveshare URDF)
-PLATE_T = 0.010               # printed adapter thickness
-SO101_BASE_BOTTOM = -0.0024   # z of the SO-101 base underside in its own base_link frame (official URDF)
-# Adapter plate position: Codex's rover-CAD X axis runs rearward, origin such that the plate spans X=-8..94 mm.
-# Anchored on the LiDAR: plate front edge sits 4.815 mm behind the LiDAR housing (centre x=0.03981, r=0.018).
-LIDAR_X, LIDAR_R, GAP = 0.0398145505519817, 0.018, 0.004815
-PLATE_FRONT_X = LIDAR_X - LIDAR_R - GAP       # rover x of the plate's front edge (Codex X = -8 mm)
-CODEX_X0 = PLATE_FRONT_X + 0.008              # rover x where Codex X = 0   ->  x_rover = CODEX_X0 - X_codex
-# SO-101 base holes in its base_link frame: wide pair (front, under the yaw motor) at x=-0.0137, y=+-0.0317
-SO101_WIDE_PAIR_X = -0.0137
-# Codex adapter: wide pair at X=7.5 mm, narrow pair at X=77.275 mm; chassis bolts/spacers at X=4,40 Y=+-43
-ARM_WIDE_PAIR_X_ROVER = CODEX_X0 - 0.0075
-SPACER_XY = [(CODEX_X0 - 0.004, 0.043), (CODEX_X0 - 0.004, -0.043), (CODEX_X0 - 0.040, 0.043), (CODEX_X0 - 0.040, -0.043)]
-# Wrist camera mount (SO101_OAK_Tilt_Mount_v3 design_meta.json), in SO-101 gripper_link frame, metres
-HINGE_P = np.array([0.0, 0.09391541144431395, 0.010560720250484465])
-THETA0_DEG = 37.5
-LENS_P = np.array([0.0, 0.07601436790187365, -0.021080332830784126])
+# ----------------------------------------------------------------------------- geometry (metres)
+BASE_LINK_Z = 0.081212         # base_link above ground: puts the wheel axles (base_link z -0.041212) exactly 0.040 up
+LOWER_BODY_TOP = 0.0115        # flat top of the lower body, base_link frame (0.093 m above ground; photos ~0.093)
+PLATE_T = 0.010                # printed adapter thickness
+SO101_BASE_BOTTOM = -0.0024    # z of the SO-101 base underside in its own base_link frame (official URDF)
+SO101_YAW_X = 0.0388353        # shoulder_pan axis x in the SO-101 base_link frame (official URDF)
+SO101_WIDE_PAIR_X = -0.0137    # wide (63.5 mm) hole pair x in the SO-101 base_link frame
+LIDAR_X = 0.0398145505519817   # LiDAR centre x, base_link frame (Waveshare URDF)
+CAM_BELOW_DECK = 0.018         # front OAK-D Lite centre sits 18 mm below the deck (Waveshare URDF)
+WHEEL_X, WHEEL_Y, WHEEL_Z = 0.0855, 0.08726, -0.041212
+MID_WHEEL_MASS = 0.207085933743005
+# upper deck (folded tray), base_link frame, from the photos
+# folded tray: 125 mm flat top, side walls slope out to 160 mm 18 mm down, then back in to 127 mm 28 mm down;
+# the printed plate overhangs its rear edge by ~27 mm (side photo)
+DECK_X0, DECK_X1, DECK_TOP_W, DECK_T = -0.066, 0.090, 0.125, 0.003
+DECK_WALL = [(0.0625, 0.0), (0.080, -0.018), (0.0635, -0.028)]     # (y, z below deck top) corner points of one side wall
+# Jetson Orin Nano carrier: 79 x 100 mm board on a 58 x 86 mm hole pattern; heights above ground from the photos
+JETSON_X = 0.0105
+STANDOFFS = [(JETSON_X + 0.029, 0.043), (JETSON_X + 0.029, -0.043), (JETSON_X - 0.029, 0.043), (JETSON_X - 0.029, -0.043)]
+JETSON_BOARD_Z = (0.131, 0.134)        # carrier board bottom / top, m above ground
+SPACER_Z, LOWER_BRASS_Z = (0.094, 0.112), (0.112, 0.131)
+# printed plate, "Codex" frame: X=-8..94 (triangle at X=-8), Y=+-64; arm holes wide pair X=7.5; chassis bolts X=4,40 Y=+-43
+PLATE_WIDE_PAIR_X = 0.0075
+PLATE_BOLTS = [(0.004, 0.043), (0.004, -0.043), (0.040, 0.043), (0.040, -0.043)]
+# wrist bracket (SO101_OAK_RGB_v2), frame = official Wrist_Roll_Follower STL frame, metres
+USB_CAM_LENS = np.array([0.020, -0.090, 0.008])      # where the USB board is tied: corner of the rods and the U-frame
+AIM_TARGET = np.array([-0.0133, 0.0, 0.060])         # fixed-finger contact pad (SO101_OAK_RGB_v2_pose.json)
 
 
 def fmt(v):
@@ -62,28 +74,33 @@ def add_origin(parent, xyz=(0, 0, 0), rpy=(0, 0, 0)):
     el(parent, "origin", xyz=fmt(xyz), rpy=fmt(rpy))
 
 
-def add_mesh_visual(link, filename, xyz=(0, 0, 0), rpy=(0, 0, 0), scale=None, material=None, rgba=None, collision=True):
+def add_mesh(link, filename, xyz=(0, 0, 0), rpy=(0, 0, 0), scale=None, material=None, collision=False):
     for tag in (["visual", "collision"] if collision else ["visual"]):
         g = el(link, tag)
         add_origin(g, xyz, rpy)
-        geo = el(g, "geometry")
-        m = el(geo, "mesh", filename=filename)
+        m = el(el(g, "geometry"), "mesh", filename=filename)
         if scale:
             m.set("scale", fmt([scale] * 3))
-        if tag == "visual" and (material or rgba):
-            mat = el(g, "material", name=material or "")
-            if rgba:
-                el(mat, "color", rgba=fmt(rgba))
+        if tag == "visual" and material:
+            el(g, "material", name=material)
 
 
-def add_box_visual(link, size, xyz=(0, 0, 0), rpy=(0, 0, 0), rgba=(0.3, 0.3, 0.3, 1), collision=True, collision_only=False):
-    for tag in (["collision"] if collision_only else (["visual", "collision"] if collision else ["visual"])):
+def add_box(link, size, xyz=(0, 0, 0), rpy=(0, 0, 0), material=None, visual=True, collision=False):
+    for tag in (["visual"] if visual else []) + (["collision"] if collision else []):
         g = el(link, tag)
         add_origin(g, xyz, rpy)
-        geo = el(g, "geometry")
-        el(geo, "box", size=fmt(size))
-        if tag == "visual":
-            el(el(g, "material", name=""), "color", rgba=fmt(rgba))
+        el(el(g, "geometry"), "box", size=fmt(size))
+        if tag == "visual" and material:
+            el(g, "material", name=material)
+
+
+def add_cylinder(link, radius, length, xyz=(0, 0, 0), rpy=(0, 0, 0), material=None, visual=True, collision=False):
+    for tag in (["visual"] if visual else []) + (["collision"] if collision else []):
+        g = el(link, tag)
+        add_origin(g, xyz, rpy)
+        el(el(g, "geometry"), "cylinder", radius=f"{radius:.6g}", length=f"{length:.6g}")
+        if tag == "visual" and material:
+            el(g, "material", name=material)
 
 
 def add_inertial(link, mass, xyz, ixx, iyy, izz, ixy=0, ixz=0, iyz=0):
@@ -105,18 +122,50 @@ def add_fixed_joint(robot, name, parent, child, xyz=(0, 0, 0), rpy=(0, 0, 0)):
     return j
 
 
-def build(mesh_prefix, spacer, tilt_deg, arm_battery, wrist_camera, out_path, arm_facing="rear"):
+def tidy(node):
+    """Drop schema-invalid leftovers from the upstream exporters."""
+    if node.tag == "link":
+        for o in node.findall("origin"):
+            node.remove(o)
+    if node.tag == "joint" and node.get("type") == "fixed":
+        for a in node.findall("axis"):
+            node.remove(a)
+        for lim in node.findall("limit"):
+            node.remove(lim)
+
+
+def gazebo_camera(robot, link, name, hfov_rad, width, height, near, far, rate=30):
+    g = el(robot, "gazebo", reference=link)
+    s = el(g, "sensor", name=name, type="camera")
+    el(s, "update_rate").text = str(rate)
+    el(s, "always_on").text = "1"
+    el(s, "topic").text = f"{name}/image"
+    c = el(s, "camera")
+    el(c, "horizontal_fov").text = f"{hfov_rad:.4f}"
+    im = el(c, "image"); el(im, "width").text = str(width); el(im, "height").text = str(height); el(im, "format").text = "R8G8B8"
+    cl = el(c, "clip"); el(cl, "near").text = str(near); el(cl, "far").text = str(far)
+    el(c, "optical_frame_id").text = f"{name}_optical_frame"
+
+
+def build(mesh_prefix, out_path, deck_height=0.175, spacer=0.0, lidar_to_yaw=0.065, arm_facing="front",
+          wrist_mount="pi", arm_battery=False, wrist_variant="default"):
+    deck_z = deck_height - BASE_LINK_Z                      # top of the upper metal deck, base_link frame
+    plate_z = deck_z + spacer                               # underside of the printed plate
+    arm_base_z = plate_z + PLATE_T - SO101_BASE_BOTTOM      # SO-101 base_link origin
     rover = ET.parse(os.path.join(SRC, "ugv_rover.urdf")).getroot()
     arm = ET.parse(os.path.join(SRC, "so101_new_calib.urdf")).getroot()
 
     robot = ET.Element("robot", name="so101_rover")
-    robot.append(ET.Comment(" Generated by scripts/build_urdf.py. Rover: Waveshare ugv_description (ugv_rover). "
-                            "Arm: TheRobotStudio SO-ARM100 so101_new_calib. Mount, spacers, wrist camera: this package. "))
-    # materials
-    for name, rgba in [("rover_grey", (0.55, 0.57, 0.6, 1)), ("printed_black", (0.12, 0.12, 0.12, 1)),
-                       ("printed_white", (0.9, 0.9, 0.9, 1)), ("so101_print", (0.85, 0.85, 0.88, 1)),
-                       ("sts3215", (0.1, 0.1, 0.1, 1)), ("camera_black", (0.15, 0.16, 0.18, 1)),
-                       ("battery_black", (0.05, 0.05, 0.05, 1))]:
+    robot.append(ET.Comment(" Generated by scripts/build_urdf.py - do not edit by hand. Rover: Waveshare ugv_description "
+                            "(ugv_rover). Arm: TheRobotStudio SO-ARM100 so101_new_calib. Deck, plate, wrist camera: this package. "))
+    mats = [("body_black", (0.09, 0.09, 0.10, 1)), ("deck_metal", (0.26, 0.27, 0.30, 1)), ("brass", (0.72, 0.58, 0.3, 1)),
+            ("pcb_green", (0.1, 0.35, 0.2, 1)), ("heatsink", (0.45, 0.46, 0.48, 1)), ("printed_black", (0.03, 0.03, 0.03, 1)),
+            ("printed_white", (0.92, 0.92, 0.92, 1)), ("so101_print", (0.93, 0.93, 0.95, 1)), ("sts3215", (0.1, 0.1, 0.1, 1)),
+            ("oak_grey", (0.36, 0.37, 0.40, 1)), ("lidar_black", (0.14, 0.14, 0.17, 1)), ("tyre_black", (0.06, 0.06, 0.06, 1)),
+            ("camera_board", (0.12, 0.25, 0.18, 1))]
+    if arm_battery:
+        mats.append(("battery_black", (0.05, 0.05, 0.05, 1)))
+    for name, rgba in mats:
         el(el(robot, "material", name=name), "color", rgba=fmt(rgba))
 
     # ---------------- rover: copy links/joints except the pan-tilt subtree
@@ -129,136 +178,219 @@ def build(mesh_prefix, spacer, tilt_deg, arm_battery, wrist_camera, out_path, ar
         if node.tag == "joint" and (node.find("child").get("link") in drop or node.find("parent").get("link") in drop):
             continue
         n = copy.deepcopy(node)
+        tidy(n)
         for m in n.iter("mesh"):
-            m.set("filename", f"{mesh_prefix}/rover/{os.path.basename(m.get('filename'))}")
+            fn = os.path.basename(m.get("filename"))
+            if fn == "base_link.stl":
+                fn = "base_link_jetson_kit.stl"
+            m.set("filename", f"{mesh_prefix}/rover/{fn}")
         for mat in n.iter("material"):
-            if mat.get("name") == "":
-                mat.set("name", "rover_grey")
-                for c in list(mat):
-                    mat.remove(c)
+            for c in list(mat):
+                mat.remove(c)
+            mat.set("name", "body_black")
+        if n.tag == "joint":
+            name = n.get("name"); o = n.find("origin")
+            if name == "base_joint":
+                xyz = [float(v) for v in o.get("xyz").split()]; xyz[2] = BASE_LINK_Z; o.set("xyz", fmt(xyz))
+            elif name in ("base_lidar_link_joint", "3d_camera_link_joint"):
+                xyz = [float(v) for v in o.get("xyz").split()]
+                xyz[2] = deck_z if name == "base_lidar_link_joint" else deck_z - CAM_BELOW_DECK
+                o.set("xyz", fmt(xyz))
+            elif name.endswith("wheel_link_joint"):
+                el(n, "limit", effort="2.0", velocity="32")       # 1.3 m/s max speed on 80 mm wheels
+                el(n, "dynamics", damping="0.02", friction="0.0")
         if n.tag == "link":
             name = n.get("name")
             if name == "base_link":
+                mass = n.find("inertial/mass")                    # upstream body mass includes the middle wheels,
+                mass.set("value", f"{float(mass.get('value')) - 2 * MID_WHEEL_MASS:.6g}")   # which are now separate links
                 for c in n.findall("collision"):
                     n.remove(c)
-                add_box_visual(n, (0.245, 0.230, 0.085), xyz=(0, 0, -0.0025), collision_only=True)   # bottom 0.035 m above ground
+                body_bot = -0.045                                 # body underside 0.036 m above ground
+                add_box(n, (0.245, 0.230, LOWER_BODY_TOP - body_bot), xyz=(0, 0, (LOWER_BODY_TOP + body_bot) / 2),
+                        visual=False, collision=True)
+                # Jetson-kit upper deck: folded tray on brass pillars, Jetson Orin Nano stack under it (schematic)
+                gz = lambda h: h - BASE_LINK_Z                    # height above ground -> base_link z
+                cx, L = (DECK_X0 + DECK_X1) / 2, DECK_X1 - DECK_X0
+                add_box(n, (L, DECK_TOP_W, DECK_T), xyz=(cx, 0, deck_z - DECK_T / 2), material="deck_metal", collision=True)
+                for sy in (1, -1):
+                    for (y0, z0), (y1, z1) in zip(DECK_WALL[:-1], DECK_WALL[1:]):
+                        dy, dz = sy * (y1 - y0), z1 - z0
+                        add_box(n, (L, math.hypot(dy, dz), 0.002), xyz=(cx, sy * (y0 + y1) / 2, deck_z + (z0 + z1) / 2),
+                                rpy=(math.atan2(dz, dy), 0, 0), material="deck_metal")
+                b0, b1 = JETSON_BOARD_Z
+                for (px, py) in STANDOFFS:
+                    for (z0, z1, mat) in [(gz(SPACER_Z[0]), gz(SPACER_Z[1]), "heatsink"),
+                                          (gz(LOWER_BRASS_Z[0]), gz(LOWER_BRASS_Z[1]), "brass"),
+                                          (gz(b1), deck_z - DECK_T, "brass")]:          # pillars from the board up to the deck
+                        add_cylinder(n, 0.0028, z1 - z0, xyz=(px, py, (z0 + z1) / 2), material=mat)
+                add_box(n, (0.079, 0.100, b1 - b0), xyz=(JETSON_X, 0, gz((b0 + b1) / 2)), material="pcb_green")   # carrier board
+                add_box(n, (0.065, 0.065, 0.024), xyz=(JETSON_X, 0, gz(b1) + 0.012), material="heatsink")       # module, heatsink, fan
             elif name.endswith("wheel_link"):
                 for c in n.findall("collision"):
                     n.remove(c)
-                c = el(n, "collision"); add_origin(c, (0, 0, 0), (0, 0, 0))
-                el(el(c, "geometry"), "cylinder", radius="0.04", length="0.0426")
+                add_cylinder(n, 0.04, 0.0426, visual=False, collision=True)
+                for mat in n.iter("material"):
+                    mat.set("name", "tyre_black")
+            elif name == "base_lidar_link":
+                for mat in n.iter("material"):
+                    mat.set("name", "lidar_black")
+            elif name == "3d_camera_link":
+                for mat in n.iter("material"):
+                    mat.set("name", "oak_grey")
         robot.append(n)
-    # front camera optical frame (ROS convention: z forward, x right, y down)
-    cam_opt = el(robot, "link", name="front_camera_optical_frame")
+
+    # passive middle wheels (the rover has 6 wheels, 4 driven; Waveshare bakes the middle pair into the body mesh)
+    for side, sy in (("left", 1), ("right", -1)):
+        w = el(robot, "link", name=f"{side}_mid_wheel_link")
+        add_inertial(w, MID_WHEEL_MASS, (0, 0, 0), 0.000116541923504163, 0.000116541923504163, 0.000170742352371108)
+        add_cylinder(w, 0.04, 0.0426, visual=False, collision=True)
+        j = el(robot, "joint", name=f"{side}_mid_wheel_link_joint", type="continuous")
+        add_origin(j, (0, sy * WHEEL_Y, WHEEL_Z), (math.pi / 2, 0, 0))
+        el(j, "parent", link="base_link"); el(j, "child", link=f"{side}_mid_wheel_link"); el(j, "axis", xyz="0 0 -1")
+        el(j, "limit", effort="0", velocity="32"); el(j, "dynamics", damping="0.002", friction="0.0")
+
+    # front camera optical frame (ROS: z forward, x right, y down), at the OAK's front face
+    el(robot, "link", name="front_camera_optical_frame")
     add_fixed_joint(robot, "front_camera_optical_joint", "3d_camera_link", "front_camera_optical_frame",
                     xyz=(0.017, 0, 0), rpy=(-math.pi / 2, 0, -math.pi / 2))
 
-    # ---------------- adapter plate + spacers (one fixed link)
+    # ---------------- arm position: yaw axis lidar_to_yaw behind the LiDAR centre, on the centreline
+    yaw_x = LIDAR_X - lidar_to_yaw
+    if arm_facing == "rear" and lidar_to_yaw < 0.09:
+        raise SystemExit("--arm-facing rear puts the SO-101 base into the LiDAR unless --lidar-to-yaw is at least 0.09 m")
+    if arm_facing == "front":
+        # AS BUILT: plate triangle to the rear, SO-101 motor-holder end (wide pair) at the rear, arm reaches forward
+        arm_yaw = 0.0; arm_x = yaw_x - SO101_YAW_X
+        plate_x0 = arm_x + SO101_WIDE_PAIR_X - PLATE_WIDE_PAIR_X; plate_sign = 1.0
+    else:
+        # Codex's drawing orientation: triangle toward the LiDAR, arm reaches toward the rear
+        arm_yaw = math.pi; arm_x = yaw_x + SO101_YAW_X
+        plate_x0 = arm_x - SO101_WIDE_PAIR_X + PLATE_WIDE_PAIR_X; plate_sign = -1.0
+
     plate = el(robot, "link", name="arm_mount_plate_link")
-    plate_mass = 0.105
-    ixx, iyy, izz = box_inertia(plate_mass, 0.102, 0.128, 0.010)
-    add_inertial(plate, plate_mass, (0, 0, 0.005), ixx, iyy, izz)
-    # Codex frame -> rover frame: rotate 180 deg about z, shift so Codex X=0 lands on CODEX_X0 (relative to the plate link
-    # which we place at x=CODEX_X0, z = tray top + spacer).  Plate STL is in mm.
-    add_mesh_visual(plate, f"{mesh_prefix}/mount/rover_adapter_plate.stl", xyz=(0, 0, 0), rpy=(0, 0, math.pi),
-                    scale=0.001, material="printed_black", collision=False)
-    add_box_visual(plate, (0.102, 0.128, 0.010), xyz=(-0.043, 0, 0.005), collision_only=True)
-    for (x, y) in SPACER_XY:
-        if spacer > 0:
-            add_mesh_visual(plate, f"{mesh_prefix}/mount/rover_adapter_spacer.stl", xyz=(x - CODEX_X0, y, -spacer),
-                            scale=0.001, material="printed_black", collision=False)
-    add_fixed_joint(robot, "arm_mount_plate_joint", "base_link", "arm_mount_plate_link",
-                    xyz=(CODEX_X0, 0, TRAY_TOP_Z + spacer))
+    ixx, iyy, izz = box_inertia(0.105, 0.102, 0.128, PLATE_T)
+    add_inertial(plate, 0.105, (plate_sign * 0.043, 0, PLATE_T / 2), ixx, iyy, izz)
+    add_mesh(plate, f"{mesh_prefix}/mount/rover_adapter_plate.stl", rpy=(0, 0, 0 if plate_sign > 0 else math.pi),
+             scale=0.001, material="printed_black")
+    add_box(plate, (0.102, 0.128, PLATE_T), xyz=(plate_sign * 0.043, 0, PLATE_T / 2), visual=False, collision=True)
+    if spacer > 0:
+        for (bx, by) in PLATE_BOLTS:
+            add_mesh(plate, f"{mesh_prefix}/mount/rover_adapter_spacer.stl", xyz=(plate_sign * bx, by, -spacer),
+                     scale=0.001, material="printed_black")
+    add_fixed_joint(robot, "arm_mount_plate_joint", "base_link", "arm_mount_plate_link", xyz=(plate_x0, 0, plate_z))
 
     # ---------------- SO-101 arm, links prefixed arm_, joint names kept (LeRobot names)
-    def arm_name(n):
-        return "arm_" + n
     for node in arm:
-        if node.tag == "material":
-            continue
         if node.tag not in ("link", "joint"):
             continue
         n = copy.deepcopy(node)
+        tidy(n)
         if n.tag == "link":
-            n.set("name", arm_name(n.get("name")))
+            n.set("name", "arm_" + n.get("name"))
+            if n.get("name") == "arm_gripper_frame_link":        # pure frame: upstream gives it a 1e-9 kg, zero-inertia body
+                for i in n.findall("inertial"):
+                    n.remove(i)
         else:
-            n.find("parent").set("link", arm_name(n.find("parent").get("link")))
-            n.find("child").set("link", arm_name(n.find("child").get("link")))
+            n.find("parent").set("link", "arm_" + n.find("parent").get("link"))
+            n.find("child").set("link", "arm_" + n.find("child").get("link"))
         for m in n.iter("mesh"):
             m.set("filename", f"{mesh_prefix}/so101/{os.path.basename(m.get('filename'))}")
         for mat in n.iter("material"):
             if mat.get("name") == "3d_printed":
                 mat.set("name", "so101_print")
         robot.append(n)
-    # base of the arm: wide hole pair over the plate's wide pair, arm reaches toward rover +x (yaw 180 deg)
-    arm_z = TRAY_TOP_Z + spacer + PLATE_T - SO101_BASE_BOTTOM
-    if arm_facing == "rear":
-        # AS BUILT with the revision-A plate: the wide hole pair (motor-holder end of the SO-101 base) sits toward the
-        # LiDAR, so the arm's zero-yaw reach direction points to the rover's REAR.  x_rover = arm_x - x_so101 (180 deg yaw)
-        arm_x = ARM_WIDE_PAIR_X_ROVER + SO101_WIDE_PAIR_X
-        add_fixed_joint(robot, "arm_mount_joint", "base_link", "arm_base_link", xyz=(arm_x, 0, arm_z), rpy=(0, 0, math.pi))
-    else:
-        # MIRRORED plate (wide pair at Codex X=77.275, narrow pair at X=7.5): arm reaches toward the rover FRONT.
-        # NOTE: the plate mesh shown is still revision A; print a mirrored plate before building this variant.
-        arm_x = (CODEX_X0 - 0.077275) - SO101_WIDE_PAIR_X
-        add_fixed_joint(robot, "arm_mount_joint", "base_link", "arm_base_link", xyz=(arm_x, 0, arm_z), rpy=(0, 0, 0))
+    add_fixed_joint(robot, "arm_mount_joint", "base_link", "arm_base_link", xyz=(arm_x, 0, arm_base_z), rpy=(0, 0, arm_yaw))
 
-    # ---------------- wrist camera mount (OAK-D Lite tilt mount v3), in arm_gripper_link frame
-    if wrist_camera:
-        base = el(robot, "link", name="wrist_cam_mount_base_link")
-        ixx, iyy, izz = box_inertia(0.020, 0.035, 0.087, 0.054)
-        add_inertial(base, 0.020, (0.0, 0.065, 0.0), ixx, iyy, izz)
-        add_mesh_visual(base, f"{mesh_prefix}/mount/wrist_cam_mount_base.stl", scale=0.001, material="printed_white", collision=False)
-        add_box_visual(base, (0.012, 0.025, 0.054), xyz=(-0.006, 0.0395, 0.0), collision_only=True)
-        add_fixed_joint(robot, "wrist_cam_mount_base_joint", "arm_gripper_link", "wrist_cam_mount_base_link")
-
-        # cradle + camera rotate about the hinge axis (x) through HINGE_P by -(tilt - 37.5) deg
-        a = -math.radians(tilt_deg - THETA0_DEG)
-        Rm = R.from_euler("x", a).as_matrix()
-        t = HINGE_P - Rm @ HINGE_P
-        cradle = el(robot, "link", name="wrist_cam_cradle_link")
-        m_cradle, m_cam = 0.015, 0.061
-        ixx, iyy, izz = box_inertia(m_cradle + m_cam, 0.091, 0.030, 0.040)
-        add_inertial(cradle, m_cradle + m_cam, (0.0, 0.082, -0.005), ixx, iyy, izz)
-        add_mesh_visual(cradle, f"{mesh_prefix}/mount/wrist_cam_mount_cradle.stl", scale=0.001, material="printed_white", collision=False)
-        add_mesh_visual(cradle, f"{mesh_prefix}/mount/oak_d_lite_wrist.stl", scale=0.001, material="camera_black", collision=True)
-        add_fixed_joint(robot, "wrist_cam_tilt_joint", "wrist_cam_mount_base_link", "wrist_cam_cradle_link", xyz=t, rpy=(a, 0, 0))
-        # optical frame at the RGB lens: Xc=-X, Yc=(0,cos,-sin), Zc=(0,-sin,-cos) at theta0 (cradle frame)
-        th = math.radians(THETA0_DEG)
-        Rc = np.column_stack([[-1, 0, 0], [0, math.cos(th), -math.sin(th)], [0, -math.sin(th), -math.cos(th)]])
+    # ---------------- wrist camera, official-style mount redrawn for the 25 x 24 mm Pi-board camera (scripts/make_wrist_mount.py)
+    if wrist_mount == "pi":
+        # mount and camera poses are TheRobotStudio's (so101_new_calib_camera.urdf): same optical axis as the official wrist camera
+        reg = json.load(open(os.path.join(PKG, "meshes", "mount", "wrist_mounts.json")))[wrist_variant]
+        mt = el(robot, "link", name="wrist_cam_mount_link")
+        ixx, iyy, izz = box_inertia(0.014, 0.066, 0.043, 0.035)
+        add_inertial(mt, reg["volume_cm3"] * 0.0013, (-0.035, -0.025, 0.0175), ixx, iyy, izz)
+        add_mesh(mt, f"{mesh_prefix}/mount/{reg['mesh']}", scale=0.001, material="printed_white", collision=True)
+        add_fixed_joint(robot, "wrist_cam_mount_joint", "arm_gripper_link", "wrist_cam_mount_link",
+                        xyz=(-0.0150, 0.0240, -0.0315), rpy=(-1.5708, -0.0008, -1.5708))
+        cam = el(robot, "link", name="wrist_camera_link")       # x = view direction (ROS camera_link convention)
+        add_inertial(cam, 0.012, (-0.004, 0, 0), 1e-6, 1e-6, 1e-6)
+        add_mesh(cam, f"{mesh_prefix}/rover/usb_camera.stl", xyz=(-0.017, 0, 0), material="camera_board")
+        # official camera mesh: body extends along +z away from the plate, lens at the -z end looking through the window
+        # toward the gripper; our camera_link has +x along the lens, so map +x -> official -z.  The variant's extension /
+        # tilt (camera_rot_rows, camera_xyz_mm from make_wrist_mount.py) is applied on top.
+        Rvar = np.array(reg["camera_rot_rows"])
+        Rz_lens = Rvar @ R.from_euler("xyz", [0, -1.5708, -2.0076]).as_matrix() @ R.from_euler("y", -math.pi / 2).as_matrix()
+        add_fixed_joint(robot, "wrist_camera_joint", "wrist_cam_mount_link", "wrist_camera_link",
+                        xyz=np.array(reg["camera_xyz_mm"]) / 1000.0, rpy=rpy_from_matrix(Rz_lens))
         el(robot, "link", name="wrist_camera_optical_frame")
-        add_fixed_joint(robot, "wrist_camera_optical_joint", "wrist_cam_cradle_link", "wrist_camera_optical_frame",
-                        xyz=LENS_P, rpy=rpy_from_matrix(Rc))
+        add_fixed_joint(robot, "wrist_camera_optical_joint", "wrist_camera_link", "wrist_camera_optical_frame",
+                        rpy=(-math.pi / 2, 0, -math.pi / 2))
+    elif wrist_mount == "v2":
+        br = el(robot, "link", name="wrist_cam_bracket_link")
+        ixx, iyy, izz = box_inertia(0.016, 0.10, 0.08, 0.04)
+        add_inertial(br, 0.016, (0.030, -0.070, 0.005), ixx, iyy, izz)
+        add_mesh(br, f"{mesh_prefix}/mount/wrist_cam_bracket_v2.stl", scale=0.001, material="printed_white")
+        add_box(br, (0.040, 0.075, 0.020), xyz=(0.005, -0.065, 0.010), rpy=(0, 0, -0.6), visual=False, collision=True)
+        # bracket STL frame -> gripper_link: Rx(pi) + (0, -0.218, 0.95) mm (same as the official wrist_roll_follower visual)
+        add_fixed_joint(robot, "wrist_cam_bracket_joint", "arm_gripper_link", "wrist_cam_bracket_link",
+                        xyz=(0, -0.000218, 0.000950), rpy=(math.pi, 0, 0))
+        # camera body frame (ROS camera_link convention): x = view direction, y = left, z = up
+        xv = AIM_TARGET - USB_CAM_LENS; xv /= np.linalg.norm(xv)
+        up_hint = np.array([0.0, 0.0, -1.0])                      # bracket frame z points away from the fingers' up side
+        yv = np.cross(up_hint, xv); yv /= np.linalg.norm(yv); zv = np.cross(xv, yv)
+        Rcam = np.column_stack([xv, yv, zv])
+        cam = el(robot, "link", name="wrist_camera_link")
+        add_inertial(cam, 0.012, (-0.006, 0, 0), 1e-6, 1e-6, 1e-6)
+        add_mesh(cam, f"{mesh_prefix}/rover/usb_camera.stl", xyz=(-0.017, 0, 0), material="camera_board")
+        add_fixed_joint(robot, "wrist_camera_joint", "wrist_cam_bracket_link", "wrist_camera_link",
+                        xyz=USB_CAM_LENS, rpy=rpy_from_matrix(Rcam))
+        el(robot, "link", name="wrist_camera_optical_frame")
+        add_fixed_joint(robot, "wrist_camera_optical_joint", "wrist_camera_link", "wrist_camera_optical_frame",
+                        rpy=(-math.pi / 2, 0, -math.pi / 2))
 
-    # ---------------- optional arm battery (3S 26700 pack, 80x27x72 mm, 0.3 kg) strapped beside the plate
+    # ---------------- optional arm battery (3S 26700 Li-ion pack, 0.3 kg): there is no room on the 125 mm deck top,
+    # so it stands on the lower body behind the Jetson, 27 mm thick along x, 80 mm across, 72 mm tall (clears the deck)
     if arm_battery:
         b = el(robot, "link", name="arm_battery_link")
-        ixx, iyy, izz = box_inertia(0.30, 0.080, 0.027, 0.072)
+        ixx, iyy, izz = box_inertia(0.30, 0.027, 0.080, 0.072)
         add_inertial(b, 0.30, (0, 0, 0.036), ixx, iyy, izz)
-        add_box_visual(b, (0.080, 0.027, 0.072), xyz=(0, 0, 0.036), rgba=(0.05, 0.05, 0.05, 1))
-        add_fixed_joint(robot, "arm_battery_joint", "base_link", "arm_battery_link", xyz=(CODEX_X0 - 0.045, 0.082, TRAY_TOP_Z))
+        add_box(b, (0.027, 0.080, 0.072), xyz=(0, 0, 0.036), material="battery_black", collision=True)
+        add_fixed_joint(robot, "arm_battery_joint", "base_link", "arm_battery_link", xyz=(-0.050, 0, LOWER_BODY_TOP))
 
-    # ---------------- MuJoCo extension (ignored by ROS / Isaac)
+    # ---------------- simulator extensions (ignored by robot_state_publisher and Isaac Sim)
+    gazebo_camera(robot, "3d_camera_link", "front_camera", math.radians(69), 1280, 960, 0.05, 20.0)   # 69 x 54 deg at 4:3
+    if wrist_mount in ("v2", "pi"):
+        gazebo_camera(robot, "wrist_camera_link", "wrist_camera", math.radians(120), 640, 480, 0.02, 5.0)
+    g = el(robot, "gazebo", reference="base_lidar_link")
+    s = el(g, "sensor", name="lidar", type="gpu_lidar")
+    el(s, "update_rate").text = "10"; el(s, "always_on").text = "1"; el(s, "topic").text = "scan"
+    el(s, "gz_frame_id").text = "base_lidar_link"
+    ray = el(s, "lidar"); sc = el(ray, "scan"); hz = el(sc, "horizontal")
+    el(hz, "samples").text = "456"; el(hz, "resolution").text = "1"; el(hz, "min_angle").text = "-3.14159"; el(hz, "max_angle").text = "3.14159"
+    rg = el(ray, "range"); el(rg, "min").text = "0.02"; el(rg, "max").text = "12.0"; el(rg, "resolution").text = "0.01"
     mj = el(robot, "mujoco")
     el(mj, "compiler", meshdir=".", balanceinertia="true", discardvisual="false", strippath="false")
-
-    tree = ET.ElementTree(robot)
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
-    tree.write(out_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
+    ET.ElementTree(robot).write(out_path, pretty_print=True, xml_declaration=True, encoding="utf-8")
     return out_path
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--spacer", type=float, default=0.006, help="spacer height under the plate, m (0 if bolted flat)")
-    ap.add_argument("--tilt", type=float, default=45.0, help="wrist camera tilt, degrees (7.5 deg steps, 37.5 is the design reference)")
-    ap.add_argument("--arm-battery", action="store_true", help="add the 3S Li-ion arm battery pack beside the plate")
-    ap.add_argument("--no-wrist-camera", action="store_true")
-    ap.add_argument("--arm-facing", choices=["rear", "front"], default="rear",
-                    help="rear = as built with the revision-A plate (default); front = mirrored plate, arm reaches forward")
+    ap.add_argument("--deck-height", type=float, default=0.175, help="ground to top of the upper metal deck, m (measured 0.175)")
+    ap.add_argument("--spacer", type=float, default=0.0, help="spacer height under the printed plate, m (0 = bolted flat, as built)")
+    ap.add_argument("--lidar-to-yaw", type=float, default=0.065, help="LiDAR centre to arm yaw axis, m (from the photos)")
+    ap.add_argument("--arm-facing", choices=["front", "rear"], default="front",
+                    help="front = as built (plate triangle to the rear); rear = Codex's drawing orientation")
+    ap.add_argument("--wrist-mount", choices=["pi", "v2", "none"], default="pi",
+                    help="pi = official-style wrist mount redrawn for the 25x24 mm Pi-board camera (current); "
+                         "v2 = the rod bracket that broke; none = no wrist camera")
+    ap.add_argument("--arm-battery", action="store_true", help="add the 3S Li-ion arm battery pack behind the Jetson")
+    ap.add_argument("--wrist-variant", default="default", help="entry of meshes/mount/wrist_mounts.json: default, ext20, ext20_tilt15, ...")
     a = ap.parse_args()
-    ros = build("package://so101_rover_description/meshes", a.spacer, a.tilt, a.arm_battery, not a.no_wrist_camera,
-                os.path.join(PKG, "urdf", "so101_rover.urdf"), a.arm_facing)
-    sim = build("../meshes", a.spacer, a.tilt, a.arm_battery, not a.no_wrist_camera,
-                os.path.join(PKG, "mujoco", "so101_rover_sim.urdf"), a.arm_facing)
-    print("wrote", ros); print("wrote", sim)
+    kw = dict(deck_height=a.deck_height, spacer=a.spacer, lidar_to_yaw=a.lidar_to_yaw, arm_facing=a.arm_facing,
+              wrist_mount=a.wrist_mount, arm_battery=a.arm_battery, wrist_variant=a.wrist_variant)
+    print("wrote", build("package://so101_rover_description/meshes", os.path.join(PKG, "urdf", "so101_rover.urdf"), **kw))
+    print("wrote", build("../meshes", os.path.join(PKG, "mujoco", "so101_rover_sim.urdf"), **kw))
+    with open(os.path.join(PKG, "urdf", "build_params.json"), "w") as f:      # read by tests/check_model.py
+        json.dump(kw, f, indent=2)

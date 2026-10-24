@@ -5,6 +5,10 @@
 import os, sys, numpy as np
 PKG = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(PKG)
+os.makedirs("export", exist_ok=True)
+for f in os.listdir("export"):
+    if f.startswith("view_"):
+        os.remove(os.path.join("export", f))
 import yourdfpy, trimesh, mujoco
 from PIL import Image
 
@@ -30,7 +34,9 @@ for j, v in POSE.items():
 mujoco.mj_forward(m, d)
 rr = mujoco.Renderer(m, 800, 1280); opt = mujoco.MjvOption(); opt.geomgroup[:] = 0; opt.geomgroup[1] = 1; opt.geomgroup[2] = 1
 camv = mujoco.MjvCamera(); camv.type = mujoco.mjtCamera.mjCAMERA_FREE; camv.lookat[:] = [0.0, 0, 0.22]; camv.distance = 0.62
-views = [("side_left", 90, -5), ("front_3q", 40, -20), ("rear_3q", 215, -25), ("top", 90, -89), ("front", 0, -8), ("rear", 180, -8)]
+# MuJoCo free camera sits at lookat - distance * forward(azimuth): azimuth 180 looks back at the robot's front.
+# Names and angles match reference_photos/: side_right.jpg, front.jpg, front_3q.jpg
+views = [("side_right", 90, -5), ("front_3q", 215, -20), ("rear_3q", 40, -25), ("top", 0, -89), ("front", 180, -8), ("rear", 0, -8)]
 imgs = []
 for name, az, elv in views:
     camv.azimuth = az; camv.elevation = elv; rr.update_scene(d, camv, opt)

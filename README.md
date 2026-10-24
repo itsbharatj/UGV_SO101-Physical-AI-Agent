@@ -1,9 +1,9 @@
 # so101_rover_description
 
 URDF / MJCF of a **Waveshare UGV Rover (Jetson Orin ROS 2 kit)** carrying an **SO-101 follower arm** on a
-3D-printed adapter plate, with a **Waveshare 160° USB camera** on a fixed wrist bracket and the **OAK-D Lite**
-at the rover's front. Built and checked for Isaac Sim, MuJoCo, Gazebo and RViz. Matches the robot as built on
-24 Oct 2026 (see `reference_photos/`).
+3D-printed adapter plate, with a **Waveshare 160° USB camera** on the wrist and the **OAK-D Lite** at the rover's
+front. Checked for Isaac Sim, MuJoCo, Gazebo and RViz. Matched to the robot as built on 24 Oct 2026, against the
+photos in `reference_photos/`.
 
 ![render](export/so101_rover_views.png)
 
@@ -11,54 +11,84 @@ at the rover's front. Built and checked for Isaac Sim, MuJoCo, Gazebo and RViz. 
 
 | Part | Source | Notes |
 |---|---|---|
-| Lower body, 4 driven wheels, LiDAR, front OAK-D Lite | Waveshare `ugv_description/urdf/ugv_rover.urdf` (geometry and inertia unchanged) | pan-tilt removed; collision = box body + cylinder wheels |
-| Upper deck (metal plate), 4 brass pillars, Jetson Orin Nano | this package, schematic boxes at measured heights | deck top 0.175 m above ground |
-| Printed adapter plate | `SO101_UGV_Rover_Mount/FINAL_FILES/01_adapter_print_1.stl` | bolted flat (no spacers), triangle toward the rear, 0.105 kg |
-| SO-101 follower arm | TheRobotStudio `Simulation/SO101/so101_new_calib.urdf` | link names prefixed `arm_`; joint names unchanged: `shoulder_pan shoulder_lift elbow_flex wrist_flex wrist_roll gripper` (LeRobot order); reaches **forward** |
-| Wrist camera | `SO101_OAK_RGB_v2` fixed bracket + Waveshare USB camera module (`pt_camera` mesh), 160° lens | aimed at the fixed-finger pad per the bracket's `pose.json` |
-| Optional arm battery | 3S 26700 Li-ion pack, 80×27×72 mm, 0.30 kg | `--arm-battery` |
-| Optional spacers | `02_spacer_6mm` print, 6 mm | `--spacer 0.006`; not fitted as built |
+| Lower body, LiDAR, front OAK-D Lite, 4 driven wheels | Waveshare `ugv_description/urdf/ugv_rover.urdf` | body mesh cut at its real flat top (0.093 m); Waveshare's mesh carries a 2.8 cm cover the Jetson kit does not have |
+| 2 passive middle wheels | added | the rover has 6 wheels, 4 driven; collision cylinders, the body mesh draws them |
+| Upper deck, 4 brass standoffs, Jetson Orin Nano | added, schematic boxes | deck top 0.175 m above ground (measured) |
+| Printed adapter plate | `SO101_UGV_Rover_Mount/FINAL_FILES/01_adapter_print_1.stl` | bolted flat on the deck, triangle toward the rear |
+| SO-101 follower arm | TheRobotStudio `Simulation/SO101/so101_new_calib.urdf` | links prefixed `arm_`; joint names unchanged and in LeRobot order: `shoulder_pan shoulder_lift elbow_flex wrist_flex wrist_roll gripper`; reaches **forward** over the LiDAR |
+| Wrist camera | `SO101_OAK_RGB_v2` bracket + Waveshare USB camera module | camera tied where the bracket rods meet the U-frame, aimed at the fixed-finger pad |
+| Optional | 3S Li-ion arm battery (`--arm-battery`), 6 mm spacers (`--spacer 0.006`) | not fitted as built |
 
-Frames follow ROS conventions: `base_footprint` on the ground, `base_link` 0.08 m up, x forward, z up.
-Extra frames: `front_camera_optical_frame`, `wrist_camera_optical_frame` (z = optical axis, x right, y down),
-`arm_gripper_frame_link` (between the fingertips), `base_lidar_link`, `base_imu_link`.
+**Frames** follow ROS conventions. `base_footprint` is on the ground and `base_link` is 0.081 m up, with x forward and z up.
+
+| Frame | What it is |
+|---|---|
+| `front_camera_optical_frame`, `wrist_camera_optical_frame` | camera frames: z along the optical axis, x right, y down |
+| `wrist_camera_link` | camera body frame: x along the view direction |
+| `arm_gripper_frame_link` | point between the fingertips |
+| `base_lidar_link`, `base_imu_link` | LiDAR and IMU, from Waveshare |
+
+**Sensors**
+
+| Sensor | Field of view | Range |
+|---|---|---|
+| Front OAK-D Lite (RGB) | 69° × 54° | 0.05 to 20 m |
+| Wrist USB camera | 160° fisheye; simulated as 120° pinhole | 0.02 to 5 m |
+| LiDAR | 360° | 0.02 to 12 m |
+
+All three are in the URDF's `<gazebo>` blocks. The MJCF carries the two cameras as `front_camera` and `wrist_camera`, plus a `gripper_frame` site.
 
 ## Files
 
 ```
 urdf/so101_rover.urdf          ROS version   (mesh paths package://so101_rover_description/meshes/...)
-mujoco/so101_rover_sim.urdf    plain version (mesh paths ../meshes/...)  -> Isaac Sim, MuJoCo, anything non-ROS
-mujoco/so101_rover.xml         MJCF with actuators (position servos on the 6 arm joints, velocity on 4 wheels)
+mujoco/so101_rover_sim.urdf    plain version (mesh paths ../meshes/...)  -> Isaac Sim, Gazebo without ROS, other tools
+mujoco/so101_rover.xml         MJCF: free-floating rover on a floor, actuators, cameras  -> MuJoCo
 export/so101_rover_assembly.*  whole robot as one STL (m and mm) and a coloured GLB, arm in a display pose
-export/view_*.png              renders from the same angles as the reference photos
+export/view_*.png              renders from the same angles as reference_photos/
 meshes/rover|so101|mount       STL meshes (rover and arm in metres, printed parts in mm with scale 0.001)
-scripts/build_urdf.py          regenerates both URDFs from the upstream files in source_models/
-tests/check_model.py           parse + kinematics + 3 s MuJoCo simulation + MJCF export
-tests/export_views.py          STL/GLB export and reference renders
+scripts/build_urdf.py          builds both URDFs from the upstream files in source_models/
+scripts/build_mjcf.py          builds the MJCF from the plain URDF
+tests/check_model.py           read-only checks: URDF tree, meshes, inertias, measured heights, 3 s MuJoCo run, camera images
+tests/export_views.py          STL / GLB export and reference renders
 reference_photos/              photos of the real robot the model was matched to
 ```
 
 ## Using it
 
-**Isaac Sim**: File → Import → URDF, pick `mujoco/so101_rover_sim.urdf`. Keep "merge fixed joints" on, set the
-wheel joints to velocity drive and the arm joints to position drive. Mesh paths are relative, no ROS needed.
+**Isaac Sim**: File → Import → URDF and pick `mujoco/so101_rover_sim.urdf`.
 
-**MuJoCo**: `python -m mujoco.viewer --mjcf mujoco/so101_rover.xml`. Control vector: 6 arm joint targets (rad,
-LeRobot order) then 4 wheel speeds (rad/s). The URDF also loads directly; it carries a `<mujoco>` compiler block.
+- Keep "merge fixed joints" on.
+- Set the four driven wheel joints to velocity drive, the arm joints to position drive, and the middle wheels to no drive.
+- Mesh paths are relative, so no ROS is needed.
+- The importer renames `3d_camera_link` to `_3d_camera_link`, because prim names can't start with a digit. The name is kept so the TF frame matches Waveshare's ROS stack.
 
-**ROS 2**: copy the folder into your workspace, `colcon build`, then
-`ros2 launch so101_rover_description display.launch.py` for RViz with joint sliders.
+**MuJoCo**: `python -m mujoco.viewer --mjcf mujoco/so101_rover.xml`. The control vector is:
 
-**Regenerate** with different parameters, then re-run the checks:
+1. the 6 arm joint targets in radians, in LeRobot order;
+2. then the 4 driven wheel speeds in rad/s: left up, left down, right up, right down.
+
+Use the MJCF, not the URDF. Loaded raw, the URDF welds the rover to the world.
+
+**ROS 2**: copy the folder into your workspace, run `colcon build`, then `ros2 launch so101_rover_description display.launch.py` for RViz with joint sliders.
+
+**Rebuild** after changing a parameter:
 
 ```bash
-python3 scripts/build_urdf.py                                   # as built
-python3 scripts/build_urdf.py --lidar-to-yaw 0.060              # if you measure a different LiDAR-to-arm distance
-python3 scripts/build_urdf.py --spacer 0.006                    # if the 6 mm spacers are fitted
-python3 scripts/build_urdf.py --arm-battery                     # add the arm's Li-ion pack
-python3 scripts/build_urdf.py --wrist-mount none                # arm without the wrist camera
+python3 scripts/build_urdf.py [options] && python3 scripts/build_mjcf.py
 python3 tests/check_model.py && python3 tests/export_views.py
 ```
+
+| Option | Default | Use |
+|---|---|---|
+| `--deck-height` | 0.175 | ground to top of the upper metal deck, m |
+| `--lidar-to-yaw` | 0.065 | LiDAR centre to the arm's yaw axis, m (read off the photos) |
+| `--spacer` | 0 | spacer height under the plate, m |
+| `--arm-battery` | off | add the 3S arm battery on the deck |
+| `--wrist-mount none` | v2 | arm without the wrist camera |
+| `--arm-facing rear` | front | the plate's other orientation (arm reaches backward) |
+
+Python needs `numpy scipy lxml yourdfpy mujoco trimesh pillow`.
 
 ## Key dimensions (as modelled)
 
@@ -66,30 +96,30 @@ python3 tests/check_model.py && python3 tests/export_views.py
 |---|---|
 | Ground → top of the upper metal deck | 0.175 m (measured) |
 | Ground → underside of the SO-101 base | 0.185 m (deck + 10 mm plate) |
-| Top of the lower body (Waveshare mesh) → SO-101 base | 0.065 m in the model (0.085 m measured; Waveshare's lower-body mesh is ~2 cm taller than the Jetson-kit body, see below) |
-| LiDAR centre → arm yaw axis | 0.055 m (estimated from the photos, see check 2) |
-| Front OAK-D Lite centre | 0.018 m below the deck, at the deck's front edge |
-| Total mass | 4.48 kg (rover 3.6, arm 0.63, plate + wrist camera 0.15, no battery) |
+| Ground → top of the lower body | 0.093 m (from the photos; 9.2 cm from the lower body to the arm base) |
+| LiDAR centre → arm yaw axis | 0.065 m |
+| Wheel diameter | 0.080 m, 6 wheels, 4 driven |
+| Total mass | 4.46 kg (rover body 2.37 + 6 wheels 1.24, arm 0.63, plate 0.11, LiDAR + OAK 0.09, wrist camera 0.03; no battery) |
 
-## Things to check against the real robot
+## Known approximations
 
-1. **Arm facing.** As built the plate's triangle points to the rear, so the SO-101's motor-holder end is at the rear and
-   the arm reaches forward over the LiDAR. The model does the same (`--arm-facing rear` gives the other orientation).
-2. **Fore/aft position.** The arm's yaw axis is placed 55 mm behind the LiDAR centre, read off the side photos. Measure
-   it once (LiDAR centre to the centre of the arm's first motor) and pass `--lidar-to-yaw` if it differs.
-3. **Lower body height.** Waveshare's lower-body mesh tops out at 0.12 m; your measurements put the real top at about
-   0.10 m. Only the look of the gap under the deck is affected; the deck, LiDAR, camera and arm are at measured heights.
-4. **Wheels.** Waveshare models 4 driven wheels; the middle pair is part of the body mesh and not simulated.
-5. **Wrist camera aim.** The USB camera is tied to a bracket designed for the OAK-D Lite, so its exact aim is approximate.
-   Correct `wrist_camera_optical_joint` after calibrating against a real image if you need it precise.
-6. Inertias of the printed parts, deck and Jetson are box approximations. Rover and arm inertias are the upstream values.
+1. **Lower body to arm base:** 9.2 cm in the model against your 8.5 cm tape measurement. The photos give 9.3 cm, so the model follows the photos.
+2. **Arm fore/aft position:** read off the photos, good to about ±1 cm. Measure the LiDAR centre to the centre of the arm's first motor and pass `--lidar-to-yaw` to make it exact.
+3. **Wrist camera:** the USB board is tied by hand to a bracket designed for the OAK-D Lite, so its pose is approximate. Calibrate it against a real image if precise extrinsics matter, then edit `USB_CAM_LENS` in `scripts/build_urdf.py`.
+4. **Deck, standoffs and Jetson:** simple boxes at measured positions.
+5. **Printed parts:** box inertias. The rover and arm inertias are the upstream values.
 
 ## Printing the parts
 
-The two printed parts on the robot are in `meshes/mount/` at true size in millimetres:
-`rover_adapter_plate.stl` (black, PETG, 60% infill) and `wrist_cam_bracket_v2.stl` (white, PETG or ASA, 40% infill).
+The two printed parts on the robot are in `meshes/mount/`, at true size in millimetres:
+
+- `rover_adapter_plate.stl`: black PETG, 60% infill.
+- `wrist_cam_bracket_v2.stl`: white PETG or ASA, 40% infill.
 
 ## Licences
 
-Rover meshes and URDF: Waveshare `ugv_ws` (open source, see upstream). SO-101 meshes and URDF: TheRobotStudio
-SO-ARM100, Apache-2.0. Adapter, bracket and this package: MIT.
+| Files | Licence |
+|---|---|
+| Rover meshes and URDF | Waveshare `ugv_ws`; see that repo |
+| SO-101 meshes and URDF | TheRobotStudio SO-ARM100, Apache-2.0 |
+| Adapter, bracket and this package | MIT |

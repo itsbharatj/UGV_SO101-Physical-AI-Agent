@@ -125,6 +125,16 @@ The two printed parts on the robot are in `meshes/mount/`, at true size in milli
   as supplied (standing on its 35 mm-wide edge, the orientation with the least overhang): PETG or ASA, 0.2 mm layers,
   4 walls, 40% infill, supports from the build plate only, 5 mm brim. Fit the camera with 4 × M2 × 8 screws and M2
   nuts; the slots take 20–21 × 12.5–13.5 mm hole patterns. Two M3 × 8 screws hold it to the wrist's two threaded holes.
+- Variants of the wrist mount, from `scripts/make_wrist_mount.py` (`--offset` moves the camera sideways away from the
+  gripper body, `--extend` moves it back, `--tilt auto` re-aims it at the fingertips); each has a `_PRINT.stl` in
+  `export/print/` and an entry in `meshes/mount/wrist_mounts.json`. Compare them with `tests/compare_wrist_mounts.py`:
+
+  | variant | camera | gripper body in the simulated image | use |
+  |---|---|---|---|
+  | `default` | official position | 24% | `--wrist-variant default` |
+  | `side20` | 20 mm sideways, yawed 18° toward the fingers | 17% | `--wrist-variant side20` (recommended) |
+  | `side30_ext10` | 30 mm sideways and 10 mm back, yawed 21° | 15% | `--wrist-variant side30_ext10` |
+
 - `wrist_cam_bracket_v2.stl`: the earlier rod bracket, kept for `--wrist-mount v2`.
 
 ## Licences

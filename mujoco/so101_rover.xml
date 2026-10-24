@@ -154,7 +154,7 @@
                   <geom pos="0 -0.028 0.0181" quat="0.499998 -0.5 -0.5 -0.500002" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.93 0.93 0.95 1" density="0" mesh="wrist_roll_pitch_so101_v2"/>
                   <geom pos="0 -0.028 0.0181" quat="0.499998 -0.5 -0.5 -0.500002" type="mesh" group="3" rgba="0.93 0.93 0.95 1" mesh="wrist_roll_pitch_so101_v2"/>
                   <body name="arm_gripper_link" pos="0 -0.0611 0.0181" quat="0.0172101 -0.0172081 0.706899 0.706896">
-                    <inertial pos="0.00073976 0.0154799 -0.0191159" quat="0.300521 0.411943 -0.729436 0.455975" mass="0.113" diaginertia="0.000150417 0.000138562 4.73191e-05"/>
+                    <inertial pos="0.000752443 0.0157936 -0.0190252" quat="0.300536 0.411327 -0.729094 0.457067" mass="0.11382" diaginertia="0.000152073 0.000140225 4.73498e-05"/>
                     <joint name="wrist_roll" range="-2.74385 2.84121" actuatorfrcrange="-10 10" armature="0.028" damping="0.6" frictionloss="0.05"/>
                     <geom pos="0.0077 0.0001 -0.0234" quat="0.707105 -0.707108 0 0" type="mesh" contype="0" conaffinity="0" group="1" rgba="0.1 0.1 0.1 1" density="0" mesh="sts3215_03a_v1"/>
                     <geom pos="0.0077 0.0001 -0.0234" quat="0.707105 -0.707108 0 0" type="mesh" group="3" rgba="0.1 0.1 0.1 1" mesh="sts3215_03a_v1"/>

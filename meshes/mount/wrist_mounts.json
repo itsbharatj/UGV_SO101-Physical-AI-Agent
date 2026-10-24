@@ -1,0 +1,89 @@
+{
+  "default": {
+    "mesh": "wrist_cam_mount_pi_board.stl",
+    "extend_mm": 0.0,
+    "offset_mm": 0.0,
+    "tilt_deg": 0.0,
+    "camera_xyz_mm": [
+      -49.41,
+      -38.13,
+      17.5
+    ],
+    "camera_rot_rows": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "volume_cm3": 11.4
+  },
+  "side20": {
+    "mesh": "wrist_cam_mount_pi_board_side20.stl",
+    "extend_mm": 0.0,
+    "offset_mm": 20.0,
+    "tilt_deg": -18.5,
+    "camera_xyz_mm": [
+      -61.93,
+      -19.081,
+      17.5
+    ],
+    "camera_rot_rows": [
+      [
+        0.94808,
+        0.318032,
+        0.0
+      ],
+      [
+        -0.318032,
+        0.94808,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "volume_cm3": 14.8
+  },
+  "side30_ext10": {
+    "mesh": "wrist_cam_mount_pi_board_side30_ext10.stl",
+    "extend_mm": 10.0,
+    "offset_mm": 30.0,
+    "tilt_deg": -21.0,
+    "camera_xyz_mm": [
+      -72.103,
+      -19.684,
+      17.5
+    ],
+    "camera_rot_rows": [
+      [
+        0.933452,
+        0.358703,
+        0.0
+      ],
+      [
+        -0.358703,
+        0.933452,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "volume_cm3": 17.4
+  }
+}

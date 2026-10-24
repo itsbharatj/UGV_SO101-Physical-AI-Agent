@@ -148,7 +148,7 @@ def gazebo_camera(robot, link, name, hfov_rad, width, height, near, far, rate=30
 
 
 def build(mesh_prefix, out_path, deck_height=0.175, spacer=0.0, lidar_to_yaw=0.065, arm_facing="front",
-          wrist_mount="pi", arm_battery=False):
+          wrist_mount="pi", arm_battery=False, wrist_variant="default"):
     deck_z = deck_height - BASE_LINK_Z                      # top of the upper metal deck, base_link frame
     plate_z = deck_z + spacer                               # underside of the printed plate
     arm_base_z = plate_z + PLATE_T - SO101_BASE_BOTTOM      # SO-101 base_link origin
@@ -305,20 +305,23 @@ def build(mesh_prefix, out_path, deck_height=0.175, spacer=0.0, lidar_to_yaw=0.0
     # ---------------- wrist camera, official-style mount redrawn for the 25 x 24 mm Pi-board camera (scripts/make_wrist_mount.py)
     if wrist_mount == "pi":
         # mount and camera poses are TheRobotStudio's (so101_new_calib_camera.urdf): same optical axis as the official wrist camera
+        reg = json.load(open(os.path.join(PKG, "meshes", "mount", "wrist_mounts.json")))[wrist_variant]
         mt = el(robot, "link", name="wrist_cam_mount_link")
         ixx, iyy, izz = box_inertia(0.014, 0.066, 0.043, 0.035)
-        add_inertial(mt, 0.014, (-0.035, -0.025, 0.0175), ixx, iyy, izz)
-        add_mesh(mt, f"{mesh_prefix}/mount/wrist_cam_mount_pi_board.stl", scale=0.001, material="printed_white", collision=True)
+        add_inertial(mt, reg["volume_cm3"] * 0.0013, (-0.035, -0.025, 0.0175), ixx, iyy, izz)
+        add_mesh(mt, f"{mesh_prefix}/mount/{reg['mesh']}", scale=0.001, material="printed_white", collision=True)
         add_fixed_joint(robot, "wrist_cam_mount_joint", "arm_gripper_link", "wrist_cam_mount_link",
                         xyz=(-0.0150, 0.0240, -0.0315), rpy=(-1.5708, -0.0008, -1.5708))
         cam = el(robot, "link", name="wrist_camera_link")       # x = view direction (ROS camera_link convention)
         add_inertial(cam, 0.012, (-0.004, 0, 0), 1e-6, 1e-6, 1e-6)
         add_mesh(cam, f"{mesh_prefix}/rover/usb_camera.stl", xyz=(-0.017, 0, 0), material="camera_board")
         # official camera mesh: body extends along +z away from the plate, lens at the -z end looking through the window
-        # toward the gripper; our camera_link has +x along the lens, so map +x -> official -z
-        Rz_lens = R.from_euler("xyz", [0, -1.5708, -2.0076]).as_matrix() @ R.from_euler("y", -math.pi / 2).as_matrix()
+        # toward the gripper; our camera_link has +x along the lens, so map +x -> official -z.  The variant's extension /
+        # tilt (camera_rot_rows, camera_xyz_mm from make_wrist_mount.py) is applied on top.
+        Rvar = np.array(reg["camera_rot_rows"])
+        Rz_lens = Rvar @ R.from_euler("xyz", [0, -1.5708, -2.0076]).as_matrix() @ R.from_euler("y", -math.pi / 2).as_matrix()
         add_fixed_joint(robot, "wrist_camera_joint", "wrist_cam_mount_link", "wrist_camera_link",
-                        xyz=(-0.04941, -0.03813, 0.0175), rpy=rpy_from_matrix(Rz_lens))
+                        xyz=np.array(reg["camera_xyz_mm"]) / 1000.0, rpy=rpy_from_matrix(Rz_lens))
         el(robot, "link", name="wrist_camera_optical_frame")
         add_fixed_joint(robot, "wrist_camera_optical_joint", "wrist_camera_link", "wrist_camera_optical_frame",
                         rpy=(-math.pi / 2, 0, -math.pi / 2))
@@ -383,9 +386,10 @@ if __name__ == "__main__":
                     help="pi = official-style wrist mount redrawn for the 25x24 mm Pi-board camera (current); "
                          "v2 = the rod bracket that broke; none = no wrist camera")
     ap.add_argument("--arm-battery", action="store_true", help="add the 3S Li-ion arm battery pack behind the Jetson")
+    ap.add_argument("--wrist-variant", default="default", help="entry of meshes/mount/wrist_mounts.json: default, ext20, ext20_tilt15, ...")
     a = ap.parse_args()
     kw = dict(deck_height=a.deck_height, spacer=a.spacer, lidar_to_yaw=a.lidar_to_yaw, arm_facing=a.arm_facing,
-              wrist_mount=a.wrist_mount, arm_battery=a.arm_battery)
+              wrist_mount=a.wrist_mount, arm_battery=a.arm_battery, wrist_variant=a.wrist_variant)
     print("wrote", build("package://so101_rover_description/meshes", os.path.join(PKG, "urdf", "so101_rover.urdf"), **kw))
     print("wrote", build("../meshes", os.path.join(PKG, "mujoco", "so101_rover_sim.urdf"), **kw))
     with open(os.path.join(PKG, "urdf", "build_params.json"), "w") as f:      # read by tests/check_model.py

@@ -64,6 +64,18 @@ if "wrist_camera_optical_frame" in robot.link_map:
 
 print("2. MuJoCo")
 import mujoco
+
+
+def seg_model(xml_path):
+    """Same model without the skybox: MuJoCo's segmentation renderer returns garbage ids for sky pixels."""
+    import re, tempfile
+    txt = open(xml_path).read()
+    txt = re.sub(r'<texture[^>]*name="sky"[^>]*/>', "", txt)
+    tmp = os.path.join(os.path.dirname(xml_path), "_seg_tmp.xml")
+    open(tmp, "w").write(txt)
+    mm = mujoco.MjModel.from_xml_path(tmp); os.remove(tmp)
+    return mm
+
 m = mujoco.MjModel.from_xml_path(MJCF); d = mujoco.MjData(m)
 print(f"  nbody={m.nbody} njnt={m.njnt} nu={m.nu} ncam={m.ncam} mass={sum(m.body_mass):.3f} kg")
 check(m.nu == 10 and m.ncam >= 1, "10 actuators and the cameras are present")
@@ -85,7 +97,8 @@ try:
         name = mujoco.mj_id2name(m, mujoco.mjtObj.mjOBJ_CAMERA, c)
         r.update_scene(d, camera=c); Image.fromarray(r.render()).save(os.path.join(OUT, f"cam_{name}.png"))
         if name == "wrist_camera":                    # the jaws must be visible, not hidden behind collision boxes
-            r.enable_segmentation_rendering(); r.update_scene(d, camera=c); seg = r.render()[..., 0]; r.disable_segmentation_rendering()
+            ms = seg_model(MJCF); ds = mujoco.MjData(ms); ds.qpos[:] = d.qpos; mujoco.mj_forward(ms, ds)
+            rs = mujoco.Renderer(ms, 480, 640); rs.enable_segmentation_rendering(); rs.update_scene(ds, camera=c); seg = rs.render()[..., 0]
             jaw_bodies = {mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_BODY, b) for b in ("arm_gripper_link", "arm_moving_jaw_so101_v1_link")}
             jaw_geoms = [gi for gi in range(m.ngeom) if m.geom_bodyid[gi] in jaw_bodies and m.geom_group[gi] != 3]
             frac = np.isin(seg, jaw_geoms).mean()

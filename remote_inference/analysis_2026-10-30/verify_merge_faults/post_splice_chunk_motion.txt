@@ -1,0 +1,15 @@
+run5_frames n splices 29
+  all splices: jump median 8.9 | new-chunk motion over next 5 ticks median 2.4 p90 9.0 | largest in-chunk step in those ticks median 2.0 max 5.2 | |first executed action - state at capture| median 7.7 p90 20.3 max 71.0
+  splices with jump>15 (n=1): jump median 20.3; next-5-tick chunk motion median 2.4 (ratio motion/jump median 0.12); dist from capture-time state median 7.7 max 7.7; trim median 9
+  jump>15 splices where new chunk moved <10 deg in its next 5 ticks (chunk ~holding a far pose): 1 of 1
+  jump>15 splices where first executed action is >30 deg from the state at capture (trim median 9 steps = 0.30 s of 30fps trajectory): 0 of 1
+run6_frames n splices 32
+  all splices: jump median 10.6 | new-chunk motion over next 5 ticks median 2.7 p90 8.3 | largest in-chunk step in those ticks median 1.8 max 5.4 | |first executed action - state at capture| median 10.4 p90 23.0 max 75.6
+  splices with jump>15 (n=10): jump median 27.2; next-5-tick chunk motion median 2.2 (ratio motion/jump median 0.08); dist from capture-time state median 11.4 max 64.6; trim median 11
+  jump>15 splices where new chunk moved <10 deg in its next 5 ticks (chunk ~holding a far pose): 9 of 10
+  jump>15 splices where first executed action is >30 deg from the state at capture (trim median 11 steps = 0.37 s of 30fps trajectory): 1 of 10
+pi05_run2_frames n splices 56
+  all splices: jump median 33.7 | new-chunk motion over next 5 ticks median 5.7 p90 18.1 | largest in-chunk step in those ticks median 2.7 max 10.7 | |first executed action - state at capture| median 22.1 p90 56.8 max 113.8
+  splices with jump>15 (n=47): jump median 41.7; next-5-tick chunk motion median 6.0 (ratio motion/jump median 0.16); dist from capture-time state median 27.8 max 113.8; trim median 12
+  jump>15 splices where new chunk moved <10 deg in its next 5 ticks (chunk ~holding a far pose): 32 of 47
+  jump>15 splices where first executed action is >30 deg from the state at capture (trim median 12 steps = 0.40 s of 30fps trajectory): 20 of 47

@@ -1,0 +1,151 @@
+W1029 17:37:36.161000 69675 torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+objc[69675]: Class AVFFrameReceiver is implemented in both /Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/cv2/.dylibs/libavdevice.61.3.100.dylib (0x1042883a8) and /Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/av/.dylibs/libavdevice.61.3.100.dylib (0x12b5bc3a8). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+objc[69675]: Class AVFAudioReceiver is implemented in both /Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/cv2/.dylibs/libavdevice.61.3.100.dylib (0x1042883f8) and /Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/av/.dylibs/libavdevice.61.3.100.dylib (0x12b5bc3f8). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+INFO 2026-10-29 17:37:38 _rollout.py:247 Building rollout context...
+INFO 2026-10-29 17:37:38 e/client.py:128 Remote client lerobot_version=0.6.2 protocol=1
+INFO 2026-10-29 17:37:40 e/client.py:190 Remote server deployment=so101_jenga instance=c092053f9f174a74b3df88d7d3fd079c software={'lerobot_version': '0.6.2'} protocol=1
+INFO 2026-10-29 17:37:40 /context.py:339 Connecting robot (so100_follower)...
+INFO 2026-10-29 17:37:42 a_opencv.py:198 OpenCVCamera(0) connected.
+INFO 2026-10-29 17:37:44 a_opencv.py:198 OpenCVCamera(1) connected.
+INFO 2026-10-29 17:37:44 follower.py:128 SO-101 SOFollower connected.
+INFO 2026-10-29 17:37:44 /context.py:341 Robot connected: so_follower
+INFO 2026-10-29 17:37:44 /context.py:344 Captured initial robot position (6 keys)
+INFO 2026-10-29 17:37:45 e/client.py:361 Remote session ready: deployment=so101_jenga instance=c092053f9f174a74b3df88d7d3fd079c session=a08d9820dc4b4584ad8355c9fd510b41 mode=chunk merge=aligned action_rate=15.0 Hz horizon=3.333s; contract verified
+INFO 2026-10-29 17:37:45 /context.py:786 Remote rollout admitted: deployment=so101_jenga instance=c092053f9f174a74b3df88d7d3fd079c mode=chunk
+INFO 2026-10-29 17:37:45 _rollout.py:251 Rollout strategy: base
+INFO 2026-10-29 17:37:45 _rollout.py:252 Robot: so100_follower | FPS: 15 | Duration: infinite
+INFO 2026-10-29 17:37:45 gies/core.py:99 Starting inference engine...
+INFO 2026-10-29 17:37:45 e/engine.py:189 Remote session reset requested; previous motion is invalidated
+INFO 2026-10-29 17:37:45 ies/core.py:103 Inference engine started
+INFO 2026-10-29 17:37:45 e/engine.py:153 Remote execution: mode=chunk merge=aligned blend_steps=0 incoming_weight=0.50; action_rate=15.0 Hz horizon=3.333s refill=2.500s (effective=2.500s); max_source_age=8.000s action_timeout=12.000s startup_timeout=10.000s starvation_grace=10.000s
+INFO 2026-10-29 17:37:45 gies/base.py:40 Base strategy ready
+INFO 2026-10-29 17:37:45 _rollout.py:263 Rollout setup complete — starting interactive session (robot idle until /start)
+────────────────────────────────────────────────────────────
+Interactive rollout session — the robot will NOT move until you type /start.
+Task: 'pickup jenga and place inside the white box'
+Available commands:
+  /start                  start (or restart) the policy control loop
+  /subtask <text>         set the instruction the policy follows
+  /vqa <text>             ask the policy a question about what it sees
+  /autosteer <goal>|off   let the policy pick its own subtasks toward a high-level goal
+  /reset                  stop movement, return to initial position, restore the task
+  /stop                   end the session and shut down
+  /help                   show this help
+Routine system logs and warnings are muted during the session (errors and the cadence summary of each run still show).
+────────────────────────────────────────────────────────────
+Rollout running — task 'pickup jenga and place inside the white box'. /subtask <text> to change it, /reset to return to initial position, /stop to shut down.
+Cadence summary — whole run · target 15 Hz (66.7 ms budget per tick): 847 ticks, 846 judged
+  effective cadence: 14.55 Hz over 58.2 s measured
+  ticks over the 66.7 ms work budget: 0/846 (0.0%) — work mean 3.8 ms, worst 21.5 ms
+  ticks whose cadence slipped outside the loop body (sleep overshoot / CPU starvation while pacing): 456
+  loop-body steps (share of measured work):
+    observe      mean   1.53 ms · worst 155.10 ms ·  40.2% of work · 848 calls
+    process_obs  mean   2.11 ms · worst  19.90 ms ·  55.3% of work · 847 calls
+    telemetry    mean   0.00 ms · worst   0.16 ms ·   0.1% of work · 847 calls
+    query        mean   0.01 ms · worst   0.09 ms ·   0.3% of work · 847 calls
+    infer        mean   0.06 ms · worst   1.50 ms ·   1.5% of work · 752 calls
+    send         mean   0.16 ms · worst   2.59 ms ·   3.7% of work · 751 calls
+  pacing headroom: 64.9 ms slept per tick on average (max 83.7 ms) — near zero means the loop is saturated
+ERROR 2026-10-29 17:38:46 ntroller.py:431 Rollout strategy failed mid-segment
+Traceback (most recent call last):
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/motors/motors_bus.py", line 1233, in sync_read
+    read = self._connected_bus.sync_read_register_with_error(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: motor 1: Operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/rollout/controller.py", line 426, in _run_segment
+    self._strategy.run(self._ctx)
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/rollout/strategies/base.py", line 69, in run
+    obs = robot.get_observation()
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/rollout/robot_wrapper.py", line 52, in get_observation
+    observation = self._robot.get_observation()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/claude-501/-Users-bharatjain/018dccab-326f-457e-8e7d-081b76548077/scratchpad/rollout_record.py", line 67, in get_observation
+    obs = _observe(self)
+          ^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/utils/decorators.py", line 29, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/robots/so_follower/so_follower.py", line 166, in get_observation
+    obs_dict = self.bus.sync_read("Present_Position", num_retry=self.config.num_read_retries)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/utils/decorators.py", line 29, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/motors/motors_bus.py", line 1237, in sync_read
+    raise ConnectionError(
+ConnectionError: Failed to sync read 'Present_Position' from motor IDs [1, 2, 3, 4, 5, 6] after 3 tries. motor 1: Operation timed out
+Rollout strategy failed (robot or recording error) — shutting down.
+Traceback (most recent call last):
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/motors/motors_bus.py", line 1233, in sync_read
+    read = self._connected_bus.sync_read_register_with_error(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: motor 1: Operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/rollout/controller.py", line 426, in _run_segment
+    self._strategy.run(self._ctx)
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/rollout/strategies/base.py", line 69, in run
+    obs = robot.get_observation()
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/rollout/robot_wrapper.py", line 52, in get_observation
+    observation = self._robot.get_observation()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/claude-501/-Users-bharatjain/018dccab-326f-457e-8e7d-081b76548077/scratchpad/rollout_record.py", line 67, in get_observation
+    obs = _observe(self)
+          ^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/utils/decorators.py", line 29, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/robots/so_follower/so_follower.py", line 166, in get_observation
+    obs_dict = self.bus.sync_read("Present_Position", num_retry=self.config.num_read_retries)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/utils/decorators.py", line 29, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/motors/motors_bus.py", line 1237, in sync_read
+    raise ConnectionError(
+ConnectionError: Failed to sync read 'Present_Position' from motor IDs [1, 2, 3, 4, 5, 6] after 3 tries. motor 1: Operation timed out
+
+INFO 2026-10-29 17:38:46 ls/utils.py:150 Interactive session ended
+INFO 2026-10-29 17:38:46 ies/core.py:267 Stopping inference engine...
+INFO 2026-10-29 17:38:47 e/engine.py:855 Remote session closed; server acknowledged session release
+INFO 2026-10-29 17:38:47 ies/core.py:289 Returning robot to initial position before shutdown...
+WARNING 2026-10-29 17:38:47 ies/core.py:339 Could not return to initial position: Failed to sync read 'Present_Position' from motor IDs [1, 2, 3, 4, 5, 6] after 3 tries. motor 1: Operation timed out
+INFO 2026-10-29 17:38:47 ies/core.py:295 Disconnecting robot: disable_torque_on_disconnect=True; a prior hold command does not guarantee pose retention after disconnect
+Traceback (most recent call last):
+  File "/private/tmp/claude-501/-Users-bharatjain/018dccab-326f-457e-8e7d-081b76548077/scratchpad/rollout_record.py", line 74, in <module>
+    sys.exit(fix["main"]())
+             ^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/scripts/lerobot_rollout.py", line 286, in main
+    cast(Callable[[], None], rollout)()
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/configs/parser.py", line 438, in wrapper_inner
+    response = fn(cfg, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/scripts/lerobot_rollout.py", line 272, in rollout
+    strategy.teardown(ctx)
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/rollout/strategies/base.py", line 92, in teardown
+    self._teardown_hardware(
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/rollout/strategies/core.py", line 300, in _teardown_hardware
+    robot.disconnect()
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/utils/decorators.py", line 29, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/robots/so_follower/so_follower.py", line 217, in disconnect
+    self.bus.disconnect(self.config.disable_torque_on_disconnect)
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/motors/motors_bus.py", line 457, in disconnect
+    self.disable_torque(num_retry=5)
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/utils/decorators.py", line 29, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/motors/motors_bus.py", line 667, in disable_torque
+    self._set_torque(motors, False, num_retry)
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/motors/motors_bus.py", line 646, in _set_torque
+    raise ConnectionError(
+ConnectionError: Failed to disable torque after 6 tries on 'shoulder_pan' (motor ID 1): Operation timed out, 'shoulder_lift' (motor ID 2): Operation timed out, 'elbow_flex' (motor ID 3): Operation timed out, 'wrist_flex' (motor ID 4): Operation timed out, 'wrist_roll' (motor ID 5): Operation timed out, 'gripper' (motor ID 6): Operation timed out.

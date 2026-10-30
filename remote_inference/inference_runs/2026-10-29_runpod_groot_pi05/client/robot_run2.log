@@ -1,0 +1,128 @@
+W1029 17:10:00.866000 66983 .venv/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+objc[66983]: Class AVFFrameReceiver is implemented in both /Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/cv2/.dylibs/libavdevice.61.3.100.dylib (0x110ea83a8) and /Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/av/.dylibs/libavdevice.61.3.100.dylib (0x12cc0c3a8). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+objc[66983]: Class AVFAudioReceiver is implemented in both /Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/cv2/.dylibs/libavdevice.61.3.100.dylib (0x110ea83f8) and /Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/av/.dylibs/libavdevice.61.3.100.dylib (0x12cc0c3f8). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+INFO 2026-10-29 17:10:03 _rollout.py:247 Building rollout context...
+INFO 2026-10-29 17:10:03 e/client.py:128 Remote client lerobot_version=0.6.2 protocol=1
+INFO 2026-10-29 17:10:07 e/client.py:190 Remote server deployment=so101_jenga instance=9f518f4e3e5e4c6496c20ce5629538d1 software={'lerobot_version': '0.6.2'} protocol=1
+INFO 2026-10-29 17:10:07 /context.py:339 Connecting robot (so100_follower)...
+INFO 2026-10-29 17:10:09 a_opencv.py:198 OpenCVCamera(0) connected.
+INFO 2026-10-29 17:10:11 a_opencv.py:198 OpenCVCamera(1) connected.
+INFO 2026-10-29 17:10:11 follower.py:128 SO-101 SOFollower connected.
+INFO 2026-10-29 17:10:11 /context.py:341 Robot connected: so_follower
+INFO 2026-10-29 17:10:11 /context.py:344 Captured initial robot position (6 keys)
+INFO 2026-10-29 17:10:12 e/client.py:361 Remote session ready: deployment=so101_jenga instance=9f518f4e3e5e4c6496c20ce5629538d1 session=78bc07dfc2c042fc97bba09129abcdfe mode=chunk merge=aligned action_rate=15.0 Hz horizon=2.667s; contract verified
+INFO 2026-10-29 17:10:12 /context.py:786 Remote rollout admitted: deployment=so101_jenga instance=9f518f4e3e5e4c6496c20ce5629538d1 mode=chunk
+INFO 2026-10-29 17:10:12 _rollout.py:251 Rollout strategy: base
+INFO 2026-10-29 17:10:12 _rollout.py:252 Robot: so100_follower | FPS: 15 | Duration: infinite
+INFO 2026-10-29 17:10:12 gies/core.py:99 Starting inference engine...
+INFO 2026-10-29 17:10:12 e/engine.py:189 Remote session reset requested; previous motion is invalidated
+INFO 2026-10-29 17:10:12 ies/core.py:103 Inference engine started
+INFO 2026-10-29 17:10:12 e/engine.py:153 Remote execution: mode=chunk merge=aligned blend_steps=0 incoming_weight=0.50; action_rate=15.0 Hz horizon=2.667s refill=2.500s (effective=2.500s); max_source_age=8.000s action_timeout=5.000s startup_timeout=10.000s starvation_grace=4.000s
+INFO 2026-10-29 17:10:12 gies/base.py:40 Base strategy ready
+INFO 2026-10-29 17:10:12 _rollout.py:263 Rollout setup complete — starting interactive session (robot idle until /start)
+────────────────────────────────────────────────────────────
+Interactive rollout session — the robot will NOT move until you type /start.
+Task: 'pickup jenga and place inside the white box'
+Available commands:
+  /start                  start (or restart) the policy control loop
+  /subtask <text>         set the instruction the policy follows
+  /vqa <text>             ask the policy a question about what it sees
+  /autosteer <goal>|off   let the policy pick its own subtasks toward a high-level goal
+  /reset                  stop movement, return to initial position, restore the task
+  /stop                   end the session and shut down
+  /help                   show this help
+Routine system logs and warnings are muted during the session (errors and the cadence summary of each run still show).
+────────────────────────────────────────────────────────────
+Rollout running — task 'pickup jenga and place inside the white box'. /subtask <text> to change it, /reset to return to initial position, /stop to shut down.
+Cadence summary — whole run · target 15 Hz (66.7 ms budget per tick): 395 ticks, 394 judged
+  effective cadence: 14.98 Hz over 26.4 s measured
+  ticks over the 66.7 ms work budget: 0/394 (0.0%) — work mean 2.4 ms, worst 15.5 ms
+  ticks whose cadence slipped outside the loop body (sleep overshoot / CPU starvation while pacing): 4
+  loop-body steps (share of measured work):
+    observe      mean   1.39 ms · worst   4.71 ms ·  58.0% of work · 396 calls
+    process_obs  mean   0.61 ms · worst  13.01 ms ·  25.4% of work · 395 calls
+    telemetry    mean   0.00 ms · worst   0.12 ms ·   0.1% of work · 395 calls
+    query        mean   0.01 ms · worst   0.33 ms ·   0.6% of work · 395 calls
+    infer        mean   0.07 ms · worst   0.88 ms ·   3.0% of work · 379 calls
+    send         mean   0.16 ms · worst   2.48 ms ·   6.5% of work · 379 calls
+  pacing headroom: 64.3 ms slept per tick on average (max 69.4 ms) — near zero means the loop is saturated
+ERROR 2026-10-29 17:10:40 ntroller.py:431 Rollout strategy failed mid-segment
+Traceback (most recent call last):
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/rollout/controller.py", line 426, in _run_segment
+    self._strategy.run(self._ctx)
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/rollout/strategies/base.py", line 69, in run
+    obs = robot.get_observation()
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/rollout/robot_wrapper.py", line 52, in get_observation
+    observation = self._robot.get_observation()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/utils/decorators.py", line 29, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/robots/so_follower/so_follower.py", line 175, in get_observation
+    obs_dict[cam_key] = cam.read_latest()
+                        ^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/utils/decorators.py", line 29, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/cameras/opencv/camera_opencv.py", line 616, in read_latest
+    raise TimeoutError(
+TimeoutError: OpenCVCamera(1) latest frame is too old: 521.5 ms (max allowed: 500 ms).
+Rollout strategy failed (robot or recording error) — shutting down.
+Traceback (most recent call last):
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/rollout/controller.py", line 426, in _run_segment
+    self._strategy.run(self._ctx)
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/rollout/strategies/base.py", line 69, in run
+    obs = robot.get_observation()
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/rollout/robot_wrapper.py", line 52, in get_observation
+    observation = self._robot.get_observation()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/utils/decorators.py", line 29, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/robots/so_follower/so_follower.py", line 175, in get_observation
+    obs_dict[cam_key] = cam.read_latest()
+                        ^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/utils/decorators.py", line 29, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/cameras/opencv/camera_opencv.py", line 616, in read_latest
+    raise TimeoutError(
+TimeoutError: OpenCVCamera(1) latest frame is too old: 521.5 ms (max allowed: 500 ms).
+
+INFO 2026-10-29 17:10:40 ls/utils.py:150 Interactive session ended
+INFO 2026-10-29 17:10:40 ies/core.py:267 Stopping inference engine...
+INFO 2026-10-29 17:10:40 e/engine.py:210 Remote progress: accepted=4 rejected=0 cancelled=1 failed=0 waits=0 resumes=0 invalidations=0 over 5.2s; cancelled wait max=0.885s (server completion unknown) invalidation wait max=0.000s; turnaround mean/max=0.930/1.796s (last 27 completed results only), estimated submission headroom min=0.001s; queued playback=0.000s effective_refill=2.500s; diagnostic_events_dropped=0
+WARNING 2026-10-29 17:10:40 a_opencv.py:493 Error reading frame in background thread for OpenCVCamera(1): OpenCVCamera(1) read failed (status=False).
+INFO 2026-10-29 17:10:41 e/engine.py:855 Remote session closed; server acknowledged session release
+INFO 2026-10-29 17:10:41 ies/core.py:289 Returning robot to initial position before shutdown...
+WARNING 2026-10-29 17:10:41 ies/core.py:339 Could not return to initial position: OpenCVCamera(1) latest frame is too old: 1300.1 ms (max allowed: 500 ms).
+INFO 2026-10-29 17:10:41 ies/core.py:295 Disconnecting robot: disable_torque_on_disconnect=True; a prior hold command does not guarantee pose retention after disconnect
+INFO 2026-10-29 17:10:41 a_opencv.py:637 OpenCVCamera(0) disconnected.
+WARNING 2026-10-29 17:10:41 a_opencv.py:493 Error reading frame in background thread for OpenCVCamera(1): OpenCVCamera(1) read failed (status=False).
+INFO 2026-10-29 17:10:41 a_opencv.py:637 OpenCVCamera(1) disconnected.
+INFO 2026-10-29 17:10:41 follower.py:221 SO-101 SOFollower disconnected.
+INFO 2026-10-29 17:10:41 gies/base.py:96 Base strategy teardown complete
+ERROR 2026-10-29 17:10:41 _rollout.py:278 Rollout ended by a terminal fault: Traceback (most recent call last):
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/rollout/controller.py", line 426, in _run_segment
+    self._strategy.run(self._ctx)
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/rollout/strategies/base.py", line 69, in run
+    obs = robot.get_observation()
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/rollout/robot_wrapper.py", line 52, in get_observation
+    observation = self._robot.get_observation()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/utils/decorators.py", line 29, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/robots/so_follower/so_follower.py", line 175, in get_observation
+    obs_dict[cam_key] = cam.read_latest()
+                        ^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/utils/decorators.py", line 29, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/cameras/opencv/camera_opencv.py", line 616, in read_latest
+    raise TimeoutError(
+TimeoutError: OpenCVCamera(1) latest frame is too old: 521.5 ms (max allowed: 500 ms).
+

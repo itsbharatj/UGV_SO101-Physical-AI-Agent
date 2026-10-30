@@ -1,0 +1,12 @@
+verify_horizon: recomputed numbers (sources: run5_frames/run6_frames/pi05_run2_frames/molmo_shadow1 events.txt)
+10-29 pooled turnarounds, first TWO results per run dropped (reproduces investigator n=112): median 0.727 p90 1.282 p95 1.590 max 1.963 s
+  consecutive pairs over concatenated series: sum>2.0: 22/111=19.8%  sum>3.0: 2/111=1.8%  sum>4.0: 0/111=0%   (investigator's method)
+  independent all-pairs: sum>2.0 22.8%  sum>3.0 1.3%  sum>4.0 0.0%
+10-29 pooled, only the cold first result dropped (n=115, keeps pi05_run2 #1 = 2.957 s): median 0.727 p90 1.295 p95 1.626 max 2.957
+  consecutive pairs: sum>2.0 20.5%  sum>3.0 1.8%  sum>4.0 0.9% ; all-pairs: 23.8% / 3.0% / 0.3%
+Censored (never in any turnaround sample): cancelled in-flight requests run6 >=1.235 s (then invalidate took 3.686 s), pi05_run1 >=3.122 s, pi05_run2 >=0.525 s
+Method check on 10-29 itself: all-pairs predicts 1.7+1.9 starvations for run5+run6 (H=2.667) and 1.3 for pi05_run2 (H=3.333); observed 0, 1, 1
+Hold durations: pi05_run2 3.21 s (planned_hold->resumed; invalidate round trip 1.22 s); run6 fault 4.02 s into hold (grace 4 s; invalidate alone 3.69 s); pi05_run1 fault 1.95 s into hold (5 s action_timeout of the cancelled request)
+MolmoAct2 shadow run 2026-10-30 19:09 (SHADOW, 15 Hz, execution_horizon_s 2.0, 96 requests/95 results, 94 splices): starvations 0; turnaround median 0.607 p90 0.698 p95 0.739 max 0.895 s; min timing margin 0.371 s; policy median 0.203 s (max 0.503), worker median 0.371 s (postprocessing 0.125 s)
+  P(tau1+tau2>2.0) from the shadow run's own distribution: 0% (max pair sum 1.79 s)
+Indicative payload check (saved 320x240 tiles re-encoded q70): 10-29 runs top+wrist ~36-38 kB, shadow run ~24 kB (top cam half ~9.5 kB vs ~20.6 kB) -> shadow upload was lighter

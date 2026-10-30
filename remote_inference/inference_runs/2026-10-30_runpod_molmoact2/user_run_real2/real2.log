@@ -1,0 +1,37 @@
+W1030 22:44:39.269000 9648 .venv/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+objc[9648]: Class AVFFrameReceiver is implemented in both /Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/cv2/.dylibs/libavdevice.61.3.100.dylib (0x1074c83a8) and /Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/av/.dylibs/libavdevice.61.3.100.dylib (0x12ade83a8). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+objc[9648]: Class AVFAudioReceiver is implemented in both /Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/cv2/.dylibs/libavdevice.61.3.100.dylib (0x1074c83f8) and /Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/av/.dylibs/libavdevice.61.3.100.dylib (0x12ade83f8). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+INFO 2026-10-30 22:44:41 _rollout.py:247 Building rollout context...
+INFO 2026-10-30 22:44:41 e/client.py:128 Remote client lerobot_version=0.6.2 protocol=1
+INFO 2026-10-30 22:44:42 e/client.py:190 Remote server deployment=so101_jenga instance=b3ce4068150c433c9f88a9e1fb206c79 software={'lerobot_version': '0.6.2'} protocol=1
+INFO 2026-10-30 22:44:42 /context.py:339 Connecting robot (so100_follower)...
+INFO 2026-10-30 22:44:45 a_opencv.py:198 OpenCVCamera(0) connected.
+INFO 2026-10-30 22:44:46 a_opencv.py:198 OpenCVCamera(1) connected.
+INFO 2026-10-30 22:44:46 follower.py:128 SO-101 SOFollower connected.
+INFO 2026-10-30 22:44:46 /context.py:341 Robot connected: so_follower
+INFO 2026-10-30 22:44:46 /context.py:344 Captured initial robot position (6 keys)
+INFO 2026-10-30 22:44:47 e/client.py:361 Remote session ready: deployment=so101_jenga instance=b3ce4068150c433c9f88a9e1fb206c79 session=18b588b31ba748599cdca9713caa5a97 mode=chunk merge=aligned action_rate=15.0 Hz horizon=2.000s; contract verified
+INFO 2026-10-30 22:44:47 /context.py:786 Remote rollout admitted: deployment=so101_jenga instance=b3ce4068150c433c9f88a9e1fb206c79 mode=chunk
+INFO 2026-10-30 22:44:47 _rollout.py:251 Rollout strategy: base
+INFO 2026-10-30 22:44:47 _rollout.py:252 Robot: so100_follower | FPS: 15 | Duration: infinite
+INFO 2026-10-30 22:44:47 gies/core.py:99 Starting inference engine...
+WARNING 2026-10-30 22:44:47 e/engine.py:361 Aligned effective refill 2.500s (configured 2.500s, recent turnaround 0.000s) covers the full execution horizon 2.000s; requests may follow every fresh advanced observation. Compare consecutive request submission_cursor and playback_at_submission_s; lower configured refill only within measured latency headroom, or use a supported longer execution horizon. No setting was changed.
+INFO 2026-10-30 22:44:47 e/engine.py:189 Remote session reset requested; previous motion is invalidated
+INFO 2026-10-30 22:44:47 ies/core.py:103 Inference engine started
+INFO 2026-10-30 22:44:47 e/engine.py:153 Remote execution: mode=chunk merge=aligned blend_steps=0 incoming_weight=0.50; action_rate=15.0 Hz horizon=2.000s refill=2.500s (effective=2.500s); max_source_age=8.000s action_timeout=12.000s startup_timeout=30.000s starvation_grace=15.000s
+INFO 2026-10-30 22:44:47 gies/base.py:40 Base strategy ready
+INFO 2026-10-30 22:44:47 _rollout.py:263 Rollout setup complete — starting interactive session (robot idle until /start)
+────────────────────────────────────────────────────────────
+Interactive rollout session — the robot will NOT move until you type /start.
+Task: 'pickup jenga and place inside the white box'
+Available commands:
+  /start                  start (or restart) the policy control loop
+  /subtask <text>         set the instruction the policy follows
+  /vqa <text>             ask the policy a question about what it sees
+  /autosteer <goal>|off   let the policy pick its own subtasks toward a high-level goal
+  /reset                  stop movement, return to initial position, restore the task
+  /stop                   end the session and shut down
+  /help                   show this help
+Routine system logs and warnings are muted during the session (errors and the cadence summary of each run still show).
+────────────────────────────────────────────────────────────
+Rollout running — task 'pickup jenga and place inside the white box'. /subtask <text> to change it, /reset to return to initial position, /stop to shut down.

@@ -1,0 +1,12 @@
+Share of demo 1-step (=one 15 Hz tick at half-speed playback) action deltas, by joint, cap and assumed sag:
+  'against' = delta < -(cap - sag)  (clamp slows the move);  'any' = |delta| > cap (claim's yardstick)
+  shoulder_lift  cap 3: any 11.14% | sag 0.90: against 11.68% (net 2.1 deg/tick =   32 deg/s)
+  shoulder_lift  cap 4: any  5.60% | sag 0.90: against  6.76% (net 3.1 deg/tick =   46 deg/s)
+  shoulder_lift  cap 5: any  2.04% | sag 0.90: against  3.47% (net 4.1 deg/tick =   61 deg/s)
+  shoulder_lift  cap 6: any  0.35% | sag 0.90: against  1.12% (net 5.1 deg/tick =   76 deg/s)
+  shoulder_lift  cap 8: any  0.00% | sag 0.90: against  0.01% (net 7.1 deg/tick =  106 deg/s)
+  elbow_flex     cap 3: any 11.61% | sag 2.25: against 23.05% (net 0.8 deg/tick =   11 deg/s)  sag 2.80: against 28.76% (net 0.2 deg/tick =    3 deg/s)
+  elbow_flex     cap 4: any  6.54% | sag 2.25: against 12.63% (net 1.8 deg/tick =   26 deg/s)  sag 2.80: against 18.23% (net 1.2 deg/tick =   18 deg/s)
+  elbow_flex     cap 5: any  3.64% | sag 2.25: against  4.94% (net 2.8 deg/tick =   41 deg/s)  sag 2.80: against  8.33% (net 2.2 deg/tick =   33 deg/s)
+  elbow_flex     cap 6: any  1.63% | sag 2.25: against  1.77% (net 3.8 deg/tick =   56 deg/s)  sag 2.80: against  3.29% (net 3.2 deg/tick =   48 deg/s)
+  elbow_flex     cap 8: any  0.12% | sag 2.25: against  0.04% (net 5.8 deg/tick =   86 deg/s)  sag 2.80: against  0.14% (net 5.2 deg/tick =   78 deg/s)

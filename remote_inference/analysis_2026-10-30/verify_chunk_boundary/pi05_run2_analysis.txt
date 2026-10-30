@@ -1,0 +1,84 @@
+events: 127  requests: 59  results: 57  accepted: 57  merge-accepted: 57
+accepted-result spacing: n=56 median=0.751 mean=0.974 min=0.642 max=3.724
+turnaround: median=0.752 p90=1.680 max=3.176
+usable_actions: median=38 min=7 max=50; overlap_steps median=26 min=0 max=29; trimmed median=12; blended sum=0
+scheduling: {'scheduling': 'playback_threshold', 'mode': 'chunk', 'chunk_merge': 'aligned', 'blend_steps': 0, 'configured_refill_s': 2.5, 'effective_refill_s': 2.5, 'execution_horizon_s': 3.3333333333333335, 'aligned_task_change_bypasses_refill': True}
+rows: 1696 cmd: 848 obs: 848
+first cmd t=86993.842, last cmd t=87052.187, duration 58.3s; first request t=86994.038; first accepted result t=86997.214
+cmd tick interval: median=68.0 ms  p90=78.0 ms  max=231.0 ms; n(dt>0.1s)=1
+NaN steps: 0
+per-tick step (max over joints): median=1.80 deg, p90=6.01, p99=76.85, max=126.69
+jumps >15.0 deg: 49
+   shoulder_pan: n(>15.0)=18 max=48.0
+   shoulder_lift: n(>15.0)=36 max=118.6
+   elbow_flex: n(>15.0)=37 max=126.7
+   wrist_flex: n(>15.0)=23 max=90.0
+   wrist_roll: n(>15.0)=14 max=73.6
+   gripper: n(>15.0)=11 max=28.0
+jump size: median=40.0 max=126.7 min=15.3
+lag of jump cmd (second cmd) after preceding accepted result: median=0.037 p90=0.063 max=0.065; n(lag<=0.065)=48/49
+tick interval at jumps: median=68.0 ms max=93.0 ms
+lag of first cmd of the pair after preceding accepted result: median=0.723, n(first cmd BEFORE result, i.e. result between the two cmds)=49
+chance baseline: fraction of all ticks within 0.065s after an accepted result = 0.068 (58/847)
+accepted results followed (within 0.065s) by a >15.0 deg jump: 48/57
+first step after each accepted result (n=56): median=31.0 deg, n>5=56, n>15=48
+steps NOT within 0.065s after a result: n=789 median=1.72 max=34.88 n>15.0=1 n>5=60
+steps within 0.065s after a result: n=58 median=29.02
+jumps (t_rel to first cmd, lag after result, step, per-joint deltas):
+  +  6.44s lag=0.028s dt=70ms step=  19.3  d=  -2.0   12.1  -19.3   11.8   -4.8    8.3
+  + 12.34s lag=0.036s dt=68ms step=  16.9  d=   0.8   -2.9   16.5   -7.3   16.9    0.2
+  + 19.43s lag=0.029s dt=51ms step=  20.9  d=  12.4    7.7    7.4  -18.6   20.9   -4.1
+  + 20.18s lag=0.022s dt=66ms step=  21.5  d= -14.1   -3.2  -10.7   21.5  -17.2    8.2
+  + 21.71s lag=0.008s dt=67ms step=  29.0  d=  14.3  -29.0    1.8   22.5   17.4    0.8
+  + 22.47s lag=0.013s dt=67ms step=  35.1  d=   2.6   35.1   -8.8  -10.7  -13.9   -1.9
+  + 23.37s lag=0.010s dt=68ms step=  17.5  d= -16.5   -6.7    4.4    1.7   17.5    1.8
+  + 24.14s lag=0.060s dt=69ms step=  20.9  d=  14.5   13.2  -20.0    3.7  -20.9   -2.1
+  + 25.59s lag=0.065s dt=67ms step=  34.9  d=   7.5  -34.9   12.4   10.3    0.7   -1.5
+  + 26.28s lag=0.033s dt=67ms step=  64.4  d=  10.3   64.4  -52.1   -0.2   -4.1    0.3
+  + 27.05s lag=0.009s dt=78ms step=  90.7  d= -19.2  -83.9   90.7  -27.9    4.0    0.0
+  + 27.81s lag=0.023s dt=71ms step=  82.9  d=  11.1   55.9  -82.9   50.6   -6.0   -2.1
+  + 28.51s lag=0.027s dt=70ms step=  41.7  d=   5.3   26.9    4.8  -41.7    5.4   12.3
+  + 29.20s lag=0.015s dt=67ms step=  32.9  d=  -4.6  -14.4  -12.5   32.9   -4.0  -16.1
+  + 29.90s lag=0.008s dt=86ms step=  22.6  d=  10.6   22.6   -5.7  -14.7    4.1   17.8
+  + 30.71s lag=0.058s dt=70ms step=  22.5  d=  -8.1  -22.5   16.7   10.4   -1.8  -18.5
+  + 31.39s lag=0.016s dt=71ms step=  22.7  d=   2.5   22.7  -16.0   -2.1    7.9   17.8
+  + 32.09s lag=0.017s dt=72ms step=  20.8  d=  -0.3  -20.8   19.5   -1.3   -6.2    4.1
+  + 32.86s lag=0.054s dt=71ms step=  40.0  d=   3.1   37.8  -40.0   10.9   -9.5   -3.7
+  + 33.63s lag=0.053s dt=71ms step=  20.7  d=  -2.1  -20.7   17.6    6.5   10.9    3.4
+  + 34.32s lag=0.023s dt=73ms step=  27.8  d=  -2.0   27.8  -25.9    0.9  -10.6   -2.6
+  + 35.08s lag=0.063s dt=68ms step=  25.3  d=   0.8  -22.5   25.3    2.2    7.8    1.8
+  + 35.77s lag=0.044s dt=70ms step=  34.5  d=   1.0   34.5  -27.9   -3.7   -5.8   -2.4
+  + 36.46s lag=0.005s dt=70ms step=  29.1  d=   3.3  -29.1   22.3    0.2    8.7    3.3
+  + 37.22s lag=0.044s dt=68ms step=  15.3  d=  -9.3   12.3    8.5  -15.3   -8.9   -2.2
+  + 37.97s lag=0.043s dt=67ms step=  28.0  d=  10.5  -10.3   -2.2   10.5    9.1   28.0
+  + 38.94s lag=0.039s dt=66ms step=  27.7  d= -20.8  -24.2  -12.8   27.7   -3.2  -27.1
+  + 39.78s lag=0.040s dt=69ms step=  47.5  d=  33.3   47.5  -25.8   -1.7   -0.8   25.1
+  + 40.55s lag=0.057s dt=68ms step=  50.2  d= -26.9  -50.2   42.4   -2.8    0.8  -23.1
+  + 41.45s lag=0.065s dt=70ms step=  58.5  d=   6.2   55.4  -58.5   17.4   -2.6   22.0
+  + 42.14s lag=0.024s dt=52ms step=  54.0  d=   9.2   -2.8   40.6  -54.0    4.1   -7.6
+  + 43.03s lag=0.024s dt=66ms step=  93.0  d= -15.2  -93.0   36.1   43.5   -5.2   12.5
+  + 43.73s lag=0.011s dt=85ms step=  80.8  d=  -8.0   80.8  -33.4  -41.8    3.5   -2.3
+  + 44.74s lag=0.049s dt=67ms step=  42.4  d=  16.3   15.3  -20.8   42.4   -2.1    5.7
+  + 45.63s lag=0.034s dt=66ms step=  76.9  d=   8.3  -76.9   56.4  -41.3   -7.5   -6.2
+  + 46.33s lag=0.016s dt=71ms step=  56.4  d=  -3.4   56.4  -20.6   -8.8    9.9   10.7
+  + 47.02s lag=0.045s dt=78ms step=  50.0  d=  16.2  -50.0   28.7   -1.3  -26.4   -8.6
+  + 47.74s lag=0.063s dt=67ms step=  44.7  d= -22.7   44.7  -28.9    8.6   30.4    3.5
+  + 48.50s lag=0.063s dt=93ms step=  47.7  d=  24.6  -41.3   43.6  -20.9  -47.7   -3.8
+  + 49.24s lag=0.050s dt=51ms step=  76.8  d= -28.8   47.0  -76.8   38.5   60.3    6.9
+  + 49.90s lag=0.002s dt=68ms step=  66.1  d=  32.9  -24.5   66.1  -55.7  -58.6   -7.0
+  + 51.44s lag=0.058s dt=67ms step=  64.4  d= -34.7   18.7  -59.2   59.6   64.4    7.5
+  + 52.24s lag=0.042s dt=66ms step=  76.5  d=  48.0   -8.2   68.6  -76.5  -73.6  -10.8
+  + 53.17s lag=0.059s dt=67ms step=  90.0  d= -47.0  -39.7  -40.7   90.0   61.7   21.3
+  + 53.91s lag=0.063s dt=67ms step=  95.5  d=  31.7   95.5  -32.9  -52.3   -5.9  -26.1
+  + 54.52s lag=0.037s dt=80ms step= 118.6  d= -16.5 -118.6   92.2    0.0    0.3    6.4
+  + 55.44s lag=0.046s dt=66ms step= 126.7  d=   2.4  104.1 -126.7   40.6   14.8    3.7
+  + 57.25s lag=0.031s dt=51ms step=  15.6  d=  15.1  -12.3   15.6   -3.3   -7.6   -2.7
+  + 57.98s lag=0.046s dt=67ms step=  17.4  d= -11.8   13.8  -17.4    5.4    9.1    0.8
+out-of-training-range commands:
+   shoulder_pan: 0.00% (0/848)  cmd min=-18.18 max=46.57  train [-55.30,55.38]
+   shoulder_lift: 0.12% (1/848)  cmd min=-105.99 max=108.26  train [-105.98,108.53]
+   elbow_flex: 2.59% (22/848)  cmd min=-86.02 max=106.31  train [-98.07,99.03]
+   wrist_flex: 0.00% (0/848)  cmd min=10.19 max=106.89  train [-19.78,107.60]
+   wrist_roll: 0.00% (0/848)  cmd min=-80.83 max=25.87  train [-87.96,79.87]
+   gripper: 1.30% (11/848)  cmd min=-0.78 max=31.20  train [0.00,49.76]
+   any joint: 4.01%

@@ -1,0 +1,53 @@
+Adversarial verification of: "No joint-motion limit was active in any run: max_relative_target defaults to None and
+run_client.sh never sets it, while lerobot configures the STS3215 for maximum acceleration and never caps speed, so the
+Pi0.5 commands were executed at full servo slew."  (2026-10-30, read-only)
+
+SOURCE (lerobot dd5313e venv copy)
+- config_so_follower.py:36   max_relative_target: float | dict[str, float] | None = None            HOLDS
+- so_follower.py:206-209     extra sync_read + ensure_safe_goal_position only when not None; :212 sync_write Goal_Position   HOLDS
+- so_follower.py:147         configure() calls bus.configure_motors() with defaults
+- motors_bus.py:572-592      configure_motors(return_delay_time=0, maximum_acceleration=254, acceleration=254), writes both
+                             registers if the model has them; docstring "high to speed up acceleration and deceleration"   HOLDS
+- register table is NOT in lerobot: motors_bus.py:265-266 asks rustypot.ServoDefinition.register(name). rustypot.find_model("sts3215"):
+  acceleration addr 41 (1 B), maximum_acceleration addr 85 (1 B), goal_time addr 44 (2 B), goal_speed/goal_velocity addr 46 (2 B),
+  maximum_velocity_limit addr 84 (1 B). RegisterInfo carries no unit/range, so "254 = hardware maximum" is NOT verifiable here (info).
+- speed never written: grep of all lerobot .py for Goal_Speed|Goal_Time|Goal_Velocity|Maximum_Velocity_Limit|Velocity_Limit|
+  Acceleration_Multiplier -> only lekiwi.py:377 and :382 (wheels, Goal_Velocity) and robstride.py:856 (elif branch, not Feetech).
+  sync_write("Goal_Position") -> motors_bus.py:1288-1290 rustypot sync_write_register of that single 2-byte register.   HOLDS
+- nothing upstream limits either: rollout robot_action_processor defaults to IdentityProcessorStep (processor/factory.py:61-69),
+  utils/action_interpolator.py is plain linear interpolation with multiplier 1 by default; grep of rollout/, remote_inference/,
+  inference/ for max_relative_target|slew|rate limit|max_delta|clamp|clip( -> nothing.
+- draccus 0.8.0 via the real so101_follower registry: "--robot.max_relative_target=5" -> 5.0 (float); "5.0" and "10" also float; unset -> None.
+
+LAUNCHER (the one evidence item that does not hold as written)
+- run_client.sh TODAY sets --robot.max_relative_target=${MAX_STEP:-5.0} on line 40 (flag block = lines 23-44, not 17-36);
+  header lines 18-21: "Safety (added after Pi0.5 whipped the arm on 2026-10-29)". mtime 2026-10-30 19:05; the runs are
+  2026-10-29 17:12-17:38 (pi05_run2.log mtime 17:38). So "never sets it" is false for the current file and true for the runs.
+- The logs cannot show the robot config, and the clamp warning (utils.py:123-126, logger.warning) would have been suppressed anyway:
+  rollout/interactive.py:57-58 logging.disable(logging.WARNING) for the whole session. Absence of that warning is NOT evidence.
+
+WAS A CAP ACTIVE ON 2026-10-29?  No, from the data:
+(a) pi05_run2_frames/joints.csv OBSERVED motion: max 19.61 deg in one 67 ms tick (shoulder_lift, t=87037.209, 293 deg/s);
+    49 obs steps >15 deg, 101 >10 deg. With a cap X every sent goal is within X of the present position (utils.py:110-114),
+    so the servo could not move more than about X per tick -> no cap <= ~19 deg was active. GR00T run6: obs steps up to 13.0 deg.
+(b) cadence summaries in all six logs with a loop (robot_run3-6, pi05_run1-2): send mean 0.14-0.17 ms vs observe mean 1.31-1.53 ms.
+    "send" (rollout/strategies/core.py:529-531) wraps the identity processor + send_action; a cap adds the 6-motor
+    Present_Position sync_read (so_follower.py:207), the same bus read that dominates "observe" (base.py:68-69).
+(c) run_client.sh's own header says the cap was added after the Pi0.5 run.
+
+DATA RECOUNT (pi05_run2_frames/joints.csv; script recompute.py, output recompute.json in this directory)
+- 848 cmd rows / 848 obs rows over 58.3 s; cmd dt median 68.0 ms, p90 78 ms; 846 of 847 consecutive cmd pairs are <= 0.1 s apart.
+- any-joint |cmd[k+1]-cmd[k]| (dt<=0.1 s): >5 deg 116, >10 deg 56, >15 deg 49; max 126.69 deg.
+- max jump: t=87049.284 (55.44 s after the first cmd row = first live cmd), dt 66 ms: elbow_flex 106.3 -> -20.4 (-126.7),
+  shoulder_lift -94.3 -> 9.8 (+104.1), wrist_flex +40.6, wrist_roll +14.8, shoulder_pan +2.4, gripper +3.7.   MATCHES investigator.
+- what the arm did after it (obs, ms after that cmd): elbow 95.9 @0, 95.3 @66, 88.1 @133, 75.1 @200, 58.0 @266, 41.0 @333,
+  23.0 @400, 4.9 @467, -6.3 @534 : ~130-200 ms ramp, then 17-18 deg per tick (~260-270 deg/s); 102 deg in 0.53 s.
+  shoulder_lift -93.2 -> -6.0 over the same 534 ms.
+- cmd rows are what reached SOFollower.send_action (rollout_record.py:61-63 hooks its input), i.e. after the identity processor
+  and the interpolator, so the 126.7 deg step is exactly what the driver wrote to Goal_Position.
+- other runs (same script): pi05_run1 max cmd jump 7.1 deg, 1 >5; GR00T run4 max 12.5 (8 >5), run5 max 20.3 (29 >5, 1 >15),
+  run6 max 36.7 (34 >5, 10 >15). run3_frames has no joints.csv (hooks added for run4+). robot_run1/2: see verdict text.
+
+NOT VERIFIABLE HERE (severity info): that 254 is the servo's maximum acceleration / what the register unit is; that ~293 deg/s
+is the STS3215's top speed. The data only shows the goals were unlimited and the servo followed them at up to ~290 deg/s after a
+~0.15 s ramp.

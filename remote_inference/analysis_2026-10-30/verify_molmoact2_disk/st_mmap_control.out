@@ -1,0 +1,9 @@
+start                                         rss=     192 MB  uss=     145 MB
+after torch.ones(512MB) anonymous             rss=     562 MB  uss=     530 MB
+after del anonymous                           rss=     366 MB  uss=     320 MB
+after save_file                               rss=     627 MB  uss=     579 MB
+after creating 512MB param (zeros, touched)   rss=     636 MB  uss=     587 MB
+after load_file cpu (mmap, untouched)         rss=     637 MB  uss=     588 MB
+after load_state_dict (copies file->param)    rss=    1054 MB  uss=     492 MB
+after del state_dict                          rss=     542 MB  uss=     492 MB
+param checksum 74.622314453125

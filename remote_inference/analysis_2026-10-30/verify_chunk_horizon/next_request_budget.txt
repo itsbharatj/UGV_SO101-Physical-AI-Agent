@@ -1,0 +1,12 @@
+groot_run5: horizon 2.000s -> median budget for next request 1.25s (p10 0.65s); consecutive-pair overruns 7/27 ; steady turnaround median 0.68 p90 1.28 max 1.70
+groot_run5: horizon 2.667s -> median budget for next request 1.92s (p10 1.32s); consecutive-pair overruns 0/27 ; steady turnaround median 0.68 p90 1.28 max 1.70
+groot_run5: horizon 3.333s -> median budget for next request 2.58s (p10 1.98s); consecutive-pair overruns 0/27 ; steady turnaround median 0.68 p90 1.28 max 1.70
+groot_run5: horizon 3.000s -> median budget for next request 2.22s (p10 1.62s); consecutive-pair overruns 0/27 ; steady turnaround median 0.68 p90 1.28 max 1.70
+groot_run6: horizon 2.000s -> median budget for next request 1.26s (p10 0.66s); consecutive-pair overruns 7/30 ; steady turnaround median 0.67 p90 1.27 max 1.53
+groot_run6: horizon 2.667s -> median budget for next request 1.93s (p10 1.33s); consecutive-pair overruns 0/30 ; steady turnaround median 0.67 p90 1.27 max 1.53
+groot_run6: horizon 3.333s -> median budget for next request 2.59s (p10 1.99s); consecutive-pair overruns 0/30 ; steady turnaround median 0.67 p90 1.27 max 1.53
+groot_run6: horizon 3.000s -> median budget for next request 2.23s (p10 1.63s); consecutive-pair overruns 0/30 ; steady turnaround median 0.67 p90 1.27 max 1.53
+pi05_run2: horizon 2.000s -> median budget for next request 1.18s (p10 0.35s); consecutive-pair overruns 13/55 ; steady turnaround median 0.75 p90 1.59 max 2.96
+pi05_run2: horizon 2.667s -> median budget for next request 1.85s (p10 1.01s); consecutive-pair overruns 6/55 ; steady turnaround median 0.75 p90 1.59 max 2.96
+pi05_run2: horizon 3.333s -> median budget for next request 2.51s (p10 1.68s); consecutive-pair overruns 2/55 ; steady turnaround median 0.75 p90 1.59 max 2.96
+pi05_run2: horizon 3.000s -> median budget for next request 2.15s (p10 1.31s); consecutive-pair overruns 2/55 ; steady turnaround median 0.75 p90 1.59 max 2.96

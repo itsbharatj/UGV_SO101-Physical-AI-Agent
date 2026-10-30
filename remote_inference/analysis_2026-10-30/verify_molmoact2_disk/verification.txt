@@ -1,0 +1,28 @@
+Verification of finding "MolmoAct2 server start downloads the 21.8 GB base repo; ~35 GB weights / ~25 GB RAM" (2026-10-30)
+Sources: lerobot @ dd5313e (local copy), HfApi metadata (hub_meta.json), safetensors 0.8.0 mmap tests (st_mmap_test.out, st_mmap_control.out)
+
+CODE (all cited lines verified verbatim)
+- utils_molmoact2.py:42-44 local dir short-circuit; :46-55 snapshot_download(repo_id=checkpoint_path, ignore_patterns=[*.py,*.pyc,__pycache__/*]) -> no shard exclusion
+- modeling_molmoact2.py:664 _load_hf_model() called from __init__ (i.e. inside cls(config) at pretrained.py:189, before LeRobot weights)
+- modeling_molmoact2.py:674-678 resolve -> :689-695 MolmoAct2ForConditionalGeneration.from_pretrained(dtype=config.dtype(bf16), low_cpu_mem_usage=True) [load #1, CPU]
+- modeling_molmoact2.py:698 _apply_bfloat16_parameter_policy (857-897: expert/norms/rope -> fp32); :703 _strict_load_safetensors_weights (376-406: shard-by-shard safetensors load_file(device="cpu")) [load #2]
+- modeling_molmoact2.py:666-667 LoRA wrap (2169-2199, peft get_peft_model) after _load_hf_model
+- processor_molmoact2.py:766-771 second resolve (HF-cache hit, same snapshot) + tokenizer/processor only (249-277); 773 discrete tokenizer only for action_mode discrete/both (here: continuous)
+- modeling_molmoact2.py:264-270 _apply_norm_tag_metadata returns early when pretrained_path is set (deployment.py:135 sets it); norm_tag=None anyway
+- remote_inference/deployment.py:43-48 resolve_artifact returns local dir; :152 from_pretrained(path) -> pretrained.py:194-197 local-dir branch -> :222-225 safetensors.torch.load_model(device=resolve_safetensors_device("cuda")) -> device_utils.py:81-82 "cuda:0" [load #3, staged on GPU, then policy.to(device) at pretrained.py:217]
+- deployment.py:177 + 51-66 artifact_identity sha256 over every file in the model dir (incl. the 12.68 GB model.safetensors), then warmup_calls x modes (184-198)
+- remote_inference/configs.py:34-81 ServerConfig/ModelConfig/ExecutionConfig: no field touches checkpoint_path -> yaml cannot avoid the base download
+
+HUB METADATA (HfApi, no large downloads)
+- allenai/MolmoAct2 sha e432d85: gated=False; 22 files; all 21,781,452,195 B; after *.py ignore 21,781,137,751 B (= 21.78 GB = 20.29 GiB); 5 shards 4,919,324,120 / 4,844,690,992 / 4,844,691,024 / 4,877,619,536 / 2,282,630,240 B (sum 21.769 GB); dtype F32 only, 5,442,196,272 params
+- jainbharat/molmoact2_7k_70ep_2026-10-29 sha a53589e: root model.safetensors 12,679,625,488 B (12.68 GB = 11.81 GiB); BF16 4,864,320,464 + F32 737,667,680 = 5,601,988,144 params (LoRA = 159,791,872); whole repo 142.0 GB (7 checkpoints x (12.68 GB model + 5.80 GB optimizer)) -> infer.sh ignore_patterns checkpoints/*,logs/* is essential
+- config.json: checkpoint_path=allenai/MolmoAct2, checkpoint_revision=None, checkpoint_force_download=False, dtype=bfloat16, train_mode_vlm=lora, use_peft=False, norm_tag=None, pretrained_path=None, action_mode=inference_action_mode=continuous
+
+DERIVED
+- weights on disk: 34.46 GB = 32.09 GiB (df -h shows GiB)
+- CPU-resident model: 10.88 GB (bf16) -> 12.04 GB (fp32 expert/norms) -> 12.68 GB (+fp32 LoRA) == fine-tune file size (0.003 %)
+- startup file reads: 2 x 21.77 GB shards + 12.68 GB fine-tune + 12.68 GB sha256 pass = ~69 GB
+- safetensors 0.8.0 load_file(device="cpu"): mmap-backed (RSS +512 MB file-backed, USS flat, released on del); control torch.ones(512 MB) raised USS by ~385 MB -> counters valid
+- => peak anonymous CPU RAM ~ 12.7 GB model + process overhead (~15-17 GB expected; worst case if the transformers loader materialised a full fp32 shard copy ~22 GB). The "needs ~25 GB" figure is an unverified over-estimate; 32 GB RAM is comfortable. transformers (5.4-5.5 pinned) is not installed locally, its loader path was not read.
+
+NOT VERIFIED (info): venv size on the pod (~6-10 GB typical for CUDA torch, estimate), HF cache location on the RunPod image (HF_HOME not set by infer.sh), "A40 pods usually have 50 GB RAM", wall-clock to "Deployment warmed" (minutes is plausible, not measured).

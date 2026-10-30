@@ -1,0 +1,6 @@
+[rollout_safe] summary
+  mode: SHADOW (no motor writes); commands: 1199
+  chunks accepted: 95, rejected: 0, starvation holds: 0
+  turnaround median 0.61 s, p90 0.70 s, max 0.90 s
+  largest tick-to-tick jump requested by the policy (deg): shoulder_pan 23.6, shoulder_lift 3.3, elbow_flex 9.0, wrist_flex 7.1, wrist_roll 17.5, gripper 23.2
+  commands with a jump over 10 deg: 14; range clips: 0; cap clips: 0

@@ -1,0 +1,33 @@
+Verification of finding "No per-command motion cap was active in any run; max_relative_target=10.0 at 15 Hz would have clipped all 56 >10 deg jumps while leaving demonstration-speed motion untouched" (2026-10-30)
+
+Source (lerobot dd5313e, local venv copy):
+- config_so_follower.py:36  max_relative_target: float | dict[str, float] | None = None        -> default None  [holds]
+- so_follower.py:206-212    cap applied only when not None; :207 extra sync_read("Present_Position"); :209 ensure_safe_goal_position  [holds]
+- utils.py:93-120           caps goal - present per key (:110-114); float -> same cap for all keys (:98-99); dict must have exactly the motor keys
+                            else ValueError (:101-102, NOT TypeError); anything else -> TypeError (:105)  [holds, wording tightened]
+- draccus 0.8.0 (real so101_follower registry path): "--robot.max_relative_target=10" -> 10.0 float; "10.0" -> float; full 6-key dict -> dict;
+  a partial dict parses but would raise ValueError at the first send_action.  "write it as a float" is unnecessary (harmless).
+- 15 Hz = one chunk step per tick: remote_inference/configs.py:47 action_fps, deployment.py:166 action_interval=1/action_fps, execution.py:378 playback=qsize*interval; no resampling found.
+
+Was a cap active on 2026-10-29?  No, three independent lines:
+1. run_client.sh now has --robot.max_relative_target=${MAX_STEP:-5.0} (line 40) but its mtime is 2026-10-30 19:05 and the comment says it was added after the Pi0.5 run.
+2. Cadence summaries in all six logs with a run: send mean 0.14-0.17 ms vs observe mean 1.31-1.53 ms (observe = the same Present_Position sync_read + camera read_latest). With a cap, send_action would carry that ~1.3 ms read (so_follower.py:207).
+3. pi05_run2 joints.csv: observed (not commanded) joint moved up to 19.6 deg in one 66 ms tick (293 deg/s), 49 obs steps >15 deg: impossible with a <=10 deg goal-vs-present cap.
+
+Jump counts (pi05_run2_frames/joints.csv, cmd-to-cmd, max over joints, dt<=0.1 s): >5: 116, >10: 56, >15: 49, max 126.69 deg  [matches investigator]
+Would a 10 deg goal-vs-present cap have clipped them?  gap = |cmd - obs read in the same tick (median 1 ms earlier)|:
+- 55 of 56 jump ticks had gap >10 on some joint; the exception is t=87010.921 shoulder_pan 10.32 deg jump, 9.93 deg from present.
+- per joint: 53 of 56 jumping joints were >10 deg from present; the other 3 (incl. the exception) were already within 10 deg of the joint's present position.
+- a 5 deg cap: 56/56.  Over the whole run a 10 deg cap would have clipped 296 of 847 commands (the arm trails far behind after each splice).
+
+Does a 10 deg cap touch normal 15 Hz motion?  Policy-loop ticks with a fresh obs (<=50 ms):
+- groot_run5 (smooth): 28/366 ticks gap>10, ALL within 0.3 s of a >5 deg cmd jump / 25 within 0.3 s of a chunk arrival; 0 smooth-segment ticks >10 (max 9.1).
+- groot_run6: 54/460 gap>10, 53 splice-aftermath, 1 smooth tick at 10.3.  groot_run4: 12/224, all splice-aftermath.
+- 5 deg cap (current launcher default) would touch 105/366 ticks in run5 (21 in smooth segments, gap 5.2-9.1) and 126/460 in run6.
+Training data (69 eps, 38564 frames, ep20 excluded; incl. ep20 changes <0.2 deg): per-step |delta action| max 9.23 (elbow), p99.9 <=8.09; any-joint max 9.95 (gripper %).
+|action - state| p99: shoulder_lift 23.5, elbow 25.8 (any-joint 26.9), max 38.2.  Lag grows ~linearly with speed (median gap per 1 deg/step: ~4.4 shoulder_lift, ~3.7 elbow),
+so halving speed ~halves lag: predicted p99 ~12-13 deg at 15 Hz; 2.6-3.1 % of shoulder_lift/elbow steps (4.6 % any-joint) would exceed 10 deg, 31 % would exceed 5 deg.
+Gripper: holding the block = static state-action gap 10.3-10.7 units (p90-p99 of closed-command frames, 21.5 % of them >10); a 10.0 cap trims the squeeze error by <=7 %, a 5.0 cap halves it.
+
+Cost: "+1.4 ms per tick" is an inference from the observe step (1.31-1.53 ms mean across logs), not a measurement of send_action with the cap; budget is 66.7 ms (work mean 3.8 ms).
+Files: run_jump_gap_summary.csv, jumps_gt10_with_gaps.csv, policy_tick_gap_summary.csv, train_stats_verify.csv, scripts *.py in this directory.

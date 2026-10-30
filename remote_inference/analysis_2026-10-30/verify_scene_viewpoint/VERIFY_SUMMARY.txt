@@ -1,0 +1,44 @@
+Verification of scene_domain finding "top camera at a novel pose" -- recomputed independently
+Source frames: training top-cam frame 0 decoded locally with pyav/libdav1d from
+  ~/.cache/huggingface/lerobot/jainbharat/ugv_jenga_box_20261026_214928_v21_70ep/videos/chunk-000/observation.images.top cam/episode_XXXXXX.mp4 (640x480)
+Test frames: run5_frames/172120_2.jpg left 320px (upscaled x2), run3/pi05_run2 first frames, pi05_scene_before.jpg left 480px,
+  scene_before.jpg left 480px, cams.jpg / cams_after.jpg index-0 panel (480x360). All compared at 640x480; percentages are of width W=640.
+Method: SIFT (nfeatures 4000, ratio 0.75) + RANSAC homography (4 px); centre shift = |H(c)-c|/W; rotation = several estimators.
+
+A. Static-background (table-plane) homography, run5 first frame vs training frame 0 (homography_test_vs_train_full.csv)
+   vs placement B (ep09-38, n=30): centre shift median 6.05% W (min 5.62, max 6.40); dx +5.7% W, dy -2.0% W; scale 0.97
+       rotation: Jacobian/polar  -0.8..-1.2 deg; similarity fit +1.2..+1.6 deg; H x-axis +2.0..+2.5 deg; H y-axis -2.1..-4.4 deg
+       -> the transform is mostly a shear/keystone, net roll ~1 deg; "-2.5 deg roll" is the x-axis term only (estimator dependent)
+   vs placement A (ep00-08): 17.8% W; vs placement C (ep39-69): 20.2% W     (finding: 17.5% / 19-21%  OK)
+   run3 first, pi05_run2 first, pi05_scene_before give the same numbers (6.0-6.1% vs B).
+B. Within-placement baselines: ep17-ep37 0.99%, ep12-ep30 1.06%, ep09-ep38 1.67%, ep34-ep35 0.03%, ep00-ep08 0.07%, ep39-ep47 0.06%,
+   ep58-ep69 0.03%, ep39-ep69 0.26% (finding's "ep39 vs ep69 0.0%" is a mislabel of ep58-ep69). All 435 within-B pairs: median 0.53%,
+   p90 1.21%, max 1.67%. All 465 within-C pairs: max 0.26%.  -> test frame is 3.4x further from the nearest B frame than any two B frames are apart.
+C. Camera stability during the tests: run3 first (17:13) -> run5 first (17:21) -> pi05_run2 first (17:37) -> pi05_scene_before (17:32): <=0.03% W, 0.0 deg.
+   Earlier poses: cams.jpg 16:43 idx0 -> run pose 19.7% W (2.5 deg); scene_before 17:08 -> run pose 28.1% W (6.3 deg); cams_after 17:11 -> run pose 13.7% W (vertical).
+   cams.jpg 16:43 vs placement C: 3.5% W (dx 0, dy +22 px at 640; same 3.5% when recomputed at 320 px) -- NOT 6.6% as in the finding.
+   -> camera was moved at least three times between 16:43 and 17:13 (poses at 16:43, 17:08, 17:11, final from 17:13 on).
+D. Robot (rover) position in frame (rover_right_end_x.csv; NCC template of the rover's right track/wheel from ep17):
+   training B: rover right end at x = 0.469 median (0.422-0.470; ep13/ep14 0.422, ep32 0.443, others 0.46-0.47)
+   test (run3/run5/pi05_run2 first, pi05_scene_before): 0.296-0.304   -> ~17% W further left than the B median, ~12% W beyond the most-left B frame.
+   SIFT restricted to the rover bbox of the training frame: median dx -17.6..-18.4% W (13-35 RANSAC inliers) -- NOT -7.5% as in the finding.
+E. Parallax test (residual of matches under the table-plane homography, % W; baselines ep37-17, ep38-9, ep30-12 give |resid|<0.08% everywhere):
+   run5 vs ep17/30/36/12/34/9/38: far background (wall/stool/box, train x>0.70W,y<0.45H) +0.2..+2.2% W; table 0.0%; rover -9.2..-11.3% W.
+   A camera translation would move the rover and the far background (both on the camera side of the table plane) in the SAME direction with
+   comparable magnitude; observed: opposite sign and 10x larger on the rover. -> the ~11% W excess shift of the robot relative to the table
+   is the ROVER standing in a different place on the table, not a camera-pose effect. Camera placement alone cannot make background AND rover coincide.
+F. Pixel correlation (grayscale Pearson, 160x120): run5 vs best training frame 0.45 (ep18); within-B median 0.74 (min 0.52), within-A 0.85,
+   within-C 0.71; between-placement maxima A-B 0.36, B-C 0.45. Finding's 0.57-0.59 / 0.917 not reproduced numerically; qualitative point holds.
+Files: homography_test_vs_train_full.csv, rover_right_end_x.csv, grid_compare_mine.jpg, rover_locate_vis.jpg, rover_locate_lowncc.jpg,
+       sbs_run5_vs_ep17.jpg, blend_run5_vs_ep17.jpg, montage_train_frame0_top.jpg, train_frame0/top_epNN_f0.png, recompute*.py
+
+G. Decisive on-plane test (wheel/table contact points have zero parallax under ANY camera motion):
+   test rover right wheel-end (run5: x=0.296W, y=348px) mapped through the table-plane homography into each training B frame lands at
+   x = 0.367-0.368 W (run5) / 0.374-0.376 W (pi05_scene_before), while the training B rover wheel-end is at 0.469-0.470 W
+   -> on-plane gap -10.1..-10.3% W (run5), -9.4..-9.5% W (pi05_before), identical across ep09/12/17/30/34/36/37/38.
+   Residuals per region under the same homography (run5 vs ep17): table 0.00%, wall/stool/box +1.2%, floor +6.5%, rover body -11.1%, arm -15.0%;
+   baseline ep37 vs ep17: all regions within 0.2%.
+   Conclusion: the camera-pose change accounts for ~6% W of background shift; the remaining ~10% W of robot offset is the UGV/rover standing in a
+   different spot on the table (order 8-10 cm at rover depth) relative to all 70 training episodes. Camera re-placement alone cannot make
+   the background and the robot coincide with any training frame; the rover (or the camera relative to the rover) must be repositioned as well.
+   Image: warp_run5_onto_ep17_blend.jpg (test warped onto ep17 by the table-plane H; red = test rover end, green = ep17 rover end).

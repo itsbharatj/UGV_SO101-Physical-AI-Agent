@@ -1,0 +1,81 @@
+src,camera_position,box_x,box_y
+train ep00,A,0.571,0.916
+train ep01,A,0.54,0.925
+train ep02,A,0.773,0.607
+train ep03,A,0.586,0.886
+train ep04,A,0.637,0.896
+train ep05,A,0.632,0.882
+train ep06,A,0.624,0.884
+train ep07,A,0.59,0.878
+train ep08,A,0.563,0.894
+train ep09,B,0.623,0.698
+train ep10,B,0.624,0.708
+train ep11,B,0.625,0.711
+train ep12,B,0.691,0.633
+train ep13,B,0.558,0.739
+train ep14,B,0.569,0.731
+train ep15,B,0.59,0.767
+train ep16,B,0.666,0.749
+train ep17,B,0.675,0.453
+train ep18,B,0.673,0.451
+train ep19,B,0.628,0.771
+train ep20,B,0.697,0.435
+train ep21,B,0.687,0.436
+train ep22,B,0.689,0.437
+train ep23,B,0.689,0.443
+train ep24,B,0.687,0.442
+train ep25,B,0.786,0.645
+train ep26,B,0.757,0.677
+train ep27,B,0.757,0.679
+train ep28,B,0.758,0.675
+train ep29,B,0.755,0.655
+train ep30,B,0.751,0.654
+train ep31,B,0.69,0.422
+train ep32,B,0.535,0.723
+train ep33,B,0.77,0.47
+train ep34,B,0.785,0.459
+train ep35,B,0.783,0.458
+train ep36,B,0.579,0.373
+train ep37,B,0.6,0.379
+train ep38,B,0.619,0.688
+train ep39,C,0.764,0.455
+train ep40,C,0.771,0.46
+train ep41,C,0.774,0.459
+train ep42,C,0.776,0.462
+train ep43,C,0.777,0.471
+train ep44,C,0.773,0.47
+train ep45,C,0.775,0.48
+train ep46,C,0.781,0.481
+train ep47,C,0.784,0.491
+train ep48,C,0.885,0.501
+train ep49,C,0.883,0.484
+train ep50,C,0.877,0.483
+train ep51,C,0.876,0.484
+train ep52,C,0.879,0.484
+train ep53,C,0.874,0.483
+train ep54,C,0.699,0.876
+train ep55,C,0.724,0.899
+train ep56,C,0.735,0.897
+train ep57,C,0.739,0.895
+train ep58,C,0.74,0.895
+train ep59,C,0.82,0.818
+train ep60,C,0.678,0.914
+train ep61,C,0.607,0.928
+train ep62,C,0.606,0.929
+train ep63,C,0.587,0.937
+train ep64,C,0.585,0.937
+train ep65,C,0.583,0.936
+train ep66,C,0.584,0.94
+train ep67,C,0.598,0.941
+train ep68,C,0.582,0.93
+train ep69,C,0.587,0.929
+TEST cams.jpg 16:43,test,0.808,0.364
+TEST scene_before 17:08,test,0.883,0.352
+TEST cams_after 17:11,test,0.595,0.545
+TEST run3_frames first,test,0.594,0.389
+TEST run4_frames first,test,0.594,0.389
+TEST run5_frames first,test,0.594,0.389
+TEST run6_frames first,test,0.594,0.389
+TEST pi05_run1_frames first,test,0.594,0.389
+TEST pi05_run2_frames first,test,0.594,0.389
+TEST pi05_scene_before 17:32,test,0.594,0.389

@@ -1,0 +1,52 @@
+W1029 17:08:37.908000 66819 .venv/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+objc[66819]: Class AVFFrameReceiver is implemented in both /Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/cv2/.dylibs/libavdevice.61.3.100.dylib (0x10e05c3a8) and /Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/av/.dylibs/libavdevice.61.3.100.dylib (0x12a4bc3a8). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+objc[66819]: Class AVFAudioReceiver is implemented in both /Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/cv2/.dylibs/libavdevice.61.3.100.dylib (0x10e05c3f8) and /Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/av/.dylibs/libavdevice.61.3.100.dylib (0x12a4bc3f8). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+INFO 2026-10-29 17:08:40 _rollout.py:247 Building rollout context...
+INFO 2026-10-29 17:08:40 e/client.py:128 Remote client lerobot_version=0.6.2 protocol=1
+INFO 2026-10-29 17:08:42 e/client.py:190 Remote server deployment=so101_jenga instance=9f518f4e3e5e4c6496c20ce5629538d1 software={'lerobot_version': '0.6.2'} protocol=1
+INFO 2026-10-29 17:08:42 /context.py:339 Connecting robot (so100_follower)...
+INFO 2026-10-29 17:08:44 a_opencv.py:198 OpenCVCamera(0) connected.
+INFO 2026-10-29 17:08:46 a_opencv.py:198 OpenCVCamera(1) connected.
+INFO 2026-10-29 17:08:46 a_opencv.py:637 OpenCVCamera(0) disconnected.
+INFO 2026-10-29 17:08:46 a_opencv.py:637 OpenCVCamera(1) disconnected.
+INFO 2026-10-29 17:08:46 follower.py:221 SO-101 SOFollower disconnected.
+Traceback (most recent call last):
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/rollout_chunk_fix.py", line 27, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/scripts/lerobot_rollout.py", line 286, in main
+    cast(Callable[[], None], rollout)()
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/configs/parser.py", line 438, in wrapper_inner
+    response = fn(cfg, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/scripts/lerobot_rollout.py", line 248, in rollout
+    ctx = build_rollout_context(cfg, shutdown_event)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/rollout/context.py", line 448, in build_rollout_context
+    return build_remote_rollout_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/rollout/context.py", line 727, in build_remote_rollout_context
+    hardware = _connect_rollout_hardware(cfg, require_hold=True)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/rollout/context.py", line 340, in _connect_rollout_hardware
+    robot.connect()
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/utils/decorators.py", line 39, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/robots/so_follower/so_follower.py", line 127, in connect
+    self.configure()
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/robots/so_follower/so_follower.py", line 146, in configure
+    with self.bus.torque_disabled():
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/.local/share/uv/python/cpython-3.12-macos-aarch64-none/lib/python3.12/contextlib.py", line 144, in __exit__
+    next(self.gen)
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/motors/motors_bus.py", line 705, in torque_disabled
+    self.enable_torque(motors)
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/utils/decorators.py", line 29, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/motors/motors_bus.py", line 682, in enable_torque
+    self._set_torque(motors, True, num_retry)
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/motors/motors_bus.py", line 646, in _set_torque
+    raise ConnectionError(
+ConnectionError: Failed to enable torque after 1 tries on 'wrist_roll' (motor ID 5): Operation timed out.

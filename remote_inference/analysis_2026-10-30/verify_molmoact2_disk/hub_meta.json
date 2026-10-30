@@ -1,0 +1,242 @@
+{
+ "allenai/MolmoAct2": {
+  "gated": false,
+  "sha": "e432d85f6e039edca44afb93c262f3084ab72a9c",
+  "n_files": 22,
+  "total_bytes_all": 21781452195,
+  "total_bytes_after_py_ignore": 21781137751,
+  "total_bytes_root_only": 21781444579,
+  "files_over_50MB": [
+   {
+    "path": "model-00001-of-00005.safetensors",
+    "size": 4919324120
+   },
+   {
+    "path": "model-00002-of-00005.safetensors",
+    "size": 4844690992
+   },
+   {
+    "path": "model-00003-of-00005.safetensors",
+    "size": 4844691024
+   },
+   {
+    "path": "model-00004-of-00005.safetensors",
+    "size": 4877619536
+   },
+   {
+    "path": "model-00005-of-00005.safetensors",
+    "size": 2282630240
+   }
+  ],
+  "dirs": [
+   "assets"
+  ],
+  "n_root_files": 21,
+  "root_files": [
+   {
+    "path": ".gitattributes",
+    "size": 1570
+   },
+   {
+    "path": "README.md",
+    "size": 3571
+   },
+   {
+    "path": "chat_template.jinja",
+    "size": 3169
+   },
+   {
+    "path": "config.json",
+    "size": 4271
+   },
+   {
+    "path": "configuration_molmoact2.py",
+    "size": 20708
+   },
+   {
+    "path": "generation_config.json",
+    "size": 116
+   },
+   {
+    "path": "image_processing_molmoact2.py",
+    "size": 22359
+   },
+   {
+    "path": "inference.py",
+    "size": 25938
+   },
+   {
+    "path": "model-00001-of-00005.safetensors",
+    "size": 4919324120
+   },
+   {
+    "path": "model-00002-of-00005.safetensors",
+    "size": 4844690992
+   },
+   {
+    "path": "model-00003-of-00005.safetensors",
+    "size": 4844691024
+   },
+   {
+    "path": "model-00004-of-00005.safetensors",
+    "size": 4877619536
+   },
+   {
+    "path": "model-00005-of-00005.safetensors",
+    "size": 2282630240
+   },
+   {
+    "path": "model.safetensors.index.json",
+    "size": 131529
+   },
+   {
+    "path": "modeling_molmoact2.py",
+    "size": 190994
+   },
+   {
+    "path": "norm_stats.json",
+    "size": 43757
+   },
+   {
+    "path": "processing_molmoact2.py",
+    "size": 17254
+   },
+   {
+    "path": "processor_config.json",
+    "size": 1853
+   },
+   {
+    "path": "tokenizer.json",
+    "size": 11983605
+   },
+   {
+    "path": "tokenizer_config.json",
+    "size": 782
+   },
+   {
+    "path": "video_processing_molmoact2.py",
+    "size": 37191
+   }
+  ],
+  "safetensors_param_count_by_dtype": {
+   "F32": 5442196272
+  },
+  "safetensors_n_shards": 5,
+  "safetensors_sharded": true
+ },
+ "jainbharat/molmoact2_7k_70ep_2026-10-29": {
+  "gated": false,
+  "sha": "a53589e79011f5bb5dacf58b8d0fb53a1f46d6cf",
+  "n_files": 93,
+  "total_bytes_all": 142022243926,
+  "total_bytes_after_py_ignore": 142022243926,
+  "total_bytes_root_only": 12679661485,
+  "files_over_50MB": [
+   {
+    "path": "checkpoints/001000/pretrained_model/model.safetensors",
+    "size": 12679625488
+   },
+   {
+    "path": "checkpoints/001000/training_state/optimizer_state.safetensors",
+    "size": 5797725832
+   },
+   {
+    "path": "checkpoints/002000/pretrained_model/model.safetensors",
+    "size": 12679625488
+   },
+   {
+    "path": "checkpoints/002000/training_state/optimizer_state.safetensors",
+    "size": 5797725832
+   },
+   {
+    "path": "checkpoints/003000/pretrained_model/model.safetensors",
+    "size": 12679625488
+   },
+   {
+    "path": "checkpoints/003000/training_state/optimizer_state.safetensors",
+    "size": 5797725832
+   },
+   {
+    "path": "checkpoints/004000/pretrained_model/model.safetensors",
+    "size": 12679625488
+   },
+   {
+    "path": "checkpoints/004000/training_state/optimizer_state.safetensors",
+    "size": 5797725832
+   },
+   {
+    "path": "checkpoints/005000/pretrained_model/model.safetensors",
+    "size": 12679625488
+   },
+   {
+    "path": "checkpoints/005000/training_state/optimizer_state.safetensors",
+    "size": 5797725832
+   },
+   {
+    "path": "checkpoints/006000/pretrained_model/model.safetensors",
+    "size": 12679625488
+   },
+   {
+    "path": "checkpoints/006000/training_state/optimizer_state.safetensors",
+    "size": 5797725832
+   },
+   {
+    "path": "checkpoints/007000/pretrained_model/model.safetensors",
+    "size": 12679625488
+   },
+   {
+    "path": "checkpoints/007000/training_state/optimizer_state.safetensors",
+    "size": 5797725832
+   },
+   {
+    "path": "model.safetensors",
+    "size": 12679625488
+   }
+  ],
+  "dirs": [
+   "checkpoints",
+   "logs"
+  ],
+  "n_root_files": 8,
+  "root_files": [
+   {
+    "path": ".gitattributes",
+    "size": 1519
+   },
+   {
+    "path": "config.json",
+    "size": 3559
+   },
+   {
+    "path": "model.safetensors",
+    "size": 12679625488
+   },
+   {
+    "path": "policy_postprocessor.json",
+    "size": 914
+   },
+   {
+    "path": "policy_postprocessor_step_1_molmoact2_masked_unnormalizer.safetensors",
+    "size": 7808
+   },
+   {
+    "path": "policy_preprocessor.json",
+    "size": 2733
+   },
+   {
+    "path": "policy_preprocessor_step_3_molmoact2_masked_normalizer.safetensors",
+    "size": 7816
+   },
+   {
+    "path": "train_config.json",
+    "size": 11648
+   }
+  ],
+  "safetensors_param_count_by_dtype": {
+   "F32": 737667680,
+   "BF16": 4864320464
+  },
+  "safetensors_n_shards": 1,
+  "safetensors_sharded": false
+ }
+}

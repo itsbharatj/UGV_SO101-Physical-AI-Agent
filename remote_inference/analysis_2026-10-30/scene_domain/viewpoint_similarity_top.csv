@@ -1,0 +1,11 @@
+test,max_pixel_corr,best_ep_pixel,max_edge_corr,best_ep_edge,median_pixel_corr
+TEST 16:43 cams.jpg,0.557,40,0.418,50,0.371
+TEST 17:08 scene_before,0.341,52,0.333,51,0.168
+TEST 17:11 cams_after,0.445,11,0.266,22,0.231
+TEST run3_frames first 171328,0.582,18,0.354,37,0.278
+TEST run4_frames first 171810,0.593,18,0.351,36,0.289
+TEST run5_frames first 172120,0.594,18,0.367,36,0.294
+TEST run6_frames first 172256,0.591,18,0.365,36,0.289
+TEST pi05_run1_frames first 173311,0.584,18,0.375,37,0.297
+TEST pi05_run2_frames first 173748,0.571,18,0.351,36,0.216
+TEST 17:32 pi05_scene_before,0.587,18,0.341,37,0.298

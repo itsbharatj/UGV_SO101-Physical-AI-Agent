@@ -1,0 +1,7 @@
+file size MB 512.0000762939453
+before load: {'rss': 670.96875, 'uss': 622.703125} maxrss 671
+after load (untouched): {'rss': 672.0, 'uss': 622.9375} maxrss 672
+storage nbytes MB 512.0 storage.filename None is_shared False
+after touching pages: {'rss': 1182.96875, 'uss': 621.453125} maxrss 1183
+after copy_ into a fresh param: {'rss': 1183.421875, 'uss': 621.6875} maxrss 1183
+after del state_dict: {'rss': 671.609375, 'uss': 621.890625} maxrss 1183

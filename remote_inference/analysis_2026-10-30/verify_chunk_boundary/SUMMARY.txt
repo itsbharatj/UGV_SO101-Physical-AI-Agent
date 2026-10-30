@@ -1,0 +1,26 @@
+Verification of the scene_domain finding "Pi0.5 run 2 jumps coincide with chunk arrivals" (recomputed read-only, 2026-10-30)
+Data: scratchpad/pi05_run2_frames/{joints.csv,events.txt}, run5_frames, run6_frames; training range from the local parquet (70 episodes, 39372 frames; identical with episode 20 excluded).
+
+Pi0.5 run 2 (58.3 s of commands, 848 cmd rows, 68 ms median tick):
+- accepted chunks: 57 (all merge-accepted); median spacing 0.751 s; turnaround median 0.752 s, p90 1.68 s, max 3.18 s
+- jumps >15 deg (max over 6 joints, consecutive cmd rows): 49 (finding said 48)
+  * all 49 have an accepted 'result' event between the two commands; lag from result to the jump command 0.002-0.0650 s (median 0.037, p90 0.063)
+  * 48/57 chunk arrivals are followed by a >15 deg step; first step after EVERY arrival > 5 deg (median 31.0 deg)
+  * steps not adjacent to an arrival: n=789, median 1.72 deg, none > 15 deg
+  * chance baseline (fraction of all ticks that are the first tick after an arrival): 58/847 = 6.8%  (finding said ~33%; not reproducible)
+  * jump size median 40.0 deg (40.8 if one jump is dropped), max 126.7; per-tick median 1.80 (all ticks) / 1.73 (excluding jumps)
+  * first jump +6.44 s (19.3 deg); 26 jumps (up to 90.7 deg) before +38 s; median first-step-after-arrival grows 11.9 (<20 s) -> 27.8 (20-38 s) -> 58.5 deg (>=38 s)
+  * consecutive jumps reverse shoulder_lift direction 87.5% of the time (alternation between two poses)
+  * observed state also stepped: 49 obs steps > 15 deg, peak 293 deg/s
+- person first visible in top view at frame 173826_5 (~+38 s +-1 s; legs), hand on the block from 173830_4 (~+42 s)
+- out of training action range: elbow 2.59% (22/848, max 106.31 vs 99.03), gripper 1.30% (11, min -0.78), shoulder_lift 0.12% (1, -105.99 vs -105.98); any joint 4.01%
+  * only 2 of the 49 jump destinations are out of range; largest in-range jump 126.7 deg -> a range clamp would not have removed the jumps
+GR00T run5: 29 chunks, 1 jump >15 deg (+7.46 s, 20.3 deg, at a chunk arrival); first step after arrival median 8.9 deg vs 1.13 in-chunk; 0% out of range
+GR00T run6: 32 chunks, 10 jumps >15 deg (max 36.7), 9 of 10 at a chunk arrival; 0% out of range
+
+Source (lerobot dd5313e, local copy):
+- inference/execution.py:531-572 _accept_aligned: trim = cursor - anchor (539), future = actions[trim:] (544), blending only for min(overlap, blend_steps) (553; blend_steps=0 here), queue.replace_future (569): the new chunk replaces the whole queued future with no continuity check or rate limit
+- inference/execution.py:224-226 effective_refill = max(refill_seconds, turnaround + interval); :378-379 request whenever queued playback <= effective_refill -> requests were back-to-back in every run (result and next request share a timestamp in events.txt)
+- remote_inference/engine.py:355-372 warns when aligned effective_refill >= horizon ("requests may follow every fresh advanced observation"); deployment.py:125 execution_steps = cfg.execution.n_action_steps (None in server_template.yaml -> policy n_action_steps=30 for MolmoAct2 -> horizon 30/15 = 2.0 s < refill 2.5 s)
+- robots/so_follower/so_follower.py:206-209 + robots/utils.py:93-125: max_relative_target caps each goal relative to the present position; run_client.sh now passes --robot.max_relative_target=${MAX_STEP:-5.0} (was absent in the Pi0.5 runs)
+- policies/molmoact2/processor_molmoact2.py:1154-1161 clamp of normalized actions to [-1,1] before the unnormalizer (assembled at 1356-1357) = q01..q99 training range per joint

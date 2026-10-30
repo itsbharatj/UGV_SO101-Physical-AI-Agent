@@ -1,0 +1,140 @@
+
+====================================================================================================
+pi05_run2  (pi05_run2_frames)
+results=57 accepted=57 merge_accepted=57 requests=59 cancelled=2
+cmd rows=848 obs rows=848 run length 58.35s; cmd dt median 68 ms, p99 87 ms; obs dt median 68 ms
+turnaround_s all: 3.18 2.96 1.96 1.85 1.02 0.83 1.96 0.93 0.77 1.59 0.76 1.54 0.75 0.90 0.72 0.72 0.73 0.73 0.79 0.74 0.69 0.70 0.71 0.76 0.72 0.70 0.73 0.77 0.72 0.72 0.71 0.73 0.72 0.75 0.98 0.84 0.75 0.89 0.73 0.89 0.71 0.98 0.90 0.71 0.66 0.71 0.76 0.75 0.72 1.48 0.82 0.92 0.73 0.64 0.91 1.82 0.72
+inter-arrival (s): n=56 median 0.75 p10 0.71 p90 1.57 min 0.64 max 3.72
+result->next request delay (s): median 0.000 p90 0.001 max 0.319; playback_at_submission median 2.53 s; effective_refill_s values: [3.023, 3.219]
+merge.trimmed_actions: [0, 43, 0, 27, 16, 13, 29, 15, 12, 24, 12, 23, 12, 14, 12, 11, 12, 11, 12, 12, 11, 11, 11, 13, 11, 11, 12, 12, 11, 12, 11, 11, 12, 12, 15, 13, 12, 14, 11, 14, 11, 16, 14, 11, 11, 12, 12, 12, 11, 24, 13, 15, 12, 10, 15, 28, 12]
+merge.usable_actions median 38 min 7 max 50
+splices=57; splice step max-joint: median 32.9 p90 85.7 max 126.7; >15: 49 >10: 54 >30: 29
+  arrival->first cmd gap ms: median 36 max 65; prev cmd gap ms max 93
+  splice steps in arrival order: 9 19 6 17 15 13 9 10 11 21 21 29 35 17 21 10 35 64 91 83 42 33 23 22 23 21 40 21 28 25 34 29 15 28 28 47 50 58 54 93 81 42 77 56 50 45 48 77 66 64 76 90 95 119 127 16 17
+  capture age at arrival: median 0.79s; tracking err at capture (max joint) median 3.7 p90 11.8; |new-obs_cap| median 22.5; |old-obs_arr| median 4.0
+  corr(splice, track_err_at_capture): pearson 0.26 spearman 0.28; same-joint pearson 0.37
+  splices >15: n=49 median tracking err at capture 4.0 deg (same joint 2.4); splice/track ratio median 7.2
+  new cmd moves toward obs (max joint): 89% ; new cmd between old cmd and obs_cap: 37%
+  splices >15 with arm moving >1 deg over previous 3 ticks: n=36, new chunk reverses that direction in 58%
+  lift/elbow before->after at >30 deg splices (t_rel, joint, old->new):
+   22.5s shoulder_lift 45->80; 25.5s shoulder_lift 67->32; 26.3s shoulder_lift -5->59; 27.0s elbow_flex -70->20; 27.8s elbow_flex 39->-44; 28.5s wrist_flex 80->38; 29.2s wrist_flex 22->55; 32.8s elbow_flex 7->-33; 35.7s shoulder_lift 71->106; 39.7s shoulder_lift 31->78; 40.5s shoulder_lift 60->10; 41.4s elbow_flex 11->-47; 42.1s wrist_flex 94->40; 43.0s shoulder_lift -2->-95; 43.7s shoulder_lift -106->-25; 44.7s wrist_flex 14->56; 45.6s shoulder_lift 22->-55; 46.3s shoulder_lift -23->33; 47.0s shoulder_lift 48->-2; 47.7s shoulder_lift 19->63; 48.4s wrist_roll -11->-59; 49.2s elbow_flex 8->-69; 49.9s elbow_flex -76->-10; 51.4s wrist_roll -68->-4; 52.2s wrist_flex 88->12; 53.1s wrist_flex 17->107; 53.8s shoulder_lift -45->50; 54.5s shoulder_lift 31->-88; 55.4s elbow_flex 106->-20
+  median splice per 10 s window:
+     count  median    max
+win                      
+0        2    14.0   19.3
+10       8    11.9   20.9
+20      13    32.9   90.7
+30      13    27.7   47.5
+40      13    56.4   93.0
+50       8    83.2  126.7
+  first 10 after index 2: median 14.0; last 10: median 76.6; excluding last 2: last 10 median 76.6
+one-tick jumps >15: 49  strict-splice 49  within+-70ms 49  within+-150ms 49
+one-tick jumps >10: 56  strict-splice 54  within+-70ms 55  within+-150ms 55
+one-tick jumps >5: 116  strict-splice 57  within+-70ms 66  within+-150ms 75
+ticks: one-tick 846; strict splice ticks 57 (6.7%), +-70ms 175 (20.7%), +-150ms 303 (35.8%)
+  mid (not within +-150ms): n=543 median 1.63 p90 4.31 p99 8.37 max 10.15
+  mid (not within +-70ms): n=671 median 1.67 p90 4.37 p99 8.01 max 10.15
+  mid (not strict splice): n=789 median 1.72 p90 4.46 p99 7.97 max 10.72
+  >10 jumps NOT at a strict splice tick: t_rel 53.24s 10.7deg nearest arrival 0.125s; t_rel 53.37s 10.1deg nearest arrival 0.259s
+observed speed (deg/s, max joint per obs step, steps 20-300ms): max 293 p99 270 p90 172; per-joint max shoulder_pan=220 shoulder_lift=293 elbow_flex=281 wrist_flex=272 wrist_roll=261 gripper=109
+observed per-step displacement (deg per obs step ~68 ms): max 19.6 p99 18.2; steps >5 deg: 226 of 846; steps >10 deg: 101
+commanded speed (deg/s): max 1920 p99 1161
+tracking error |cmd-obs| (deg) same tick:
+  whole run: n=848 shoulder_pan p99=33/max=48 shoulder_lift p99=92/max=123 elbow_flex p99=88/max=116 wrist_flex p99=59/max=93 wrist_roll p99=58/max=74 gripper p99=23/max=27
+   0-10s: n=145 shoulder_pan p99=3/max=4 shoulder_lift p99=11/max=13 elbow_flex p99=19/max=24 wrist_flex p99=9/max=13 wrist_roll p99=3/max=5 gripper p99=7/max=9
+  10-20s: n=145 shoulder_pan p99=11/max=12 shoulder_lift p99=7/max=8 elbow_flex p99=13/max=14 wrist_flex p99=15/max=19 wrist_roll p99=18/max=21 gripper p99=5/max=7
+  20-30s: n=144 shoulder_pan p99=18/max=19 shoulder_lift p99=85/max=87 elbow_flex p99=88/max=91 wrist_flex p99=46/max=49 wrist_roll p99=19/max=20 gripper p99=17/max=18
+  30-40s: n=145 shoulder_pan p99=30/max=32 shoulder_lift p99=38/max=42 elbow_flex p99=38/max=43 wrist_flex p99=24/max=27 wrist_roll p99=10/max=11 gripper p99=26/max=27
+  40-50s: n=146 shoulder_pan p99=31/max=33 shoulder_lift p99=92/max=94 elbow_flex p99=75/max=79 wrist_flex p99=56/max=57 wrist_roll p99=58/max=60 gripper p99=22/max=23
+  50-60s: n=123 shoulder_pan p99=47/max=48 shoulder_lift p99=121/max=123 elbow_flex p99=112/max=116 wrist_flex p99=88/max=93 wrist_roll p99=71/max=74 gripper p99=25/max=27
+  >= 25s (violent phase): n=486 shoulder_pan p99=42/max=48 shoulder_lift p99=103/max=123 elbow_flex p99=93/max=116 wrist_flex p99=70/max=93 wrist_roll p99=63/max=74 gripper p99=25/max=27
+best lag per joint (s): shoulder_pan=0.200 shoulder_lift=0.200 elbow_flex=0.200 wrist_flex=0.200 wrist_roll=0.200 gripper=0.167
+
+====================================================================================================
+groot_run5  (run5_frames)
+results=29 accepted=29 merge_accepted=29 requests=30 cancelled=1
+cmd rows=661 obs rows=363 run length 37.20s; cmd dt median 56 ms, p99 87 ms; obs dt median 70 ms
+turnaround_s all: 1.09 0.86 1.59 0.58 1.70 0.68 0.58 0.58 0.60 1.26 0.59 1.26 0.65 0.63 0.60 0.58 0.59 0.57 0.57 0.82 1.28 0.92 0.69 0.91 1.09 0.69 0.68 0.70 0.66
+inter-arrival (s): n=28 median 0.68 p10 0.58 p90 1.27 min 0.57 max 1.70
+result->next request delay (s): median 0.000 p90 0.001 max 0.149; playback_at_submission median 1.93 s; effective_refill_s values: [2.5]
+merge.trimmed_actions: [0, 13, 24, 9, 26, 11, 9, 9, 10, 19, 10, 19, 10, 10, 10, 10, 9, 9, 9, 12, 20, 14, 11, 14, 17, 11, 11, 11, 11]
+merge.usable_actions median 29 min 14 max 40
+splices=29; splice step max-joint: median 8.9 p90 13.5 max 20.3; >15: 1 >10: 13 >30: 0
+  arrival->first cmd gap ms: median 25 max 60; prev cmd gap ms max 84
+  splice steps in arrival order: 14 7 6 10 12 14 20 12 6 6 13 12 12 6 9 6 6 8 3 9 12 4 8 7 4 5 13 13 13
+  capture age at arrival: median 0.73s; tracking err at capture (max joint) median 2.8 p90 4.8; |new-obs_cap| median 7.7; |old-obs_arr| median 2.8
+  corr(splice, track_err_at_capture): pearson 0.01 spearman 0.31; same-joint pearson 0.22
+  splices >15: n=1 median tracking err at capture 3.7 deg (same joint 3.7); splice/track ratio median 5.6
+  new cmd moves toward obs (max joint): 76% ; new cmd between old cmd and obs_cap: 34%
+  splices >15 with arm moving >1 deg over previous 3 ticks: n=1, new chunk reverses that direction in 100%
+  lift/elbow before->after at >30 deg splices (t_rel, joint, old->new):
+   
+  median splice per 10 s window:
+     count  median   max
+win                     
+0       10    11.3  20.3
+10      13     8.4  12.9
+20       6    10.0  13.5
+  first 10 after index 2: median 12.1; last 10: median 8.4; excluding last 2: last 10 median 7.6
+one-tick jumps >15: 1  strict-splice 1  within+-70ms 1  within+-150ms 1
+one-tick jumps >10: 13  strict-splice 13  within+-70ms 13  within+-150ms 13
+one-tick jumps >5: 29  strict-splice 25  within+-70ms 25  within+-150ms 27
+ticks: one-tick 659; strict splice ticks 29 (4.4%), +-70ms 87 (13.2%), +-150ms 153 (23.2%)
+  mid (not within +-150ms): n=506 median 1.13 p90 1.89 p99 4.07 max 5.75
+  mid (not within +-70ms): n=572 median 1.13 p90 2.02 p99 4.64 max 5.88
+  mid (not strict splice): n=630 median 1.13 p90 2.04 p99 4.53 max 5.88
+observed speed (deg/s, max joint per obs step, steps 20-300ms): max 102 p99 86 p90 53; per-joint max shoulder_pan=55 shoulder_lift=90 elbow_flex=102 wrist_flex=77 wrist_roll=78 gripper=37
+observed per-step displacement (deg per obs step ~70 ms): max 7.1 p99 6.1; steps >5 deg: 19 of 360; steps >10 deg: 0
+commanded speed (deg/s): max 286 p99 178
+tracking error |cmd-obs| (deg) same tick:
+  whole run: n=661 shoulder_pan p99=25/max=26 shoulder_lift p99=162/max=170 elbow_flex p99=118/max=124 wrist_flex p99=10/max=12 wrist_roll p99=7/max=10 gripper p99=17/max=18
+   0-10s: n=145 shoulder_pan p99=5/max=8 shoulder_lift p99=13/max=13 elbow_flex p99=17/max=18 wrist_flex p99=11/max=12 wrist_roll p99=8/max=10 gripper p99=5/max=5
+  10-20s: n=145 shoulder_pan p99=3/max=3 shoulder_lift p99=10/max=13 elbow_flex p99=11/max=14 wrist_flex p99=10/max=12 wrist_roll p99=4/max=4 gripper p99=1/max=1
+  20-30s: n=221 shoulder_pan p99=26/max=26 shoulder_lift p99=167/max=170 elbow_flex p99=122/max=124 wrist_flex p99=2/max=3 wrist_roll p99=7/max=7 gripper p99=18/max=18
+  30-40s: n=150 shoulder_pan p99=0/max=0 shoulder_lift p99=0/max=0 elbow_flex p99=2/max=2 wrist_flex p99=0/max=0 wrist_roll p99=0/max=0 gripper p99=0/max=0
+best lag per joint (s): shoulder_pan=0.300 shoulder_lift=0.167 elbow_flex=0.233 wrist_flex=0.167 wrist_roll=0.133 gripper=0.167
+
+====================================================================================================
+groot_run6  (run6_frames)
+results=32 accepted=32 merge_accepted=32 requests=34 cancelled=2
+cmd rows=609 obs rows=459 run length 35.75s; cmd dt median 67 ms, p99 88 ms; obs dt median 69 ms
+turnaround_s all: 0.76 0.66 0.66 0.67 1.30 0.89 0.65 0.66 0.65 0.67 0.81 0.84 0.65 0.65 0.63 1.25 0.75 0.69 1.27 0.67 0.68 0.67 0.67 0.66 0.83 0.65 0.64 1.28 0.63 1.27 0.74 1.53
+inter-arrival (s): n=31 median 0.67 p10 0.65 p90 1.27 min 0.63 max 1.53
+result->next request delay (s): median 0.000 p90 0.001 max 0.117; playback_at_submission median 1.93 s; effective_refill_s values: [2.5]
+merge.trimmed_actions: [0, 10, 11, 10, 20, 14, 10, 10, 11, 10, 13, 14, 10, 10, 10, 20, 12, 11, 19, 11, 11, 10, 11, 11, 12, 10, 10, 20, 10, 19, 12, 23]
+merge.usable_actions median 29 min 17 max 40
+splices=32; splice step max-joint: median 10.6 p90 28.6 max 36.7; >15: 9 >10: 16 >30: 2
+  arrival->first cmd gap ms: median 39 max 78; prev cmd gap ms max 89
+  splice steps in arrival order: 3 8 8 26 10 1 4 6 15 36 37 3 23 30 29 15 6 12 5 14 8 15 8 12 12 10 8 16 10 11 18 9
+  capture age at arrival: median 0.70s; tracking err at capture (max joint) median 3.1 p90 4.9; |new-obs_cap| median 10.6; |old-obs_arr| median 3.0
+  corr(splice, track_err_at_capture): pearson 0.35 spearman 0.33; same-joint pearson 0.40
+  splices >15: n=9 median tracking err at capture 3.4 deg (same joint 3.4); splice/track ratio median 7.1
+  new cmd moves toward obs (max joint): 72% ; new cmd between old cmd and obs_cap: 38%
+  splices >15 with arm moving >1 deg over previous 3 ticks: n=6, new chunk reverses that direction in 33%
+  lift/elbow before->after at >30 deg splices (t_rel, joint, old->new):
+   7.8s elbow_flex -55->-19; 8.6s elbow_flex -19->-56
+  median splice per 10 s window:
+     count  median   max
+win                     
+0       12     8.2  36.7
+10      13    11.9  29.9
+20       7     9.8  18.4
+  first 10 after index 2: median 9.0; last 10: median 10.6; excluding last 2: last 10 median 10.6
+one-tick jumps >15: 10  strict-splice 9  within+-70ms 10  within+-150ms 10
+one-tick jumps >10: 17  strict-splice 16  within+-70ms 17  within+-150ms 17
+one-tick jumps >5: 34  strict-splice 28  within+-70ms 30  within+-150ms 30
+ticks: one-tick 606; strict splice ticks 32 (5.3%), +-70ms 95 (15.7%), +-150ms 174 (28.7%)
+  mid (not within +-150ms): n=432 median 1.14 p90 1.86 p99 4.06 max 5.35
+  mid (not within +-70ms): n=511 median 1.14 p90 2.02 p99 4.45 max 5.35
+  mid (not strict splice): n=574 median 1.14 p90 2.22 p99 4.87 max 35.96
+  >10 jumps NOT at a strict splice tick: t_rel 9.53s 36.0deg nearest arrival 0.071s
+observed speed (deg/s, max joint per obs step, steps 20-300ms): max 191 p99 153 p90 63; per-joint max shoulder_pan=64 shoulder_lift=174 elbow_flex=191 wrist_flex=167 wrist_roll=72 gripper=36
+observed per-step displacement (deg per obs step ~69 ms): max 13.0 p99 10.7; steps >5 deg: 33 of 456; steps >10 deg: 6
+commanded speed (deg/s): max 675 p99 327
+tracking error |cmd-obs| (deg) same tick:
+  whole run: n=609 shoulder_pan p99=11/max=13 shoulder_lift p99=164/max=171 elbow_flex p99=108/max=112 wrist_flex p99=19/max=27 wrist_roll p99=8/max=9 gripper p99=21/max=22
+   0-10s: n=145 shoulder_pan p99=8/max=9 shoulder_lift p99=26/max=30 elbow_flex p99=36/max=38 wrist_flex p99=23/max=27 wrist_roll p99=6/max=7 gripper p99=4/max=4
+  10-20s: n=145 shoulder_pan p99=6/max=7 shoulder_lift p99=16/max=20 elbow_flex p99=27/max=29 wrist_flex p99=19/max=19 wrist_roll p99=8/max=9 gripper p99=3/max=3
+  20-30s: n=145 shoulder_pan p99=10/max=13 shoulder_lift p99=14/max=15 elbow_flex p99=18/max=19 wrist_flex p99=8/max=11 wrist_roll p99=8/max=8 gripper p99=2/max=3
+  30-40s: n=174 shoulder_pan p99=11/max=11 shoulder_lift p99=169/max=171 elbow_flex p99=111/max=112 wrist_flex p99=12/max=12 wrist_roll p99=8/max=8 gripper p99=22/max=22
+best lag per joint (s): shoulder_pan=0.167 shoulder_lift=0.133 elbow_flex=0.200 wrist_flex=0.167 wrist_roll=0.133 gripper=0.167

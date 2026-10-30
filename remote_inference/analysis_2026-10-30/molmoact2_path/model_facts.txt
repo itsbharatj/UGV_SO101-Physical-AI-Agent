@@ -1,0 +1,8 @@
+params: LLM blocks 3.634B, embed 396M, lm_head 396M, ViT 383M, connector 57M, expert 578M (blocks 574M, modulation 193M), LoRA 160M (lm_head LoRA 10.1M), TOTAL 5.602B
+estimated prompt tokens ~462 (padded to 8k+1 -> ~465); hard cap from infer_molmoact2_max_sequence_length = 576
+FLOPs per chunk: ViT 1.18 T, connector 0.044 T, LLM prefix 3.46 T, LoRA 0.14 T, action expert 10 steps 0.298 T  => total 5.12 TFLOP
+weight bytes: prefix 8.8 GB (once), expert per flow step 3.05 GB (fp32 read + bf16 cast r/w) x10 = 30.5 GB
+  A40 (150 TF bf16 dense, 696 GB/s): prefix(ViT+LLM) ~71 ms, flow loop ~44 ms, +~60 ms CPU/eager overhead  => ~175 ms per chunk (order of magnitude)
+  L40S (362 TF, 864 GB/s): prefix(ViT+LLM) ~33 ms, flow loop ~35 ms, +~60 ms CPU/eager overhead  => ~129 ms per chunk (order of magnitude)
+  A100-80G (312 TF, 2.0 TB/s): prefix(ViT+LLM) ~34 ms, flow loop ~15 ms, +~60 ms CPU/eager overhead  => ~110 ms per chunk (order of magnitude)
+  H100 SXM (989 TF, 3.35 TB/s): prefix(ViT+LLM) ~12 ms, flow loop ~9 ms, +~60 ms CPU/eager overhead  => ~81 ms per chunk (order of magnitude)

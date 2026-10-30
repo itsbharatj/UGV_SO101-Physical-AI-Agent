@@ -1,0 +1,5 @@
+run,horizon_s,n_requests,n_results,n_accepted,n_rejected,n_cancelled,ta_median,ta_p90,ta_max,n_ta_ge_2.0,n_ta_ge_2.667,n_ta_ge_3.333,median_gap_result_to_next_request_s,n_gaps,n_gap_le_0.1s,usable_median_steps_actual,usable_if_30step_median,n_unusable_if_30step,buffered_on_arrival_if_30step_median_s,max_effective_refill_s
+groot_run5,2.6666666666666665,30,29,29,0,1,0.683,1.282,1.701,0,0,0,0.0,29,28,29,19,0,1.267,2.5
+groot_run6,2.6666666666666665,34,32,32,0,2,0.673,1.273,1.527,0,0,0,0.0,32,31,29.0,19.0,0,1.267,2.5
+pi05_run1,3.3333333333333335,2,1,1,0,1,2.905,2.905,2.905,1,1,0,0.375,1,0,50,30,0,2.0,2.941
+pi05_run2,3.3333333333333335,59,57,57,0,2,0.752,1.819,3.176,2,2,0,0.0,57,56,38,18.0,1,1.2,3.219

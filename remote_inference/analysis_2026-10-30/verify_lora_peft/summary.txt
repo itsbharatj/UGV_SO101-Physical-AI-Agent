@@ -1,0 +1,30 @@
+Verifier: verify_lora_peft  (read-only; header-only fetch of model.safetensors, no weight download)
+Repo: jainbharat/molmoact2_7k_70ep_2026-10-29  root model.safetensors (12,679,625,488 bytes; header 313,840 bytes; metadata {'format':'pt'})
+
+Recomputed from data/finetune_header.json:
+  total tensors                       1901
+  LoRA tensors (*.lora_A|B.default.weight)  606  (all F32, adapter name 'default', r=64 on every module)
+  distinct LoRA modules               303   (= "same 303 linear targets" at modeling_molmoact2.py:2124)
+  LoRA params                         159,791,872 (F32)
+  non-LoRA tensors                    1295
+  all keys prefixed 'model.base_model.model.'  True;  keys containing '_orig_mod': 0
+  every LoRA module has a '.base_layer.weight' sibling: 303/303
+  action_expert tensors               588, 577,564,448 params (F32)
+  LoRA + action_expert                737,356,320  == train_log.txt line 650 num_learnable_params=737356320
+  params by dtype                     F32 737,667,680  BF16 4,864,320,464  (sum 5,601,988,144; log line 651 num_total_params=5601988080 -> 64 buffer elements not counted as params)
+Mapping to allenai/MolmoAct2 model.safetensors.index.json (1295 keys, sha e432d85f):
+  strip 'model.base_model.model.' AND '.base_layer.' -> 1295 keys, 0 missing either way (data/nonlora_key_map.csv)
+  strip only the prefix (no '.base_layer.' strip) -> 458 keys unmatched (the 303 wrapped linears' weights + biases)
+  regex from modeling_molmoact2.py:2098-2110 (prefix='model', lm_head) fullmatch over base-index module names -> 303 modules, set-equal to checkpoint LoRA modules
+LoRA extra compute (per token through the LoRA'd linears, 2*r*(in+out)):
+  llm 144 modules 228.9 MFLOP/token (3.15% of 7.27 GFLOP base), vit 158 modules 70.6 MFLOP/token (8.06% of 0.88 GFLOP), lm_head 20.1 MFLOP/token (not executed on the continuous path)
+Config (config.json): train_mode_vlm=lora, lora_rank 64, lora_alpha 16, lora_dropout 0.05, lora_bias none, use_peft false, compile_model false,
+  checkpoint_path allenai/MolmoAct2, checkpoint_revision null, action_mode continuous, inference_action_mode continuous, rtc_config null
+train_log.txt: line 1 '[run] 2026-10-29T07:21:58Z installing (molmoact2, lerobot dd5313e305ff7aaa5b6c7b4769d1b26650ce250b)';
+  first attempt died at line 333 (ValueError: normalize_gripper), restart at line 337 same commit; no 'Missing key'/'Unexpected key' lines.
+Code: strict default True at modeling_molmoact2.py:621-633; LoRA applied at :666-667 via :2169-2201 (get_peft_model, autocast_adapter_dtype=True);
+  pretrained.py:189 instance=cls(config), :197/:211 _load_as_safetensor, :222-226 safetensors.torch.load_model(strict) -> raises RuntimeError on any missing/unexpected key;
+  merge_and_unload: 0 occurrences under site-packages/lerobot; peft pin 'peft<1.0.0,>=0.18.0' (extra peft-dep, pulled by extra molmoact2); transformers<5.6.0,>=5.4.0;
+  base checkpoint required at policy init: _load_hf_model (:671-703) -> utils_molmoact2.resolve_checkpoint_location snapshot_download('allenai/MolmoAct2', ignore *.py) + _strict_load_safetensors_weights (:376-401); 5 shards = 21,768,955,912 bytes.
+  lm_head lives on MolmoAct2ForConditionalGeneration (hf_model line 3663/3674); continuous path calls MolmoAct2Model.generate_actions_from_inputs (line 3068, class at 2703), which never references lm_head.
+  peft is NOT installed in the Mac client venv (/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv) - only the server needs it.

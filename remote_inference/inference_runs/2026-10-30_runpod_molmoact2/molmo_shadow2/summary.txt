@@ -1,0 +1,7 @@
+[rollout_safe] summary
+  mode: SHADOW (no motor writes); commands: 979
+  chunks accepted: 72, rejected: 0, starvation holds: 0
+  turnaround median 0.59 s, p90 0.64 s, max 2.34 s
+  largest tick-to-tick jump requested by the policy (deg): shoulder_pan 3.7, shoulder_lift 2.1, elbow_flex 11.0, wrist_flex 8.2, wrist_roll 6.0, gripper 15.6
+  commands with a jump over 10 deg: 1; range clips: 0; cap clips: 84
+  chunk-splice step (new chunk's first target vs previous target), n=72: median 0.9 deg, p90 6.6, max 15.6  [go/no-go gate: median < 10, max < 20; Pi0.5 was 33 / 127, GR00T 9 / 20]

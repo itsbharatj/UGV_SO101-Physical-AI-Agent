@@ -1,0 +1,12 @@
+86716.619 reset {}
+86716.619 scheduling {'scheduling': 'playback_threshold', 'mode': 'chunk', 'chunk_merge': 'aligned', 'blend_steps': 0, 'configured_refill_s': 2.5, 'effective_refill_s': 2.5, 'execution_horizon_s': 3.3333333333333335, 'aligned_task_change_bypasses_refill': True}
+86717.363 reset {}
+86719.234 request {'request_id': '88216709e46040e3882c72a51fcffbfb', 'capture_time': 86719.230702666, 'task_version': 0, 'delay': 0, 'chunk_merge': 'aligned', 'configured_refill_s': 2.5, 'effective_refill_s': 2.5, 'scheduling': 'playback_threshold', 'recent_turnaround_s': 0.0, 'playback_at_submission_s': 0.0, 'observation_age_at_submission_s': 0.0031722090061521158, 'observation_cursor': 0, 'submission_cursor': 0}
+86722.139 result {'request_id': '88216709e46040e3882c72a51fcffbfb', 'accepted': True, 'turnaround_s': 2.904663708002772, 'timing_margin_s': None, 'source_age_s': 2.9078443339967635, 'queue_playback_s': 3.3333333333333335, 'server_durations': {'preprocessing': 0.008963102009147406, 'policy': 0.37157356506213546, 'postprocessing': 0.0004999319789931178, 'queue': 0.00013723003212362528, 'worker': 0.38338377501349896}, 'merge': {'accepted': True, 'trimmed_actions': 0, 'overlap_steps': 0, 'blended_steps': 0, 'usable_actions': 50}}
+86722.514 request {'request_id': 'e2a1e4ec1a4c421ab90cc5b0942c95cb', 'capture_time': 86722.496071125, 'task_version': 0, 'delay': 44, 'chunk_merge': 'aligned', 'configured_refill_s': 2.5, 'effective_refill_s': 2.940799749661043, 'scheduling': 'playback_threshold', 'recent_turnaround_s': 2.8741330829943763, 'playback_at_submission_s': 2.933333333333333, 'observation_age_at_submission_s': 0.018101333000231534, 'observation_cursor': 5, 'submission_cursor': 6}
+86725.609 planned_hold {'reason': 'action starvation'}
+86725.636 request_cancelled {'request_id': 'e2a1e4ec1a4c421ab90cc5b0942c95cb', 'request_generation': 2, 'wait_s': 3.1218709999957355, 'playback_at_submission_s': 2.933333333333333}
+86725.636 waiting {'grace_s': 4.0}
+86727.555 fault {'reason': 'Action request deadline exceeded while waiting for fresh actions'}
+86727.623 invalidate {}
+86727.754 invalidate {}

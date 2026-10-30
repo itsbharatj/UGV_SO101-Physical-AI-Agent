@@ -1,0 +1,35 @@
+events: 77  requests: 34  results: 32  accepted: 32  merge-accepted: 32
+accepted-result spacing: n=31 median=0.674 mean=0.819 min=0.628 max=1.527
+turnaround: median=0.673 p90=1.273 max=1.527
+usable_actions: median=29 min=17 max=40; overlap_steps median=18 min=0 max=28; trimmed median=11; blended sum=0
+scheduling: {'scheduling': 'playback_threshold', 'mode': 'chunk', 'chunk_merge': 'aligned', 'blend_steps': 0, 'configured_refill_s': 2.5, 'effective_refill_s': 2.5, 'execution_horizon_s': 2.6666666666666665, 'aligned_task_change_bypasses_refill': True}
+rows: 1068 cmd: 609 obs: 459
+first cmd t=86101.988, last cmd t=86137.737, duration 35.7s; first request t=86102.111; first accepted result t=86102.869
+cmd tick interval: median=67.0 ms  p90=73.0 ms  max=667.0 ms; n(dt>0.1s)=2
+NaN steps: 0
+per-tick step (max over joints): median=1.14 deg, p90=2.76, p99=22.45, max=36.73
+jumps >15.0 deg: 10
+   shoulder_pan: n(>15.0)=0 max=12.1
+   shoulder_lift: n(>15.0)=5 max=25.5
+   elbow_flex: n(>15.0)=10 max=36.7
+   wrist_flex: n(>15.0)=6 max=26.6
+   wrist_roll: n(>15.0)=0 max=8.8
+   gripper: n(>15.0)=0 max=4.2
+jump size: median=27.2 max=36.7 min=15.1
+lag of jump cmd (second cmd) after preceding accepted result: median=0.036 p90=0.067 max=0.071; n(lag<=0.065)=8/10
+tick interval at jumps: median=69.0 ms max=82.0 ms
+lag of first cmd of the pair after preceding accepted result: median=0.624, n(first cmd BEFORE result, i.e. result between the two cmds)=9
+chance baseline: fraction of all ticks within 0.065s after an accepted result = 0.044 (27/608)
+accepted results followed (within 0.065s) by a >15.0 deg jump: 8/32
+first step after each accepted result (n=26): median=9.8 deg, n>5=22, n>15=8
+steps NOT within 0.065s after a result: n=581 median=1.14 max=35.96 n>15.0=2 n>5=12
+steps within 0.065s after a result: n=27 median=9.76
+jumps (t_rel to first cmd, lag after result, step, per-joint deltas):
+out-of-training-range commands:
+   shoulder_pan: 0.00% (0/609)  cmd min=11.77 max=47.04  train [-55.30,55.38]
+   shoulder_lift: 0.00% (0/609)  cmd min=-101.10 max=87.96  train [-105.98,108.53]
+   elbow_flex: 0.00% (0/609)  cmd min=-58.73 max=96.31  train [-98.07,99.03]
+   wrist_flex: 0.00% (0/609)  cmd min=37.67 max=79.51  train [-19.78,107.60]
+   wrist_roll: 0.00% (0/609)  cmd min=-17.77 max=1.34  train [-87.96,79.87]
+   gripper: 0.00% (0/609)  cmd min=0.07 max=23.70  train [0.00,49.76]
+   any joint: 0.00%

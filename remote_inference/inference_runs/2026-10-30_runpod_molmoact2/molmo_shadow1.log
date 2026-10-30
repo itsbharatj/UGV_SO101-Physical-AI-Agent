@@ -1,0 +1,68 @@
+W1030 19:08:58.044000 96355 .venv/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+objc[96355]: Class AVFFrameReceiver is implemented in both /Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/cv2/.dylibs/libavdevice.61.3.100.dylib (0x103f683a8) and /Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/av/.dylibs/libavdevice.61.3.100.dylib (0x1204683a8). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+objc[96355]: Class AVFAudioReceiver is implemented in both /Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/cv2/.dylibs/libavdevice.61.3.100.dylib (0x103f683f8) and /Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/av/.dylibs/libavdevice.61.3.100.dylib (0x1204683f8). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+INFO 2026-10-30 19:09:00 _rollout.py:247 Building rollout context...
+INFO 2026-10-30 19:09:00 e/client.py:128 Remote client lerobot_version=0.6.2 protocol=1
+INFO 2026-10-30 19:09:01 e/client.py:190 Remote server deployment=so101_jenga instance=94b2221e4f234374a1c99ab629181c6d software={'lerobot_version': '0.6.2'} protocol=1
+INFO 2026-10-30 19:09:01 /context.py:339 Connecting robot (so100_follower)...
+INFO 2026-10-30 19:09:03 a_opencv.py:198 OpenCVCamera(0) connected.
+INFO 2026-10-30 19:09:05 a_opencv.py:198 OpenCVCamera(2) connected.
+INFO 2026-10-30 19:09:05 follower.py:128 SO-101 SOFollower connected.
+INFO 2026-10-30 19:09:05 /context.py:341 Robot connected: so_follower
+INFO 2026-10-30 19:09:05 /context.py:344 Captured initial robot position (6 keys)
+INFO 2026-10-30 19:09:05 e/client.py:361 Remote session ready: deployment=so101_jenga instance=94b2221e4f234374a1c99ab629181c6d session=a8d90b3a8139498a9641cf6a55f4142a mode=chunk merge=aligned action_rate=15.0 Hz horizon=2.000s; contract verified
+INFO 2026-10-30 19:09:05 /context.py:786 Remote rollout admitted: deployment=so101_jenga instance=94b2221e4f234374a1c99ab629181c6d mode=chunk
+INFO 2026-10-30 19:09:05 _rollout.py:251 Rollout strategy: base
+INFO 2026-10-30 19:09:05 _rollout.py:252 Robot: so100_follower | FPS: 15 | Duration: infinite
+INFO 2026-10-30 19:09:05 gies/core.py:99 Starting inference engine...
+WARNING 2026-10-30 19:09:05 e/engine.py:361 Aligned effective refill 2.500s (configured 2.500s, recent turnaround 0.000s) covers the full execution horizon 2.000s; requests may follow every fresh advanced observation. Compare consecutive request submission_cursor and playback_at_submission_s; lower configured refill only within measured latency headroom, or use a supported longer execution horizon. No setting was changed.
+INFO 2026-10-30 19:09:05 e/engine.py:189 Remote session reset requested; previous motion is invalidated
+INFO 2026-10-30 19:09:05 e/engine.py:153 Remote execution: mode=chunk merge=aligned blend_steps=0 incoming_weight=0.50; action_rate=15.0 Hz horizon=2.000s refill=2.500s (effective=2.500s); max_source_age=8.000s action_timeout=12.000s startup_timeout=10.000s starvation_grace=10.000s
+INFO 2026-10-30 19:09:05 ies/core.py:103 Inference engine started
+INFO 2026-10-30 19:09:05 gies/base.py:40 Base strategy ready
+INFO 2026-10-30 19:09:05 _rollout.py:263 Rollout setup complete — starting interactive session (robot idle until /start)
+[rollout_safe] SHADOW mode: torque disabled, motor commands are logged but not sent
+────────────────────────────────────────────────────────────
+Interactive rollout session — the robot will NOT move until you type /start.
+Task: 'pickup jenga and place inside the white box'
+Available commands:
+  /start                  start (or restart) the policy control loop
+  /subtask <text>         set the instruction the policy follows
+  /vqa <text>             ask the policy a question about what it sees
+  /autosteer <goal>|off   let the policy pick its own subtasks toward a high-level goal
+  /reset                  stop movement, return to initial position, restore the task
+  /stop                   end the session and shut down
+  /help                   show this help
+Routine system logs and warnings are muted during the session (errors and the cadence summary of each run still show).
+────────────────────────────────────────────────────────────
+Rollout running — task 'pickup jenga and place inside the white box'. /subtask <text> to change it, /reset to return to initial position, /stop to shut down.
+Cadence summary — whole run · target 15 Hz (66.7 ms budget per tick): 898 ticks, 897 judged
+  effective cadence: 14.98 Hz over 59.9 s measured
+  ticks over the 66.7 ms work budget: 0/897 (0.0%) — work mean 4.3 ms, worst 19.2 ms
+  ticks whose cadence slipped outside the loop body (sleep overshoot / CPU starvation while pacing): 4
+  loop-body steps (share of measured work):
+    observe      mean   1.33 ms · worst   7.53 ms ·  30.7% of work · 898 calls
+    process_obs  mean   1.61 ms · worst  16.59 ms ·  37.2% of work · 898 calls
+    telemetry    mean   0.00 ms · worst   0.02 ms ·   0.0% of work · 898 calls
+    query        mean   0.01 ms · worst   0.08 ms ·   0.3% of work · 898 calls
+    infer        mean   0.06 ms · worst   1.40 ms ·   1.3% of work · 887 calls
+    send         mean   1.19 ms · worst   3.61 ms ·  27.2% of work · 887 calls
+  pacing headroom: 62.4 ms slept per tick on average (max 88.2 ms) — near zero means the loop is saturated
+Resetting — returning the robot to its initial position...
+Robot reset — holding at initial position. /start to run.
+INFO 2026-10-30 19:10:18 ls/utils.py:150 Interactive session ended
+INFO 2026-10-30 19:10:18 ies/core.py:267 Stopping inference engine...
+INFO 2026-10-30 19:10:18 e/engine.py:855 Remote session closed; server acknowledged session release
+INFO 2026-10-30 19:10:18 ies/core.py:289 Returning robot to initial position before shutdown...
+INFO 2026-10-30 19:10:21 ies/core.py:295 Disconnecting robot: disable_torque_on_disconnect=True; a prior hold command does not guarantee pose retention after disconnect
+INFO 2026-10-30 19:10:21 a_opencv.py:637 OpenCVCamera(0) disconnected.
+INFO 2026-10-30 19:10:22 a_opencv.py:637 OpenCVCamera(2) disconnected.
+INFO 2026-10-30 19:10:22 follower.py:221 SO-101 SOFollower disconnected.
+INFO 2026-10-30 19:10:22 gies/base.py:96 Base strategy teardown complete
+INFO 2026-10-30 19:10:22 _rollout.py:280 Rollout finished
+[rollout_safe] summary
+  mode: SHADOW (no motor writes); commands: 1199
+  chunks accepted: 95, rejected: 0, starvation holds: 0
+  turnaround median 0.61 s, p90 0.70 s, max 0.90 s
+  largest tick-to-tick jump requested by the policy (deg): shoulder_pan 23.6, shoulder_lift 3.3, elbow_flex 9.0, wrist_flex 7.1, wrist_roll 17.5, gripper 23.2
+  commands with a jump over 10 deg: 14; range clips: 0; cap clips: 0

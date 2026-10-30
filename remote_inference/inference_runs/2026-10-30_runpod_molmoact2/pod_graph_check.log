@@ -1,0 +1,20 @@
+[check] 14:30:09 server stopped; running graph_check.py
+Fetching 16 files:   0%|          | 0/16 [00:00<?, ?it/s]Fetching 16 files: 100%|██████████| 16/16 [00:00<00:00, 1887.68it/s]
+Fetching 16 files:   0%|          | 0/16 [00:00<?, ?it/s]Fetching 16 files: 100%|██████████| 16/16 [00:00<00:00, 1782.20it/s]
+loaded in 151s; chunk_size=30 n_action_steps=30 cuda_graph=True max_action_dim=32
+/root/check/runpod/graph_check.py:49: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /pytorch/torch/csrc/utils/tensor_numpy.cpp:213.)
+  "observation.images.top cam": torch.from_numpy(load(top_path)).permute(2, 0, 1).contiguous().float().div_(255).unsqueeze(0),
+cuda graph ON : times [2.438, 0.249, 0.241] s; shape (1, 30, 6); replay max|diff| 0.00e+00; finite=True
+cuda graph OFF: times [0.719, 0.713, 0.707] s; shape (1, 30, 6); replay max|diff| 0.00e+00; finite=True
+graph vs eager max|diff| = 0.00e+00 (normalized units; expect ~1e-3 or less)
+unnormalized chunk (deg / gripper %), rows = steps 0,5,...,29:
+  step  0 [  -1.67 -100.86   96.62   54.85   -3.77    1.21]   delta vs state [-0.3  -0.55  0.34 -0.23 -0.19 -0.05]
+  step  5 [  -1.54 -100.07   95.84   54.59   -3.78    1.22]   delta vs state [-0.17  0.24 -0.44 -0.49 -0.2  -0.04]
+  step 10 [  -1.62 -100.45   94.01   54.84   -3.76    1.28]   delta vs state [-0.25 -0.14 -2.27 -0.24 -0.18  0.02]
+  step 15 [  -1.6  -100.73   90.25   55.17   -3.98    1.38]   delta vs state [-0.23 -0.42 -6.03  0.09 -0.4   0.12]
+  step 20 [ -1.64 -98.76  84.86  56.73  -3.85   1.45]   delta vs state [ -0.27   1.55 -11.42   1.65  -0.27   0.19]
+  step 25 [ -1.8  -92.94  76.58  58.69  -3.74   1.42]   delta vs state [ -0.43   7.37 -19.7    3.61  -0.16   0.16]
+  step 29 [ -1.93 -84.61  69.07  59.52  -3.27   1.31]
+per-step |delta| max over chunk: [0.28 3.45 2.39 0.51 0.25 0.13]
+CHECK_DONE
+[check] 14:32:52 check finished; restarting server

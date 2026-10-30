@@ -1,0 +1,68 @@
+W1030 22:39:53.724000 8516 .venv/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/redirects.py:29] NOTE: Redirects are currently not supported in Windows or MacOs.
+objc[8516]: Class AVFFrameReceiver is implemented in both /Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/cv2/.dylibs/libavdevice.61.3.100.dylib (0x10aacc3a8) and /Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/av/.dylibs/libavdevice.61.3.100.dylib (0x12e3143a8). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+objc[8516]: Class AVFAudioReceiver is implemented in both /Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/cv2/.dylibs/libavdevice.61.3.100.dylib (0x10aacc3f8) and /Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/av/.dylibs/libavdevice.61.3.100.dylib (0x12e3143f8). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+INFO 2026-10-30 22:39:56 _rollout.py:247 Building rollout context...
+INFO 2026-10-30 22:39:56 e/client.py:128 Remote client lerobot_version=0.6.2 protocol=1
+INFO 2026-10-30 22:39:57 e/client.py:190 Remote server deployment=so101_jenga instance=b3ce4068150c433c9f88a9e1fb206c79 software={'lerobot_version': '0.6.2'} protocol=1
+INFO 2026-10-30 22:39:57 /context.py:339 Connecting robot (so100_follower)...
+INFO 2026-10-30 22:39:59 a_opencv.py:198 OpenCVCamera(0) connected.
+INFO 2026-10-30 22:40:01 a_opencv.py:198 OpenCVCamera(1) connected.
+INFO 2026-10-30 22:40:01 follower.py:128 SO-101 SOFollower connected.
+INFO 2026-10-30 22:40:01 /context.py:341 Robot connected: so_follower
+INFO 2026-10-30 22:40:01 a_opencv.py:637 OpenCVCamera(0) disconnected.
+INFO 2026-10-30 22:40:01 a_opencv.py:637 OpenCVCamera(1) disconnected.
+INFO 2026-10-30 22:40:01 follower.py:221 SO-101 SOFollower disconnected.
+[rollout_safe] summary
+  mode: REAL; commands: 0
+  chunks accepted: 0, rejected: 0, starvation holds: 0
+  no chunks received
+  largest tick-to-tick jump requested by the policy (deg): shoulder_pan 0.0, shoulder_lift 0.0, elbow_flex 0.0, wrist_flex 0.0, wrist_roll 0.0, gripper 0.0
+  commands with a jump over 10 deg: 0; range clips: 0; cap clips: 0
+  no chunk splices observed
+Traceback (most recent call last):
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/motors/motors_bus.py", line 1233, in sync_read
+    read = self._connected_bus.sync_read_register_with_error(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: motor 1: Checksum error
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/rollout_safe.py", line 193, in <module>
+    sys.exit(fix["main"]())
+             ^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/scripts/lerobot_rollout.py", line 286, in main
+    cast(Callable[[], None], rollout)()
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/configs/parser.py", line 438, in wrapper_inner
+    response = fn(cfg, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/scripts/lerobot_rollout.py", line 248, in rollout
+    ctx = build_rollout_context(cfg, shutdown_event)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/rollout/context.py", line 448, in build_rollout_context
+    return build_remote_rollout_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/rollout/context.py", line 727, in build_remote_rollout_context
+    hardware = _connect_rollout_hardware(cfg, require_hold=True)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/rollout/context.py", line 342, in _connect_rollout_hardware
+    initial_obs = wrapper.get_observation()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/rollout/robot_wrapper.py", line 52, in get_observation
+    observation = self._robot.get_observation()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/rollout_safe.py", line 103, in get_observation
+    obs = _observe(self)
+          ^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/utils/decorators.py", line 29, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/robots/so_follower/so_follower.py", line 166, in get_observation
+    obs_dict = self.bus.sync_read("Present_Position", num_retry=self.config.num_read_retries)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/utils/decorators.py", line 29, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/lerobot/motors/motors_bus.py", line 1237, in sync_read
+    raise ConnectionError(
+ConnectionError: Failed to sync read 'Present_Position' from motor IDs [1, 2, 3, 4, 5, 6] after 3 tries. motor 1: Checksum error

@@ -1,0 +1,7 @@
+[rollout_safe] summary
+  mode: REAL; commands: 3192
+  chunks accepted: 187, rejected: 0, starvation holds: 2
+  turnaround median 0.61 s, p90 0.68 s, max 0.97 s
+  largest tick-to-tick jump requested by the policy (deg): shoulder_pan 14.2, shoulder_lift 74.3, elbow_flex 49.4, wrist_flex 62.8, wrist_roll 21.7, gripper 30.2
+  commands with a jump over 10 deg: 112; range clips: 0; cap clips: 2283
+  chunk-splice step (new chunk's first target vs previous target), n=187: median 10.7 deg, p90 31.9, max 74.3  [go/no-go gate: median < 10, max < 20; Pi0.5 was 33 / 127, GR00T 9 / 20]

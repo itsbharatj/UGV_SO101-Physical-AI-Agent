@@ -1,0 +1,15 @@
+/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:3860: RuntimeWarning: Mean of empty slice.
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/numpy/_core/_methods.py:145: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+/private/tmp/claude-501/-Users-bharatjain/018dccab-326f-457e-8e7d-081b76548077/scratchpad/wf_out/verify_chunk_boundary/scripts/analyze_run.py:30: RuntimeWarning: Mean of empty slice.
+  print(f"accepted-result spacing: n={len(sp)} median={np.median(sp):.3f} mean={sp.mean():.3f} min={sp.min():.3f} max={sp.max():.3f}")
+events: 12  requests: 2  results: 1  accepted: 1  merge-accepted: 1
+Traceback (most recent call last):
+  File "/private/tmp/claude-501/-Users-bharatjain/018dccab-326f-457e-8e7d-081b76548077/scratchpad/wf_out/verify_chunk_boundary/scripts/analyze_run.py", line 30, in <module>
+    print(f"accepted-result spacing: n={len(sp)} median={np.median(sp):.3f} mean={sp.mean():.3f} min={sp.min():.3f} max={sp.max():.3f}")
+                                                                                                      ^^^^^^^^
+  File "/Users/bharatjain/Desktop/SO-101/lerobot-remote/.venv/lib/python3.12/site-packages/numpy/_core/_methods.py", line 48, in _amin
+    return umr_minimum(a, axis, None, out, keepdims, initial, where)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: zero-size array to reduction operation minimum which has no identity

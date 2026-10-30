@@ -1,0 +1,10 @@
+component,params
+"LLM transformer blocks (Qwen3-4B layout, 36 layers)",3633509376
+LLM input embeddings,396165120
+lm_head (unused in continuous inference),395837440
+ViT SigLIP2-so400m layout (25 of 27 layers kept),382505936
+connector (2x2 attention pooling + projector MLP),56611328
+"action expert total (36 blocks, hidden 768)",577564448
+  of which modulation (cached per flow step),192532992
+"LoRA adapters r=64 (303 modules, unmerged)",159791872
+TOTAL,5601988144

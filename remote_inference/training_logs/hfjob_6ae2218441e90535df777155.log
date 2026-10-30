@@ -1,0 +1,2615 @@
+
+
+train_config.json:   0%|          | 0.00/8.40k [00:00<?, ?B/s][A
+train_config.json: 100%|██████████| 8.40k/8.40k [00:00<00:00, 1.45MB/s]
+
+
+Downloading bytes:           |  0.00B            [A
+
+Reconstructing (incomplete total...): |          |  0.00B /  0.00B            [A
+
+Fetching 11 files:   0%|          | 0/11 [00:00<?, ?it/s][A
+
+Reconstructing (incomplete total...):   0%|          |  0.00B / 7.62kB            [A
+
+Reconstructing (incomplete total...):   0%|          |  0.00B / 15.2kB            [A
+
+Reconstructing (incomplete total...):   0%|          |  0.00B / 23.6kB            [A
+
+Reconstructing (incomplete total...):   0%|          | 8.40kB /  413MB            [A
+
+Reconstructing (incomplete total...):   0%|          | 8.40kB /  413MB            [A
+
+Reconstructing (incomplete total...):   0%|          | 9.06kB /  620MB            [A
+
+Reconstructing (incomplete total...):   0%|          | 9.06kB /  620MB            [A
+
+Reconstructing (incomplete total...):   0%|          | 9.06kB /  620MB            [A
+
+Reconstructing (incomplete total...):   0%|          | 12.3kB /  620MB            [A
+
+Reconstructing (incomplete total...):   0%|          | 13.7kB /  620MB            [A
+
+Reconstructing (incomplete total...):   0%|          | 15.5kB /  620MB            [A
+
+Downloading bytes: █▋        |  104MB,   ???B/s  [A
+
+Reconstructing (incomplete total...):   0%|          | 69.8kB /  620MB,   ???B/s  [A
+
+Fetching 11 files:  91%|█████████ | 10/11 [00:01<00:00,  5.71it/s][A
+
+Downloading bytes: ████████▏ |  508MB, 98.1MB/s  [A
+
+Reconstructing (incomplete total...): 100%|██████████|  620MB /  620MB, 60.4kB/s  [A
+Fetching 11 files: 100%|██████████| 11/11 [00:02<00:00,  4.48it/s]
+
+
+Downloading bytes: ██████████|  568MB,  274MB/s  [A
+
+Download complete: ██████████|  568MB,  274MB/s  [A
+
+Reconstruction complete: 100%|██████████|  620MB /  620MB,  294MB/s               [AINFO 2026-10-28 16:29:13 ot_train.py:582 {'accelerator': {'activation_checkpointing': {'mode': <ActivationCheckpointingMode.NONE: 'none'>},
+                 'compile': {'backend': 'inductor',
+                             'enabled': False,
+                             'mode': None,
+                             'regional': True},
+                 'ddp': {'find_unused_parameters': True,
+                         'gradient_as_bucket_view': False,
+                         'static_graph': False},
+                 'fsdp': {'cpu_offload': False,
+                          'ignored_modules': None,
+                          'min_num_params': None,
+                          'reshard_after_forward': True,
+                          'wrap_modules': None},
+                 'grad_scaler': {'backoff_factor': 0.5,
+                                 'growth_factor': 2.0,
+                                 'growth_interval': 2000,
+                                 'init_scale': 65536.0},
+                 'gradient_accumulation': {'steps': 1},
+                 'mixed_precision': 'no'},
+ 'batch_size': 8,
+ 'checkpoint_format': <CheckpointFormat.SAFETENSORS: 'safetensors'>,
+ 'checkpoint_path': 'outputs/train/2026-10-28/16-29-10_resume/checkpoints/010000',
+ 'cudnn_deterministic': False,
+ 'dataloader_multiprocessing_context': 'spawn',
+ 'dataset': {'depth_output_unit': 'mm',
+             'episodes': [0,
+                          1,
+                          2,
+                          3,
+                          4,
+                          5,
+                          6,
+                          7,
+                          8,
+                          9,
+                          10,
+                          11,
+                          12,
+                          13,
+                          14,
+                          15,
+                          16,
+                          17,
+                          18,
+                          19,
+                          21,
+                          22,
+                          23,
+                          24,
+                          25,
+                          26,
+                          27,
+                          28,
+                          29,
+                          30,
+                          31,
+                          32,
+                          33,
+                          34,
+                          35,
+                          36,
+                          37,
+                          38,
+                          39,
+                          40,
+                          41,
+                          42,
+                          43,
+                          44,
+                          45,
+                          46,
+                          47,
+                          48,
+                          49,
+                          50,
+                          51,
+                          52,
+                          53,
+                          54,
+                          55,
+                          56,
+                          57,
+                          58,
+                          59,
+                          60,
+                          61,
+                          62,
+                          63,
+                          64,
+                          65,
+                          66,
+                          67,
+                          68,
+                          69,
+                          70],
+             'eval_split': 0.0,
+             'exclude_episodes': None,
+             'image_transforms': {'backend': 'dataloader',
+                                  'enable': False,
+                                  'gpu_chunk_size': 32,
+                                  'gpu_compile': True,
+                                  'max_num_transforms': 3,
+                                  'random_order': False,
+                                  'tfs': {'affine': {'kwargs': {'degrees': [-5.0,
+                                                                            5.0],
+                                                                'translate': [0.05,
+                                                                              0.05]},
+                                                     'type': 'RandomAffine',
+                                                     'weight': 1.0},
+                                          'brightness': {'kwargs': {'brightness': [0.8,
+                                                                                   1.2]},
+                                                         'type': 'ColorJitter',
+                                                         'weight': 1.0},
+                                          'contrast': {'kwargs': {'contrast': [0.8,
+                                                                               1.2]},
+                                                       'type': 'ColorJitter',
+                                                       'weight': 1.0},
+                                          'hue': {'kwargs': {'hue': [-0.05,
+                                                                     0.05]},
+                                                  'type': 'ColorJitter',
+                                                  'weight': 1.0},
+                                          'saturation': {'kwargs': {'saturation': [0.5,
+                                                                                   1.5]},
+                                                         'type': 'ColorJitter',
+                                                         'weight': 1.0},
+                                          'sharpness': {'kwargs': {'sharpness': [0.5,
+                                                                                 1.5]},
+                                                        'type': 'SharpnessJitter',
+                                                        'weight': 1.0}}},
+             'repo_id': 'jainbharat/ugv_jenga_box_20261026_214928',
+             'repo_type': 'dataset',
+             'return_uint8': False,
+             'revision': None,
+             'root': None,
+             'streaming': False,
+             'streaming_byte_budget_gb': 8.0,
+             'streaming_decode_threads': 2,
+             'streaming_decoded_queue_size': 8,
+             'streaming_episode_pool_size': None,
+             'streaming_native_http_connections': None,
+             'streaming_native_http_subranges': 1,
+             'streaming_prefetch_episodes': 8,
+             'streaming_sampling_strategy': <StreamingSamplingStrategy.REMAINING: 'remaining'>,
+             'streaming_sidecar_lock_timeout_s': 1800.0,
+             'use_imagenet_stats': True,
+             'video_backend': 'torchcodec',
+             'video_decoder_cache_size': None},
+ 'ema': {'decay': None,
+         'enable': False,
+         'inv_gamma': 1.0,
+         'max_decay': 0.9999,
+         'min_decay': 0.0,
+         'power': 0.75,
+         'update_after_step': 0,
+         'use_for_eval': True},
+ 'env': None,
+ 'env_eval_freq': 20000,
+ 'eval': {'batch_size': 5,
+          'n_episodes': 50,
+          'recording': False,
+          'recording_private': False,
+          'recording_repo_id': None,
+          'use_async_envs': True},
+ 'eval_steps': 0,
+ 'job': {'detach': False,
+         'image': 'huggingface/lerobot-gpu:latest',
+         'tags': [],
+         'target': None,
+         'timeout': '2d'},
+ 'job_name': 'act_20k_70ep',
+ 'log_freq': 250,
+ 'max_eval_samples': 0,
+ 'num_workers': 4,
+ 'optimizer': {'betas': [0.9, 0.999],
+               'eps': 1e-08,
+               'fused': None,
+               'grad_clip_norm': 10.0,
+               'lr': 1e-05,
+               'type': 'adamw',
+               'weight_decay': 0.0001},
+ 'output_dir': 'outputs/train/2026-10-28/16-29-10_resume',
+ 'parallelism': {'cfg_parallel': 1,
+                 'context_parallel': {'ring_degree': 1, 'ulysses_degree': 1},
+                 'dp_replicate': 1,
+                 'dp_shard': 1},
+ 'peft': None,
+ 'persistent_workers': True,
+ 'policy': {'chunk_size': 100,
+            'device': 'cuda',
+            'dim_feedforward': 3200,
+            'dim_model': 512,
+            'dropout': 0.1,
+            'dtype': None,
+            'feedforward_activation': 'relu',
+            'input_features': {'observation.images.top cam': {'shape': [3,
+                                                                        480,
+                                                                        640],
+                                                              'type': <FeatureType.VISUAL: 'VISUAL'>},
+                               'observation.images.wrist cam': {'shape': [3,
+                                                                          480,
+                                                                          640],
+                                                                'type': <FeatureType.VISUAL: 'VISUAL'>},
+                               'observation.state': {'shape': [6],
+                                                     'type': <FeatureType.STATE: 'STATE'>}},
+            'kl_weight': 10.0,
+            'latent_dim': 32,
+            'license': None,
+            'n_action_steps': 100,
+            'n_decoder_layers': 1,
+            'n_encoder_layers': 4,
+            'n_heads': 8,
+            'n_obs_steps': 1,
+            'n_vae_encoder_layers': 4,
+            'normalization_mapping': {'ACTION': <NormalizationMode.MEAN_STD: 'MEAN_STD'>,
+                                      'STATE': <NormalizationMode.MEAN_STD: 'MEAN_STD'>,
+                                      'VISUAL': <NormalizationMode.MEAN_STD: 'MEAN_STD'>},
+            'optimizer_fused': None,
+            'optimizer_lr': 1e-05,
+            'optimizer_lr_backbone': 1e-05,
+            'optimizer_weight_decay': 0.0001,
+            'output_features': {'action': {'shape': [6],
+                                           'type': <FeatureType.ACTION: 'ACTION'>}},
+            'pre_norm': False,
+            'pretrained_backbone_weights': 'ResNet18_Weights.IMAGENET1K_V1',
+            'pretrained_path': None,
+            'pretrained_revision': None,
+            'private': None,
+            'push_to_hub': True,
+            'replace_final_stride_with_dilation': 0,
+            'repo_id': 'jainbharat/act_20k_70ep_2026-10-28',
+            'tags': ['lerobot', 'lelab'],
+            'temporal_ensemble_coeff': None,
+            'type': 'act',
+            'use_amp': True,
+            'use_peft': False,
+            'use_vae': True,
+            'vision_backbone': 'resnet18'},
+ 'prefetch_factor': 4,
+ 'rename_map': {},
+ 'resume': True,
+ 'reward_model': None,
+ 'sample_weighting': None,
+ 'save_checkpoint': True,
+ 'save_checkpoint_to_hub': True,
+ 'save_freq': 2500,
+ 'scheduler': None,
+ 'seed': 1000,
+ 'steps': 20000,
+ 'tolerance_s': 0.0001,
+ 'use_policy_training_preset': True,
+ 'wandb': {'add_tags': True,
+           'console': 'wrap',
+           'console_chunk_max_seconds': 0,
+           'console_multipart': False,
+           'disable_artifact': False,
+           'enable': False,
+           'entity': None,
+           'mode': None,
+           'notes': None,
+           'project': 'lerobot',
+           'resume': None,
+           'run_id': None}}
+INFO 2026-10-28 16:29:13 ot_train.py:589 Logs will be saved locally.
+INFO 2026-10-28 16:29:13 ot_train.py:604 Creating dataset
+
+
+Downloading bytes:           |  0.00B            [A
+
+Reconstructing (incomplete total...): |          |  0.00B /  0.00B            [A
+
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s][A
+
+Reconstructing (incomplete total...):   0%|          |  0.00B /  109kB            [A
+
+Reconstructing (incomplete total...):   0%|          |  0.00B /  498kB            [A
+
+Reconstructing (incomplete total...):   0%|          |  0.00B /  551kB            [A
+
+Reconstructing (incomplete total...):   0%|          |  0.00B /  551kB            [A
+
+Reconstructing (incomplete total...):   0%|          |  0.00B /  551kB            [A
+
+Reconstructing (incomplete total...):   0%|          |  0.00B /  551kB            [A
+
+Reconstructing (incomplete total...):   0%|          |  0.00B /  554kB            [A
+
+Reconstructing (incomplete total...):   1%|          | 3.68kB /  556kB            [A
+
+Reconstructing (incomplete total...):   1%|          | 3.68kB /  569kB            [A
+Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 22.46it/s]
+
+
+Downloading bytes: ██████████|  223kB,   ???B/s  [A
+
+Download complete: ██████████|  223kB,   ???B/s  [A
+
+Reconstruction complete: 100%|██████████|  569kB /  569kB,   ???B/s               [A
+Download complete: ██████████|  223kB,   ???B/s  
+
+Reconstruction complete: 100%|██████████|  569kB /  569kB,   ???B/s  
+
+
+Downloading bytes:           |  0.00B            [A
+
+Reconstructing (incomplete total...): |          |  0.00B /  0.00B            [A
+
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s][A
+Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 1777.50it/s]
+
+
+Download complete:           |  0.00B            [A
+
+Reconstruction complete: |          |  0.00B /  0.00B                         [A
+Download complete:           |  0.00B            
+
+Reconstruction complete: |          |  0.00B /  0.00B            
+
+
+Downloading bytes:           |  0.00B            [A
+
+Reconstructing (incomplete total...): |          |  0.00B /  0.00B            [A
+
+Fetching 25 files:   0%|          | 0/25 [00:00<?, ?it/s][A
+
+Reconstructing (incomplete total...):   0%|          |  0.00B / 35.8kB            [A
+
+Reconstructing (incomplete total...):   0%|          |  0.00B / 60.9MB            [A
+
+Reconstructing (incomplete total...):   0%|          |  0.00B / 61.7MB            [A
+
+Reconstructing (incomplete total...):   0%|          |  0.00B / 79.8MB            [A
+
+Reconstructing (incomplete total...):   0%|          |  0.00B / 79.8MB            [A
+
+Reconstructing (incomplete total...):   0%|          |  0.00B / 79.9MB            [A
+
+Reconstructing (incomplete total...):   0%|          |  0.00B / 80.1MB            [A
+
+Reconstructing (incomplete total...):   0%|          |  0.00B / 80.9MB            [A
+
+Reconstructing (incomplete total...):   0%|          |  229kB /  165MB,   ???B/s  [A
+
+Reconstructing (incomplete total...):   0%|          |  229kB /  364MB,   ???B/s  [A
+
+Reconstructing (incomplete total...):   0%|          |  981kB /  379MB,   ???B/s  [A
+
+Reconstructing (incomplete total...):   0%|          |  981kB /  582MB,   ???B/s  [A
+
+Reconstructing (incomplete total...):   0%|          | 1.85MB /  614MB,   ???B/s  [A
+
+Reconstructing (incomplete total...):   0%|          | 1.96MB /  813MB,   ???B/s  [A
+
+Reconstructing (incomplete total...):   2%|▏         | 20.0MB / 1.01GB,   ???B/s  [A
+
+Reconstructing (incomplete total...):   3%|▎         | 35.5MB / 1.04GB,   ???B/s  [A
+
+Reconstructing (incomplete total...):   9%|▉         | 96.4MB / 1.10GB,   ???B/s  [A
+
+Reconstructing (incomplete total...):  11%|█         |  126MB / 1.12GB,   ???B/s  [A
+
+Reconstructing (incomplete total...):  13%|█▎        |  158MB / 1.21GB,   ???B/s  [A
+
+Downloading bytes: ███▏      |  380MB,   ???B/s  [A
+
+Reconstructing (incomplete total...):  30%|██▉       |  356MB / 1.21GB,   ???B/s  [A
+
+Fetching 25 files:  48%|████▊     | 12/25 [00:01<00:01,  7.95it/s][A
+
+Reconstructing (incomplete total...):  29%|██▉       |  356MB / 1.22GB,  239MB/s  [A
+
+Reconstructing (incomplete total...):  26%|██▌       |  374MB / 1.43GB,  239MB/s  [A
+
+Reconstructing (incomplete total...):  50%|████▉     |  789MB / 1.59GB,  239MB/s  [A
+
+Reconstructing (incomplete total...):  52%|█████▏    |  933MB / 1.80GB,  239MB/s  [A
+
+Reconstructing (incomplete total...):  47%|████▋     |  933MB / 2.00GB,  239MB/s  [A
+
+Reconstructing (incomplete total...):  55%|█████▌    | 1.13GB / 2.06GB,  239MB/s  [A
+
+Downloading bytes: █████▉    | 1.21GB,  370MB/s  [A
+
+Downloading bytes: ████████▉ | 1.83GB,  612MB/s  [A
+
+Reconstructing (incomplete total...):  63%|██████▎   | 1.29GB / 2.06GB,  239MB/s  [A
+
+Fetching 25 files:  84%|████████▍ | 21/25 [00:03<00:00,  5.83it/s][A
+Fetching 25 files: 100%|██████████| 25/25 [00:03<00:00,  6.90it/s]
+
+
+Downloading bytes: ██████████| 2.05GB,  585MB/s  [A
+
+Download complete: ██████████| 2.05GB,  585MB/s  [A
+
+Reconstruction complete: 100%|██████████| 2.06GB / 2.06GB,  414MB/s               [AINFO 2026-10-28 16:29:18 ot_train.py:640 Creating policy
+Downloading: "https://download.pytorch.org/models/resnet18-f37072fd.pth" to /home/user_lerobot/.cache/torch/hub/checkpoints/resnet18-f37072fd.pth
+
+
+  0%|          | 0.00/44.7M [00:00<?, ?B/s][A
+100%|██████████| 44.7M/44.7M [00:00<00:00, 102MB/s]
+
+Download complete: ██████████| 2.05GB,  585MB/s  
+
+Reconstruction complete: 100%|██████████| 2.06GB / 2.06GB,  414MB/s  
+Loading weights from local directory
+INFO 2026-10-28 16:29:20 ot_train.py:735 Creating optimizer and scheduler
+INFO 2026-10-28 16:29:20 ot_train.py:419 Resuming data order at epoch 2, sample 1248
+INFO 2026-10-28 16:29:20 ot_train.py:795 Output dir: outputs/train/2026-10-28/16-29-10_resume
+INFO 2026-10-28 16:29:20 ot_train.py:802 cfg.steps=20000 (20K)
+INFO 2026-10-28 16:29:20 ot_train.py:803 dataset.num_frames=39372 (39K)
+INFO 2026-10-28 16:29:20 ot_train.py:804 dataset.num_episodes=70
+INFO 2026-10-28 16:29:20 ot_train.py:805 Effective batch size: 8 x 1 dp workers x 1 grad accum = 8 (topology: dp_replicate=1, dp_shard=1)
+INFO 2026-10-28 16:29:20 ot_train.py:810 num_learnable_params=51597190 (52M)
+INFO 2026-10-28 16:29:20 ot_train.py:811 num_total_params=51597190 (52M)
+
+Training:   0%|          | 0/10000 [00:00<?, ?step/s]INFO 2026-10-28 16:29:20 ot_train.py:920 Start offline training on a fixed dataset, with effective batch size: 8
+
+
+Download complete: ██████████|  568MB,  274MB/s  [A
+
+Reconstruction complete: 100%|██████████|  620MB /  620MB,  294MB/s  [A
+Training:   0%|          | 1/10000 [00:44<124:43:24, 44.90s/step]
+Training:   0%|          | 4/10000 [00:46<24:39:47,  8.88s/step] 
+Training:   0%|          | 7/10000 [00:47<12:08:11,  4.37s/step]
+Training:   0%|          | 10/10000 [00:49<7:26:39,  2.68s/step]
+Training:   0%|          | 13/10000 [00:50<5:06:03,  1.84s/step]
+Training:   0%|          | 16/10000 [00:52<3:46:00,  1.36s/step]
+Training:   0%|          | 19/10000 [00:53<2:56:52,  1.06s/step]
+Training:   0%|          | 22/10000 [00:54<2:25:25,  1.14step/s]
+Training:   0%|          | 25/10000 [00:56<2:04:38,  1.33step/s]
+Training:   0%|          | 28/10000 [00:57<1:50:38,  1.50step/s]
+Training:   0%|          | 31/10000 [00:59<1:40:56,  1.65step/s]
+Training:   0%|          | 34/10000 [01:00<1:34:27,  1.76step/s]
+Training:   0%|          | 37/10000 [01:02<1:29:55,  1.85step/s]
+Training:   0%|          | 40/10000 [01:03<1:26:49,  1.91step/s]
+Training:   0%|          | 43/10000 [01:05<1:24:39,  1.96step/s]
+Training:   0%|          | 46/10000 [01:06<1:23:09,  1.99step/s]
+Training:   0%|          | 49/10000 [01:07<1:22:05,  2.02step/s]
+Training:   1%|          | 52/10000 [01:09<1:21:23,  2.04step/s]
+Training:   1%|          | 55/10000 [01:10<1:20:50,  2.05step/s]
+Training:   1%|          | 58/10000 [01:12<1:20:27,  2.06step/s]
+Training:   1%|          | 61/10000 [01:13<1:20:12,  2.07step/s]
+Training:   1%|          | 64/10000 [01:15<1:20:02,  2.07step/s]
+Training:   1%|          | 67/10000 [01:16<1:19:56,  2.07step/s]
+Training:   1%|          | 70/10000 [01:18<1:19:52,  2.07step/s]
+Training:   1%|          | 73/10000 [01:19<1:19:48,  2.07step/s]
+Training:   1%|          | 76/10000 [01:20<1:19:45,  2.07step/s]
+Training:   1%|          | 79/10000 [01:22<1:19:45,  2.07step/s]
+Training:   1%|          | 82/10000 [01:23<1:19:48,  2.07step/s]
+Training:   1%|          | 85/10000 [01:25<1:19:50,  2.07step/s]
+Training:   1%|          | 88/10000 [01:26<1:19:50,  2.07step/s]
+Training:   1%|          | 91/10000 [01:28<1:19:50,  2.07step/s]
+Training:   1%|          | 94/10000 [01:29<1:19:50,  2.07step/s]
+Training:   1%|          | 97/10000 [01:31<1:19:48,  2.07step/s]
+Training:   1%|          | 100/10000 [01:32<1:19:54,  2.06step/s]
+Training:   1%|          | 103/10000 [01:33<1:19:52,  2.07step/s]
+Training:   1%|          | 106/10000 [01:35<1:19:52,  2.06step/s]
+Training:   1%|          | 109/10000 [01:36<1:19:52,  2.06step/s]
+Training:   1%|          | 112/10000 [01:38<1:19:49,  2.06step/s]
+Training:   1%|          | 115/10000 [01:39<1:19:45,  2.07step/s]
+Training:   1%|          | 118/10000 [01:41<1:19:45,  2.06step/s]
+Training:   1%|          | 121/10000 [01:42<1:19:43,  2.07step/s]
+Training:   1%|          | 124/10000 [01:44<1:19:45,  2.06step/s]
+Training:   1%|▏         | 127/10000 [01:45<1:19:47,  2.06step/s]
+Training:   1%|▏         | 130/10000 [01:47<1:19:49,  2.06step/s]
+Training:   1%|▏         | 133/10000 [01:48<1:19:49,  2.06step/s]
+Training:   1%|▏         | 136/10000 [01:49<1:19:51,  2.06step/s]
+Training:   1%|▏         | 139/10000 [01:51<1:19:51,  2.06step/s]
+Training:   1%|▏         | 142/10000 [01:52<1:19:52,  2.06step/s]
+Training:   1%|▏         | 145/10000 [01:54<1:19:47,  2.06step/s]
+Training:   1%|▏         | 148/10000 [01:55<1:19:40,  2.06step/s]
+Training:   2%|▏         | 151/10000 [01:57<1:19:37,  2.06step/s]
+Training:   2%|▏         | 154/10000 [01:58<1:19:33,  2.06step/s]
+Training:   2%|▏         | 157/10000 [02:00<1:19:26,  2.07step/s]
+Training:   2%|▏         | 160/10000 [02:01<1:19:23,  2.07step/s]
+Training:   2%|▏         | 163/10000 [02:03<1:19:22,  2.07step/s]
+Training:   2%|▏         | 166/10000 [02:04<1:19:22,  2.06step/s]
+Training:   2%|▏         | 169/10000 [02:05<1:19:23,  2.06step/s]
+Training:   2%|▏         | 172/10000 [02:07<1:19:21,  2.06step/s]
+Training:   2%|▏         | 175/10000 [02:08<1:19:20,  2.06step/s]
+Training:   2%|▏         | 178/10000 [02:10<1:19:20,  2.06step/s]
+Training:   2%|▏         | 181/10000 [02:11<1:19:21,  2.06step/s]
+Training:   2%|▏         | 184/10000 [02:13<1:19:21,  2.06step/s]
+Training:   2%|▏         | 187/10000 [02:14<1:19:19,  2.06step/s]
+Training:   2%|▏         | 190/10000 [02:16<1:19:16,  2.06step/s]
+Training:   2%|▏         | 193/10000 [02:17<1:19:15,  2.06step/s]
+Training:   2%|▏         | 196/10000 [02:19<1:19:15,  2.06step/s]
+Training:   2%|▏         | 199/10000 [02:20<1:19:15,  2.06step/s]
+Training:   2%|▏         | 202/10000 [02:21<1:19:11,  2.06step/s]
+Training:   2%|▏         | 205/10000 [02:23<1:19:16,  2.06step/s]
+Training:   2%|▏         | 208/10000 [02:24<1:19:15,  2.06step/s]
+Training:   2%|▏         | 211/10000 [02:26<1:19:14,  2.06step/s]
+Training:   2%|▏         | 214/10000 [02:27<1:19:07,  2.06step/s]
+Training:   2%|▏         | 217/10000 [02:29<1:19:06,  2.06step/s]
+Training:   2%|▏         | 220/10000 [02:30<1:19:03,  2.06step/s]
+Training:   2%|▏         | 223/10000 [02:32<1:19:03,  2.06step/s]
+Training:   2%|▏         | 226/10000 [02:33<1:19:02,  2.06step/s]
+Training:   2%|▏         | 229/10000 [02:35<1:19:02,  2.06step/s]
+Training:   2%|▏         | 232/10000 [02:36<1:19:02,  2.06step/s]
+Training:   2%|▏         | 235/10000 [02:38<1:19:04,  2.06step/s]
+Training:   2%|▏         | 238/10000 [02:39<1:19:01,  2.06step/s]
+Training:   2%|▏         | 241/10000 [02:40<1:19:01,  2.06step/s]
+Training:   2%|▏         | 244/10000 [02:42<1:19:00,  2.06step/s]
+Training:   2%|▏         | 247/10000 [02:43<1:18:58,  2.06step/s]
+Training:   2%|▎         | 250/10000 [02:45<1:18:57,  2.06step/s]INFO 2026-10-28 16:32:05 ot_train.py:972 step:10K smpl:82K ep:146 epch:2.08 loss:0.340 grdn:18.774 lr:1.0e-05 data_s:0.163 prep_s:0.001 updt_s:0.497 step_s:0.661 smp/s:12 mem_gb:3.74 l1_loss:0.292 kld_loss:0.005
+
+Training:   3%|▎         | 253/10000 [02:46<1:18:58,  2.06step/s]
+Training:   3%|▎         | 256/10000 [02:48<1:18:55,  2.06step/s]
+Training:   3%|▎         | 259/10000 [02:49<1:18:53,  2.06step/s]
+Training:   3%|▎         | 262/10000 [02:51<1:18:52,  2.06step/s]
+Training:   3%|▎         | 265/10000 [02:52<1:18:51,  2.06step/s]
+Training:   3%|▎         | 268/10000 [02:54<1:18:50,  2.06step/s]
+Training:   3%|▎         | 271/10000 [02:55<1:18:46,  2.06step/s]
+Training:   3%|▎         | 274/10000 [02:56<1:18:47,  2.06step/s]
+Training:   3%|▎         | 277/10000 [02:58<1:18:44,  2.06step/s]
+Training:   3%|▎         | 280/10000 [02:59<1:18:42,  2.06step/s]
+Training:   3%|▎         | 283/10000 [03:01<1:18:40,  2.06step/s]
+Training:   3%|▎         | 286/10000 [03:02<1:18:39,  2.06step/s]
+Training:   3%|▎         | 289/10000 [03:04<1:18:39,  2.06step/s]
+Training:   3%|▎         | 292/10000 [03:05<1:18:38,  2.06step/s]
+Training:   3%|▎         | 295/10000 [03:07<1:18:36,  2.06step/s]
+Training:   3%|▎         | 298/10000 [03:08<1:18:34,  2.06step/s]
+Training:   3%|▎         | 301/10000 [03:10<1:18:33,  2.06step/s]
+Training:   3%|▎         | 304/10000 [03:11<1:18:31,  2.06step/s]
+Training:   3%|▎         | 307/10000 [03:12<1:18:30,  2.06step/s]
+Training:   3%|▎         | 310/10000 [03:14<1:18:29,  2.06step/s]
+Training:   3%|▎         | 313/10000 [03:15<1:18:27,  2.06step/s]
+Training:   3%|▎         | 316/10000 [03:17<1:18:26,  2.06step/s]
+Training:   3%|▎         | 319/10000 [03:18<1:18:25,  2.06step/s]
+Training:   3%|▎         | 322/10000 [03:20<1:18:24,  2.06step/s]
+Training:   3%|▎         | 325/10000 [03:21<1:18:24,  2.06step/s]
+Training:   3%|▎         | 328/10000 [03:23<1:18:24,  2.06step/s]
+Training:   3%|▎         | 331/10000 [03:24<1:18:23,  2.06step/s]
+Training:   3%|▎         | 334/10000 [03:26<1:18:22,  2.06step/s]
+Training:   3%|▎         | 337/10000 [03:27<1:18:20,  2.06step/s]
+Training:   3%|▎         | 340/10000 [03:29<1:18:19,  2.06step/s]
+Training:   3%|▎         | 343/10000 [03:30<1:18:19,  2.05step/s]
+Training:   3%|▎         | 346/10000 [03:31<1:18:16,  2.06step/s]
+Training:   3%|▎         | 349/10000 [03:33<1:18:18,  2.05step/s]
+Training:   4%|▎         | 352/10000 [03:34<1:18:16,  2.05step/s]
+Training:   4%|▎         | 355/10000 [03:36<1:18:12,  2.06step/s]
+Training:   4%|▎         | 358/10000 [03:37<1:18:12,  2.05step/s]
+Training:   4%|▎         | 361/10000 [03:39<1:18:10,  2.06step/s]
+Training:   4%|▎         | 364/10000 [03:40<1:18:07,  2.06step/s]
+Training:   4%|▎         | 367/10000 [03:42<1:18:04,  2.06step/s]
+Training:   4%|▎         | 370/10000 [03:43<1:18:01,  2.06step/s]
+Training:   4%|▎         | 373/10000 [03:45<1:18:00,  2.06step/s]
+Training:   4%|▍         | 376/10000 [03:46<1:18:00,  2.06step/s]
+Training:   4%|▍         | 379/10000 [03:48<1:17:57,  2.06step/s]
+Training:   4%|▍         | 382/10000 [03:49<1:17:54,  2.06step/s]
+Training:   4%|▍         | 385/10000 [03:50<1:17:53,  2.06step/s]
+Training:   4%|▍         | 388/10000 [03:52<1:17:54,  2.06step/s]
+Training:   4%|▍         | 391/10000 [03:53<1:17:54,  2.06step/s]
+Training:   4%|▍         | 394/10000 [03:55<1:17:55,  2.05step/s]
+Training:   4%|▍         | 397/10000 [03:56<1:17:53,  2.05step/s]
+Training:   4%|▍         | 400/10000 [03:58<1:17:55,  2.05step/s]
+Training:   4%|▍         | 403/10000 [03:59<1:17:54,  2.05step/s]
+Training:   4%|▍         | 406/10000 [04:01<1:17:49,  2.05step/s]
+Training:   4%|▍         | 409/10000 [04:02<1:17:49,  2.05step/s]
+Training:   4%|▍         | 412/10000 [04:04<1:17:45,  2.05step/s]
+Training:   4%|▍         | 415/10000 [04:05<1:17:44,  2.06step/s]
+Training:   4%|▍         | 418/10000 [04:06<1:17:43,  2.05step/s]
+Training:   4%|▍         | 421/10000 [04:08<1:17:40,  2.06step/s]
+Training:   4%|▍         | 424/10000 [04:09<1:17:40,  2.05step/s]
+Training:   4%|▍         | 427/10000 [04:11<1:17:38,  2.05step/s]
+Training:   4%|▍         | 430/10000 [04:12<1:17:36,  2.06step/s]
+Training:   4%|▍         | 433/10000 [04:14<1:17:34,  2.06step/s]
+Training:   4%|▍         | 436/10000 [04:15<1:17:35,  2.05step/s]
+Training:   4%|▍         | 439/10000 [04:17<1:17:32,  2.06step/s]
+Training:   4%|▍         | 442/10000 [04:18<1:17:30,  2.06step/s]
+Training:   4%|▍         | 445/10000 [04:20<1:17:28,  2.06step/s]
+Download complete: ██████████|  568MB,  274MB/s  
+
+Reconstruction complete: 100%|██████████|  620MB /  620MB,  294MB/s  
+
+Training:   4%|▍         | 448/10000 [04:21<1:20:36,  1.97step/s]
+Training:   5%|▍         | 451/10000 [04:23<1:19:39,  2.00step/s]
+Training:   5%|▍         | 454/10000 [04:24<1:18:59,  2.01step/s]
+Training:   5%|▍         | 457/10000 [04:26<1:18:29,  2.03step/s]
+Training:   5%|▍         | 460/10000 [04:27<1:18:04,  2.04step/s]
+Training:   5%|▍         | 463/10000 [04:29<1:17:52,  2.04step/s]
+Training:   5%|▍         | 466/10000 [04:30<1:17:40,  2.05step/s]
+Training:   5%|▍         | 469/10000 [04:32<1:17:33,  2.05step/s]
+Training:   5%|▍         | 472/10000 [04:33<1:17:27,  2.05step/s]
+Training:   5%|▍         | 475/10000 [04:34<1:17:24,  2.05step/s]
+Training:   5%|▍         | 478/10000 [04:36<1:17:21,  2.05step/s]
+Training:   5%|▍         | 481/10000 [04:37<1:17:17,  2.05step/s]
+Training:   5%|▍         | 484/10000 [04:39<1:17:15,  2.05step/s]
+Training:   5%|▍         | 487/10000 [04:40<1:17:12,  2.05step/s]
+Training:   5%|▍         | 490/10000 [04:42<1:17:11,  2.05step/s]
+Training:   5%|▍         | 493/10000 [04:43<1:17:08,  2.05step/s]
+Training:   5%|▍         | 496/10000 [04:45<1:17:06,  2.05step/s]
+Training:   5%|▍         | 499/10000 [04:46<1:17:02,  2.06step/s]INFO 2026-10-28 16:34:07 ot_train.py:972 step:10K smpl:84K ep:149 epch:2.13 loss:0.304 grdn:17.704 lr:1.0e-05 data_s:0.003 prep_s:0.000 updt_s:0.483 step_s:0.487 smp/s:16 mem_gb:3.73 l1_loss:0.258 kld_loss:0.005
+
+Training:   5%|▌         | 502/10000 [04:48<1:17:02,  2.05step/s]
+Training:   5%|▌         | 505/10000 [04:49<1:17:01,  2.05step/s]
+Training:   5%|▌         | 508/10000 [04:50<1:17:03,  2.05step/s]
+Training:   5%|▌         | 511/10000 [04:52<1:17:01,  2.05step/s]
+Training:   5%|▌         | 514/10000 [04:53<1:17:01,  2.05step/s]
+Training:   5%|▌         | 517/10000 [04:55<1:17:00,  2.05step/s]
+Training:   5%|▌         | 520/10000 [04:56<1:16:57,  2.05step/s]
+Training:   5%|▌         | 523/10000 [04:58<1:16:56,  2.05step/s]
+Training:   5%|▌         | 526/10000 [04:59<1:16:52,  2.05step/s]
+Training:   5%|▌         | 529/10000 [05:01<1:16:50,  2.05step/s]
+Training:   5%|▌         | 532/10000 [05:02<1:16:48,  2.05step/s]
+Training:   5%|▌         | 535/10000 [05:04<1:16:45,  2.06step/s]
+Training:   5%|▌         | 538/10000 [05:05<1:16:42,  2.06step/s]
+Training:   5%|▌         | 541/10000 [05:07<1:16:39,  2.06step/s]
+Training:   5%|▌         | 544/10000 [05:08<1:16:39,  2.06step/s]
+Training:   5%|▌         | 547/10000 [05:09<1:16:40,  2.05step/s]
+Training:   6%|▌         | 550/10000 [05:11<1:16:36,  2.06step/s]
+Training:   6%|▌         | 553/10000 [05:12<1:16:36,  2.06step/s]
+Training:   6%|▌         | 556/10000 [05:14<1:16:34,  2.06step/s]
+Training:   6%|▌         | 559/10000 [05:15<1:16:33,  2.06step/s]
+Training:   6%|▌         | 562/10000 [05:17<1:16:31,  2.06step/s]
+Training:   6%|▌         | 565/10000 [05:18<1:16:34,  2.05step/s]
+Training:   6%|▌         | 568/10000 [05:20<1:16:33,  2.05step/s]
+Training:   6%|▌         | 571/10000 [05:21<1:16:35,  2.05step/s]
+Training:   6%|▌         | 574/10000 [05:23<1:16:32,  2.05step/s]
+Training:   6%|▌         | 577/10000 [05:24<1:16:30,  2.05step/s]
+Training:   6%|▌         | 580/10000 [05:26<1:16:27,  2.05step/s]
+Training:   6%|▌         | 583/10000 [05:27<1:16:26,  2.05step/s]
+Training:   6%|▌         | 586/10000 [05:28<1:16:26,  2.05step/s]
+Training:   6%|▌         | 589/10000 [05:30<1:16:25,  2.05step/s]
+Training:   6%|▌         | 592/10000 [05:31<1:16:20,  2.05step/s]
+Training:   6%|▌         | 595/10000 [05:33<1:16:19,  2.05step/s]
+Training:   6%|▌         | 598/10000 [05:34<1:16:17,  2.05step/s]
+Training:   6%|▌         | 601/10000 [05:36<1:16:19,  2.05step/s]
+Training:   6%|▌         | 604/10000 [05:37<1:16:16,  2.05step/s]
+Training:   6%|▌         | 607/10000 [05:39<1:16:17,  2.05step/s]
+Training:   6%|▌         | 610/10000 [05:40<1:16:18,  2.05step/s]
+Training:   6%|▌         | 613/10000 [05:42<1:16:16,  2.05step/s]
+Training:   6%|▌         | 616/10000 [05:43<1:16:10,  2.05step/s]
+Training:   6%|▌         | 619/10000 [05:45<1:16:08,  2.05step/s]
+Training:   6%|▌         | 622/10000 [05:46<1:16:08,  2.05step/s]
+Training:   6%|▋         | 625/10000 [05:47<1:16:05,  2.05step/s]
+Training:   6%|▋         | 628/10000 [05:49<1:16:03,  2.05step/s]
+Training:   6%|▋         | 631/10000 [05:50<1:16:01,  2.05step/s]
+Training:   6%|▋         | 634/10000 [05:52<1:15:59,  2.05step/s]
+Training:   6%|▋         | 637/10000 [05:53<1:15:57,  2.05step/s]
+Training:   6%|▋         | 640/10000 [05:55<1:16:01,  2.05step/s]
+Training:   6%|▋         | 643/10000 [05:56<1:15:58,  2.05step/s]
+Training:   6%|▋         | 646/10000 [05:58<1:15:55,  2.05step/s]
+Training:   6%|▋         | 649/10000 [05:59<1:15:50,  2.05step/s]
+Training:   7%|▋         | 652/10000 [06:01<1:15:47,  2.06step/s]
+Training:   7%|▋         | 655/10000 [06:02<1:15:45,  2.06step/s]
+Training:   7%|▋         | 658/10000 [06:04<1:15:42,  2.06step/s]
+Training:   7%|▋         | 661/10000 [06:05<1:15:41,  2.06step/s]
+Training:   7%|▋         | 664/10000 [06:06<1:15:39,  2.06step/s]
+Training:   7%|▋         | 667/10000 [06:08<1:15:38,  2.06step/s]
+Training:   7%|▋         | 670/10000 [06:09<1:15:37,  2.06step/s]
+Training:   7%|▋         | 673/10000 [06:11<1:15:34,  2.06step/s]
+Training:   7%|▋         | 676/10000 [06:12<1:15:35,  2.06step/s]
+Training:   7%|▋         | 679/10000 [06:14<1:15:35,  2.05step/s]
+Training:   7%|▋         | 682/10000 [06:15<1:15:32,  2.06step/s]
+Training:   7%|▋         | 685/10000 [06:17<1:15:30,  2.06step/s]
+Training:   7%|▋         | 688/10000 [06:18<1:15:28,  2.06step/s]
+Training:   7%|▋         | 691/10000 [06:20<1:15:26,  2.06step/s]
+Training:   7%|▋         | 694/10000 [06:21<1:15:25,  2.06step/s]
+Training:   7%|▋         | 697/10000 [06:22<1:15:26,  2.06step/s]
+Training:   7%|▋         | 700/10000 [06:24<1:15:23,  2.06step/s]
+Training:   7%|▋         | 703/10000 [06:25<1:15:23,  2.06step/s]
+Training:   7%|▋         | 706/10000 [06:27<1:15:20,  2.06step/s]
+Training:   7%|▋         | 709/10000 [06:28<1:15:22,  2.05step/s]
+Training:   7%|▋         | 712/10000 [06:30<1:15:24,  2.05step/s]
+Training:   7%|▋         | 715/10000 [06:31<1:15:22,  2.05step/s]
+Training:   7%|▋         | 718/10000 [06:33<1:15:22,  2.05step/s]
+Training:   7%|▋         | 721/10000 [06:34<1:15:19,  2.05step/s]
+Training:   7%|▋         | 724/10000 [06:36<1:15:16,  2.05step/s]
+Training:   7%|▋         | 727/10000 [06:37<1:15:12,  2.05step/s]
+Training:   7%|▋         | 730/10000 [06:39<1:15:11,  2.05step/s]
+Training:   7%|▋         | 733/10000 [06:40<1:15:08,  2.06step/s]
+Training:   7%|▋         | 736/10000 [06:41<1:15:09,  2.05step/s]
+Training:   7%|▋         | 739/10000 [06:43<1:15:06,  2.05step/s]
+Training:   7%|▋         | 742/10000 [06:44<1:15:04,  2.06step/s]
+Training:   7%|▋         | 745/10000 [06:46<1:15:04,  2.05step/s]
+Training:   7%|▋         | 748/10000 [06:47<1:15:02,  2.05step/s]INFO 2026-10-28 16:36:09 ot_train.py:972 step:11K smpl:86K ep:153 epch:2.18 loss:0.293 grdn:18.204 lr:1.0e-05 data_s:0.003 prep_s:0.000 updt_s:0.482 step_s:0.487 smp/s:16 mem_gb:3.73 l1_loss:0.249 kld_loss:0.004
+
+Training:   8%|▊         | 751/10000 [06:49<1:15:01,  2.05step/s]
+Training:   8%|▊         | 754/10000 [06:50<1:15:02,  2.05step/s]
+Training:   8%|▊         | 757/10000 [06:52<1:14:59,  2.05step/s]
+Training:   8%|▊         | 760/10000 [06:53<1:14:58,  2.05step/s]
+Training:   8%|▊         | 763/10000 [06:55<1:14:55,  2.05step/s]
+Training:   8%|▊         | 766/10000 [06:56<1:14:54,  2.05step/s]
+Training:   8%|▊         | 769/10000 [06:58<1:14:53,  2.05step/s]
+Training:   8%|▊         | 772/10000 [06:59<1:14:50,  2.05step/s]
+Training:   8%|▊         | 775/10000 [07:00<1:14:49,  2.05step/s]
+Training:   8%|▊         | 778/10000 [07:02<1:14:48,  2.05step/s]
+Training:   8%|▊         | 781/10000 [07:03<1:14:48,  2.05step/s]
+Training:   8%|▊         | 784/10000 [07:05<1:14:43,  2.06step/s]
+Training:   8%|▊         | 787/10000 [07:06<1:14:42,  2.06step/s]
+Training:   8%|▊         | 790/10000 [07:08<1:14:40,  2.06step/s]
+Training:   8%|▊         | 793/10000 [07:09<1:14:40,  2.06step/s]
+Training:   8%|▊         | 796/10000 [07:11<1:14:39,  2.05step/s]
+Training:   8%|▊         | 799/10000 [07:12<1:14:38,  2.05step/s]
+Training:   8%|▊         | 802/10000 [07:14<1:14:36,  2.05step/s]
+Training:   8%|▊         | 805/10000 [07:15<1:14:35,  2.05step/s]
+Training:   8%|▊         | 808/10000 [07:17<1:14:32,  2.06step/s]
+Training:   8%|▊         | 811/10000 [07:18<1:14:30,  2.06step/s]
+Training:   8%|▊         | 814/10000 [07:19<1:14:27,  2.06step/s]
+Training:   8%|▊         | 817/10000 [07:21<1:14:25,  2.06step/s]
+Training:   8%|▊         | 820/10000 [07:22<1:14:23,  2.06step/s]
+Training:   8%|▊         | 823/10000 [07:24<1:14:22,  2.06step/s]
+Training:   8%|▊         | 826/10000 [07:25<1:14:20,  2.06step/s]
+Training:   8%|▊         | 829/10000 [07:27<1:14:18,  2.06step/s]
+Training:   8%|▊         | 832/10000 [07:28<1:14:19,  2.06step/s]
+Training:   8%|▊         | 835/10000 [07:30<1:14:18,  2.06step/s]
+Training:   8%|▊         | 838/10000 [07:31<1:14:17,  2.06step/s]
+Training:   8%|▊         | 841/10000 [07:33<1:14:15,  2.06step/s]
+Training:   8%|▊         | 844/10000 [07:34<1:14:12,  2.06step/s]
+Training:   8%|▊         | 847/10000 [07:35<1:14:11,  2.06step/s]
+Training:   8%|▊         | 850/10000 [07:37<1:14:08,  2.06step/s]
+Training:   9%|▊         | 853/10000 [07:38<1:14:09,  2.06step/s]
+Training:   9%|▊         | 856/10000 [07:40<1:14:08,  2.06step/s]
+Training:   9%|▊         | 859/10000 [07:41<1:14:06,  2.06step/s]
+Training:   9%|▊         | 862/10000 [07:43<1:14:06,  2.06step/s]
+Training:   9%|▊         | 865/10000 [07:44<1:14:02,  2.06step/s]
+Training:   9%|▊         | 868/10000 [07:46<1:14:01,  2.06step/s]
+Training:   9%|▊         | 871/10000 [07:47<1:14:00,  2.06step/s]
+Training:   9%|▊         | 874/10000 [07:49<1:14:00,  2.06step/s]
+Training:   9%|▉         | 877/10000 [07:50<1:13:58,  2.06step/s]
+Training:   9%|▉         | 880/10000 [07:52<1:13:56,  2.06step/s]
+Training:   9%|▉         | 883/10000 [07:53<1:13:57,  2.05step/s]
+Training:   9%|▉         | 886/10000 [07:54<1:13:58,  2.05step/s]
+Training:   9%|▉         | 889/10000 [07:56<1:13:56,  2.05step/s]
+Training:   9%|▉         | 892/10000 [07:57<1:13:53,  2.05step/s]
+Training:   9%|▉         | 895/10000 [07:59<1:13:52,  2.05step/s]
+Training:   9%|▉         | 898/10000 [08:00<1:13:53,  2.05step/s]
+Training:   9%|▉         | 901/10000 [08:02<1:13:52,  2.05step/s]
+Training:   9%|▉         | 904/10000 [08:03<1:13:48,  2.05step/s]
+Training:   9%|▉         | 907/10000 [08:05<1:13:47,  2.05step/s]
+Training:   9%|▉         | 910/10000 [08:06<1:13:47,  2.05step/s]
+Training:   9%|▉         | 913/10000 [08:08<1:13:46,  2.05step/s]
+Training:   9%|▉         | 916/10000 [08:09<1:13:43,  2.05step/s]
+Training:   9%|▉         | 919/10000 [08:11<1:13:40,  2.05step/s]
+Training:   9%|▉         | 922/10000 [08:12<1:13:38,  2.05step/s]
+Training:   9%|▉         | 925/10000 [08:13<1:13:38,  2.05step/s]
+Training:   9%|▉         | 928/10000 [08:15<1:13:34,  2.06step/s]
+Training:   9%|▉         | 931/10000 [08:16<1:13:36,  2.05step/s]
+Training:   9%|▉         | 934/10000 [08:18<1:13:35,  2.05step/s]
+Training:   9%|▉         | 937/10000 [08:19<1:13:30,  2.05step/s]
+Training:   9%|▉         | 940/10000 [08:21<1:13:27,  2.06step/s]
+Training:   9%|▉         | 943/10000 [08:22<1:13:24,  2.06step/s]
+Training:   9%|▉         | 946/10000 [08:24<1:13:22,  2.06step/s]
+Training:   9%|▉         | 949/10000 [08:25<1:13:23,  2.06step/s]
+Training:  10%|▉         | 952/10000 [08:27<1:13:20,  2.06step/s]
+Training:  10%|▉         | 955/10000 [08:28<1:13:18,  2.06step/s]
+Training:  10%|▉         | 958/10000 [08:30<1:13:17,  2.06step/s]
+Training:  10%|▉         | 961/10000 [08:31<1:13:14,  2.06step/s]
+Training:  10%|▉         | 964/10000 [08:32<1:13:12,  2.06step/s]
+Training:  10%|▉         | 967/10000 [08:34<1:13:13,  2.06step/s]
+Training:  10%|▉         | 970/10000 [08:35<1:13:12,  2.06step/s]
+Training:  10%|▉         | 973/10000 [08:37<1:13:09,  2.06step/s]
+Training:  10%|▉         | 976/10000 [08:38<1:13:11,  2.05step/s]
+Training:  10%|▉         | 979/10000 [08:40<1:13:09,  2.06step/s]
+Training:  10%|▉         | 982/10000 [08:41<1:13:07,  2.06step/s]
+Training:  10%|▉         | 985/10000 [08:43<1:13:05,  2.06step/s]
+Training:  10%|▉         | 988/10000 [08:44<1:13:03,  2.06step/s]
+Training:  10%|▉         | 991/10000 [08:46<1:13:01,  2.06step/s]
+Training:  10%|▉         | 994/10000 [08:47<1:13:01,  2.06step/s]
+Training:  10%|▉         | 997/10000 [08:48<1:13:00,  2.06step/s]
+Training:  10%|█         | 1000/10000 [08:50<1:12:58,  2.06step/s]INFO 2026-10-28 16:38:10 ot_train.py:972 step:11K smpl:88K ep:156 epch:2.24 loss:0.277 grdn:17.348 lr:1.0e-05 data_s:0.003 prep_s:0.000 updt_s:0.482 step_s:0.486 smp/s:16 mem_gb:3.73 l1_loss:0.234 kld_loss:0.004
+
+Training:  10%|█         | 1003/10000 [08:51<1:12:54,  2.06step/s]
+Training:  10%|█         | 1006/10000 [08:53<1:12:55,  2.06step/s]
+Training:  10%|█         | 1009/10000 [08:54<1:12:52,  2.06step/s]
+Training:  10%|█         | 1012/10000 [08:56<1:12:52,  2.06step/s]
+Training:  10%|█         | 1015/10000 [08:57<1:12:52,  2.05step/s]
+Training:  10%|█         | 1018/10000 [08:59<1:12:48,  2.06step/s]
+Training:  10%|█         | 1021/10000 [09:00<1:12:47,  2.06step/s]
+Training:  10%|█         | 1024/10000 [09:02<1:12:45,  2.06step/s]
+Training:  10%|█         | 1027/10000 [09:03<1:12:43,  2.06step/s]
+Training:  10%|█         | 1030/10000 [09:05<1:12:42,  2.06step/s]
+Training:  10%|█         | 1033/10000 [09:06<1:12:41,  2.06step/s]
+Training:  10%|█         | 1036/10000 [09:07<1:12:39,  2.06step/s]
+Training:  10%|█         | 1039/10000 [09:09<1:12:40,  2.06step/s]
+Training:  10%|█         | 1042/10000 [09:10<1:12:37,  2.06step/s]
+Training:  10%|█         | 1045/10000 [09:12<1:12:37,  2.05step/s]
+Training:  10%|█         | 1048/10000 [09:13<1:12:39,  2.05step/s]
+Training:  11%|█         | 1051/10000 [09:15<1:12:34,  2.06step/s]
+Training:  11%|█         | 1054/10000 [09:16<1:12:32,  2.06step/s]
+Training:  11%|█         | 1057/10000 [09:18<1:12:29,  2.06step/s]
+Training:  11%|█         | 1060/10000 [09:19<1:12:27,  2.06step/s]
+Training:  11%|█         | 1063/10000 [09:21<1:12:25,  2.06step/s]
+Training:  11%|█         | 1066/10000 [09:22<1:12:24,  2.06step/s]
+Training:  11%|█         | 1069/10000 [09:23<1:12:22,  2.06step/s]
+Training:  11%|█         | 1072/10000 [09:25<1:12:22,  2.06step/s]
+Training:  11%|█         | 1075/10000 [09:26<1:12:21,  2.06step/s]
+Training:  11%|█         | 1078/10000 [09:28<1:12:17,  2.06step/s]
+Training:  11%|█         | 1081/10000 [09:29<1:12:16,  2.06step/s]
+Training:  11%|█         | 1084/10000 [09:31<1:12:16,  2.06step/s]
+Training:  11%|█         | 1087/10000 [09:32<1:12:13,  2.06step/s]
+Training:  11%|█         | 1090/10000 [09:34<1:12:12,  2.06step/s]
+Training:  11%|█         | 1093/10000 [09:35<1:12:11,  2.06step/s]
+Training:  11%|█         | 1096/10000 [09:37<1:12:07,  2.06step/s]
+Training:  11%|█         | 1099/10000 [09:38<1:12:06,  2.06step/s]
+Training:  11%|█         | 1102/10000 [09:40<1:12:04,  2.06step/s]
+Training:  11%|█         | 1105/10000 [09:41<1:12:04,  2.06step/s]
+Training:  11%|█         | 1108/10000 [09:42<1:12:00,  2.06step/s]
+Training:  11%|█         | 1111/10000 [09:44<1:11:59,  2.06step/s]
+Training:  11%|█         | 1114/10000 [09:45<1:11:58,  2.06step/s]
+Training:  11%|█         | 1117/10000 [09:47<1:11:55,  2.06step/s]
+Training:  11%|█         | 1120/10000 [09:48<1:11:57,  2.06step/s]
+Training:  11%|█         | 1123/10000 [09:50<1:11:53,  2.06step/s]
+Training:  11%|█▏        | 1126/10000 [09:51<1:11:51,  2.06step/s]
+Training:  11%|█▏        | 1129/10000 [09:53<1:11:49,  2.06step/s]
+Training:  11%|█▏        | 1132/10000 [09:54<1:11:49,  2.06step/s]
+Training:  11%|█▏        | 1135/10000 [09:56<1:11:49,  2.06step/s]
+Training:  11%|█▏        | 1138/10000 [09:57<1:11:47,  2.06step/s]
+Training:  11%|█▏        | 1141/10000 [09:58<1:11:44,  2.06step/s]
+Training:  11%|█▏        | 1144/10000 [10:00<1:11:44,  2.06step/s]
+Training:  11%|█▏        | 1147/10000 [10:01<1:11:42,  2.06step/s]
+Training:  12%|█▏        | 1150/10000 [10:03<1:11:40,  2.06step/s]
+Training:  12%|█▏        | 1153/10000 [10:04<1:11:40,  2.06step/s]
+Training:  12%|█▏        | 1156/10000 [10:06<1:11:38,  2.06step/s]
+Training:  12%|█▏        | 1159/10000 [10:07<1:11:37,  2.06step/s]
+Training:  12%|█▏        | 1162/10000 [10:09<1:11:39,  2.06step/s]
+Training:  12%|█▏        | 1165/10000 [10:10<1:11:42,  2.05step/s]
+Training:  12%|█▏        | 1168/10000 [10:12<1:11:34,  2.06step/s]
+Training:  12%|█▏        | 1171/10000 [10:13<1:11:31,  2.06step/s]
+Training:  12%|█▏        | 1174/10000 [10:15<1:11:31,  2.06step/s]
+Training:  12%|█▏        | 1177/10000 [10:16<1:11:31,  2.06step/s]
+Training:  12%|█▏        | 1180/10000 [10:17<1:11:26,  2.06step/s]
+Training:  12%|█▏        | 1183/10000 [10:19<1:11:25,  2.06step/s]
+Training:  12%|█▏        | 1186/10000 [10:20<1:11:26,  2.06step/s]
+Training:  12%|█▏        | 1189/10000 [10:22<1:11:23,  2.06step/s]
+Training:  12%|█▏        | 1192/10000 [10:23<1:11:23,  2.06step/s]
+Training:  12%|█▏        | 1195/10000 [10:25<1:11:19,  2.06step/s]
+Training:  12%|█▏        | 1198/10000 [10:26<1:11:16,  2.06step/s]
+Training:  12%|█▏        | 1201/10000 [10:28<1:11:15,  2.06step/s]
+Training:  12%|█▏        | 1204/10000 [10:29<1:11:12,  2.06step/s]
+Training:  12%|█▏        | 1207/10000 [10:31<1:11:12,  2.06step/s]
+Training:  12%|█▏        | 1210/10000 [10:32<1:11:12,  2.06step/s]
+Training:  12%|█▏        | 1213/10000 [10:33<1:11:08,  2.06step/s]
+Training:  12%|█▏        | 1216/10000 [10:35<1:11:09,  2.06step/s]
+Training:  12%|█▏        | 1219/10000 [10:36<1:11:10,  2.06step/s]
+Training:  12%|█▏        | 1222/10000 [10:38<1:11:08,  2.06step/s]
+Training:  12%|█▏        | 1225/10000 [10:39<1:11:08,  2.06step/s]
+Training:  12%|█▏        | 1228/10000 [10:41<1:11:08,  2.06step/s]
+Training:  12%|█▏        | 1231/10000 [10:42<1:11:03,  2.06step/s]
+Training:  12%|█▏        | 1234/10000 [10:44<1:10:58,  2.06step/s]
+Training:  12%|█▏        | 1237/10000 [10:45<1:10:57,  2.06step/s]
+Training:  12%|█▏        | 1240/10000 [10:47<1:10:55,  2.06step/s]
+Training:  12%|█▏        | 1243/10000 [10:48<1:10:54,  2.06step/s]
+Training:  12%|█▏        | 1246/10000 [10:50<1:10:54,  2.06step/s]
+Training:  12%|█▏        | 1249/10000 [10:51<1:10:52,  2.06step/s]INFO 2026-10-28 16:40:12 ot_train.py:972 step:11K smpl:90K ep:160 epch:2.29 loss:0.268 grdn:17.336 lr:1.0e-05 data_s:0.003 prep_s:0.000 updt_s:0.482 step_s:0.486 smp/s:16 mem_gb:3.73 l1_loss:0.226 kld_loss:0.004
+
+Training:  13%|█▎        | 1252/10000 [10:52<1:10:52,  2.06step/s]
+Training:  13%|█▎        | 1255/10000 [10:54<1:10:51,  2.06step/s]
+Training:  13%|█▎        | 1258/10000 [10:55<1:10:52,  2.06step/s]
+Training:  13%|█▎        | 1261/10000 [10:57<1:10:48,  2.06step/s]
+Training:  13%|█▎        | 1264/10000 [10:58<1:10:46,  2.06step/s]
+Training:  13%|█▎        | 1267/10000 [11:00<1:10:45,  2.06step/s]
+Training:  13%|█▎        | 1270/10000 [11:01<1:10:42,  2.06step/s]
+Training:  13%|█▎        | 1273/10000 [11:03<1:10:40,  2.06step/s]
+Training:  13%|█▎        | 1276/10000 [11:04<1:10:39,  2.06step/s]
+Training:  13%|█▎        | 1279/10000 [11:06<1:10:38,  2.06step/s]
+Training:  13%|█▎        | 1282/10000 [11:07<1:10:36,  2.06step/s]
+Training:  13%|█▎        | 1285/10000 [11:08<1:10:37,  2.06step/s]
+Training:  13%|█▎        | 1288/10000 [11:10<1:10:35,  2.06step/s]
+Training:  13%|█▎        | 1291/10000 [11:11<1:10:34,  2.06step/s]
+Training:  13%|█▎        | 1294/10000 [11:13<1:10:33,  2.06step/s]
+Training:  13%|█▎        | 1297/10000 [11:14<1:10:33,  2.06step/s]
+Training:  13%|█▎        | 1300/10000 [11:16<1:10:30,  2.06step/s]
+Training:  13%|█▎        | 1303/10000 [11:17<1:10:28,  2.06step/s]
+Training:  13%|█▎        | 1306/10000 [11:19<1:10:26,  2.06step/s]
+Training:  13%|█▎        | 1309/10000 [11:20<1:10:23,  2.06step/s]
+Training:  13%|█▎        | 1312/10000 [11:22<1:10:21,  2.06step/s]
+Training:  13%|█▎        | 1315/10000 [11:23<1:10:19,  2.06step/s]
+Training:  13%|█▎        | 1318/10000 [11:25<1:10:19,  2.06step/s]
+Training:  13%|█▎        | 1321/10000 [11:26<1:10:15,  2.06step/s]
+Training:  13%|█▎        | 1324/10000 [11:27<1:10:16,  2.06step/s]
+Training:  13%|█▎        | 1327/10000 [11:29<1:10:14,  2.06step/s]
+Training:  13%|█▎        | 1330/10000 [11:30<1:10:13,  2.06step/s]
+Training:  13%|█▎        | 1333/10000 [11:32<1:10:11,  2.06step/s]
+Training:  13%|█▎        | 1336/10000 [11:33<1:10:09,  2.06step/s]
+Training:  13%|█▎        | 1339/10000 [11:35<1:10:08,  2.06step/s]
+Training:  13%|█▎        | 1342/10000 [11:36<1:10:08,  2.06step/s]
+Training:  13%|█▎        | 1345/10000 [11:38<1:10:06,  2.06step/s]
+Training:  13%|█▎        | 1348/10000 [11:39<1:10:07,  2.06step/s]
+Training:  14%|█▎        | 1351/10000 [11:41<1:10:04,  2.06step/s]
+Training:  14%|█▎        | 1354/10000 [11:42<1:10:02,  2.06step/s]
+Training:  14%|█▎        | 1357/10000 [11:43<1:10:00,  2.06step/s]
+Training:  14%|█▎        | 1360/10000 [11:45<1:09:58,  2.06step/s]
+Training:  14%|█▎        | 1363/10000 [11:46<1:09:57,  2.06step/s]
+Training:  14%|█▎        | 1366/10000 [11:48<1:09:55,  2.06step/s]
+Training:  14%|█▎        | 1369/10000 [11:49<1:09:55,  2.06step/s]
+Training:  14%|█▎        | 1372/10000 [11:51<1:09:52,  2.06step/s]
+Training:  14%|█▍        | 1375/10000 [11:52<1:09:51,  2.06step/s]
+Training:  14%|█▍        | 1378/10000 [11:54<1:09:51,  2.06step/s]
+Training:  14%|█▍        | 1381/10000 [11:55<1:09:48,  2.06step/s]
+Training:  14%|█▍        | 1384/10000 [11:57<1:09:47,  2.06step/s]
+Training:  14%|█▍        | 1387/10000 [11:58<1:09:45,  2.06step/s]
+Training:  14%|█▍        | 1390/10000 [12:00<1:09:43,  2.06step/s]
+Training:  14%|█▍        | 1393/10000 [12:01<1:09:43,  2.06step/s]
+Training:  14%|█▍        | 1396/10000 [12:02<1:09:42,  2.06step/s]
+Training:  14%|█▍        | 1399/10000 [12:04<1:09:39,  2.06step/s]
+Training:  14%|█▍        | 1402/10000 [12:05<1:09:37,  2.06step/s]
+Training:  14%|█▍        | 1405/10000 [12:07<1:09:35,  2.06step/s]
+Training:  14%|█▍        | 1408/10000 [12:08<1:09:34,  2.06step/s]
+Training:  14%|█▍        | 1411/10000 [12:10<1:09:32,  2.06step/s]
+Training:  14%|█▍        | 1414/10000 [12:11<1:09:29,  2.06step/s]
+Training:  14%|█▍        | 1417/10000 [12:13<1:09:28,  2.06step/s]
+Training:  14%|█▍        | 1420/10000 [12:14<1:09:26,  2.06step/s]
+Training:  14%|█▍        | 1423/10000 [12:16<1:09:28,  2.06step/s]
+Training:  14%|█▍        | 1426/10000 [12:17<1:09:25,  2.06step/s]
+Training:  14%|█▍        | 1429/10000 [12:18<1:09:26,  2.06step/s]
+Training:  14%|█▍        | 1432/10000 [12:20<1:09:24,  2.06step/s]
+Training:  14%|█▍        | 1435/10000 [12:21<1:09:23,  2.06step/s]
+Training:  14%|█▍        | 1438/10000 [12:23<1:09:20,  2.06step/s]
+Training:  14%|█▍        | 1441/10000 [12:24<1:09:18,  2.06step/s]
+Training:  14%|█▍        | 1444/10000 [12:26<1:09:12,  2.06step/s]
+Training:  14%|█▍        | 1447/10000 [12:27<1:09:13,  2.06step/s]
+Training:  14%|█▍        | 1450/10000 [12:29<1:09:12,  2.06step/s]
+Training:  15%|█▍        | 1453/10000 [12:30<1:09:08,  2.06step/s]
+Training:  15%|█▍        | 1456/10000 [12:32<1:09:08,  2.06step/s]
+Training:  15%|█▍        | 1459/10000 [12:33<1:09:06,  2.06step/s]
+Training:  15%|█▍        | 1462/10000 [12:34<1:09:06,  2.06step/s]
+Training:  15%|█▍        | 1465/10000 [12:36<1:09:09,  2.06step/s]
+Training:  15%|█▍        | 1468/10000 [12:37<1:09:07,  2.06step/s]
+Training:  15%|█▍        | 1471/10000 [12:39<1:09:08,  2.06step/s]
+Training:  15%|█▍        | 1474/10000 [12:40<1:09:06,  2.06step/s]
+Training:  15%|█▍        | 1477/10000 [12:42<1:09:04,  2.06step/s]
+Training:  15%|█▍        | 1480/10000 [12:43<1:09:01,  2.06step/s]
+Training:  15%|█▍        | 1483/10000 [12:45<1:09:00,  2.06step/s]
+Training:  15%|█▍        | 1486/10000 [12:46<1:08:58,  2.06step/s]
+Training:  15%|█▍        | 1489/10000 [12:48<1:08:56,  2.06step/s]
+Training:  15%|█▍        | 1492/10000 [12:49<1:08:55,  2.06step/s]
+Training:  15%|█▍        | 1495/10000 [12:51<1:08:51,  2.06step/s]
+Training:  15%|█▍        | 1498/10000 [12:52<1:08:50,  2.06step/s]INFO 2026-10-28 16:42:13 ot_train.py:972 step:12K smpl:92K ep:164 epch:2.34 loss:0.256 grdn:16.883 lr:1.0e-05 data_s:0.003 prep_s:0.000 updt_s:0.482 step_s:0.486 smp/s:16 mem_gb:3.73 l1_loss:0.216 kld_loss:0.004
+
+Training:  15%|█▌        | 1501/10000 [12:53<1:08:48,  2.06step/s]
+Training:  15%|█▌        | 1504/10000 [12:55<1:08:47,  2.06step/s]
+Training:  15%|█▌        | 1507/10000 [12:56<1:08:45,  2.06step/s]
+Training:  15%|█▌        | 1510/10000 [12:58<1:08:43,  2.06step/s]
+Training:  15%|█▌        | 1513/10000 [12:59<1:08:41,  2.06step/s]
+Training:  15%|█▌        | 1516/10000 [13:01<1:08:40,  2.06step/s]
+Training:  15%|█▌        | 1519/10000 [13:02<1:08:39,  2.06step/s]
+Training:  15%|█▌        | 1522/10000 [13:04<1:08:39,  2.06step/s]
+Training:  15%|█▌        | 1525/10000 [13:05<1:08:36,  2.06step/s]
+Training:  15%|█▌        | 1528/10000 [13:07<1:08:36,  2.06step/s]
+Training:  15%|█▌        | 1531/10000 [13:08<1:08:34,  2.06step/s]
+Training:  15%|█▌        | 1534/10000 [13:09<1:08:34,  2.06step/s]
+Training:  15%|█▌        | 1537/10000 [13:11<1:08:33,  2.06step/s]
+Training:  15%|█▌        | 1540/10000 [13:12<1:08:32,  2.06step/s]
+Training:  15%|█▌        | 1543/10000 [13:14<1:08:30,  2.06step/s]
+Training:  15%|█▌        | 1546/10000 [13:15<1:08:28,  2.06step/s]
+Training:  15%|█▌        | 1549/10000 [13:17<1:08:26,  2.06step/s]
+Training:  16%|█▌        | 1552/10000 [13:18<1:08:24,  2.06step/s]
+Training:  16%|█▌        | 1555/10000 [13:20<1:08:22,  2.06step/s]
+Training:  16%|█▌        | 1558/10000 [13:21<1:08:23,  2.06step/s]
+Training:  16%|█▌        | 1561/10000 [13:23<1:08:20,  2.06step/s]
+Training:  16%|█▌        | 1564/10000 [13:24<1:08:17,  2.06step/s]
+Training:  16%|█▌        | 1567/10000 [13:26<1:08:12,  2.06step/s]
+Training:  16%|█▌        | 1570/10000 [13:27<1:08:13,  2.06step/s]
+Training:  16%|█▌        | 1573/10000 [13:28<1:08:13,  2.06step/s]
+Training:  16%|█▌        | 1576/10000 [13:30<1:08:09,  2.06step/s]
+Training:  16%|█▌        | 1579/10000 [13:31<1:08:09,  2.06step/s]
+Training:  16%|█▌        | 1582/10000 [13:33<1:08:08,  2.06step/s]
+Training:  16%|█▌        | 1585/10000 [13:34<1:08:06,  2.06step/s]
+Training:  16%|█▌        | 1588/10000 [13:36<1:08:03,  2.06step/s]
+Training:  16%|█▌        | 1591/10000 [13:37<1:08:00,  2.06step/s]
+Training:  16%|█▌        | 1594/10000 [13:39<1:08:00,  2.06step/s]
+Training:  16%|█▌        | 1597/10000 [13:40<1:08:00,  2.06step/s]
+Training:  16%|█▌        | 1600/10000 [13:42<1:07:57,  2.06step/s]
+Training:  16%|█▌        | 1603/10000 [13:43<1:07:58,  2.06step/s]
+Training:  16%|█▌        | 1606/10000 [13:44<1:07:58,  2.06step/s]
+Training:  16%|█▌        | 1609/10000 [13:46<1:07:55,  2.06step/s]
+Training:  16%|█▌        | 1612/10000 [13:47<1:07:54,  2.06step/s]
+Training:  16%|█▌        | 1615/10000 [13:49<1:07:52,  2.06step/s]
+Training:  16%|█▌        | 1618/10000 [13:50<1:07:50,  2.06step/s]
+Training:  16%|█▌        | 1621/10000 [13:52<1:07:48,  2.06step/s]
+Training:  16%|█▌        | 1624/10000 [13:53<1:07:46,  2.06step/s]
+Training:  16%|█▋        | 1627/10000 [13:55<1:07:45,  2.06step/s]
+Training:  16%|█▋        | 1630/10000 [13:56<1:07:44,  2.06step/s]
+Training:  16%|█▋        | 1633/10000 [13:58<1:07:41,  2.06step/s]
+Training:  16%|█▋        | 1636/10000 [13:59<1:07:39,  2.06step/s]
+Training:  16%|█▋        | 1639/10000 [14:00<1:07:38,  2.06step/s]
+Training:  16%|█▋        | 1642/10000 [14:02<1:07:35,  2.06step/s]
+Training:  16%|█▋        | 1645/10000 [14:03<1:07:35,  2.06step/s]
+Training:  16%|█▋        | 1648/10000 [14:05<1:07:34,  2.06step/s]
+Training:  17%|█▋        | 1651/10000 [14:06<1:07:32,  2.06step/s]
+Training:  17%|█▋        | 1654/10000 [14:08<1:07:30,  2.06step/s]
+Training:  17%|█▋        | 1657/10000 [14:09<1:07:27,  2.06step/s]
+Training:  17%|█▋        | 1660/10000 [14:11<1:07:26,  2.06step/s]
+Training:  17%|█▋        | 1663/10000 [14:12<1:07:23,  2.06step/s]
+Training:  17%|█▋        | 1666/10000 [14:14<1:07:23,  2.06step/s]
+Training:  17%|█▋        | 1669/10000 [14:15<1:07:23,  2.06step/s]
+Training:  17%|█▋        | 1672/10000 [14:16<1:07:21,  2.06step/s]
+Training:  17%|█▋        | 1675/10000 [14:18<1:07:21,  2.06step/s]
+Training:  17%|█▋        | 1678/10000 [14:19<1:07:19,  2.06step/s]
+Training:  17%|█▋        | 1681/10000 [14:21<1:07:19,  2.06step/s]
+Training:  17%|█▋        | 1684/10000 [14:22<1:07:18,  2.06step/s]
+Training:  17%|█▋        | 1687/10000 [14:24<1:07:18,  2.06step/s]
+Training:  17%|█▋        | 1690/10000 [14:25<1:07:16,  2.06step/s]
+Training:  17%|█▋        | 1693/10000 [14:27<1:07:14,  2.06step/s]
+Training:  17%|█▋        | 1696/10000 [14:28<1:07:13,  2.06step/s]
+Training:  17%|█▋        | 1699/10000 [14:30<1:07:12,  2.06step/s]
+Training:  17%|█▋        | 1702/10000 [14:31<1:07:11,  2.06step/s]
+Training:  17%|█▋        | 1705/10000 [14:33<1:07:10,  2.06step/s]
+Training:  17%|█▋        | 1708/10000 [14:34<1:07:08,  2.06step/s]
+Training:  17%|█▋        | 1711/10000 [14:35<1:07:07,  2.06step/s]
+Training:  17%|█▋        | 1714/10000 [14:37<1:07:02,  2.06step/s]
+Training:  17%|█▋        | 1717/10000 [14:38<1:07:00,  2.06step/s]
+Training:  17%|█▋        | 1720/10000 [14:40<1:06:57,  2.06step/s]
+Training:  17%|█▋        | 1723/10000 [14:41<1:06:58,  2.06step/s]
+Training:  17%|█▋        | 1726/10000 [14:43<1:06:59,  2.06step/s]
+Training:  17%|█▋        | 1729/10000 [14:44<1:06:55,  2.06step/s]
+Training:  17%|█▋        | 1732/10000 [14:46<1:06:52,  2.06step/s]
+Training:  17%|█▋        | 1735/10000 [14:47<1:06:49,  2.06step/s]
+Training:  17%|█▋        | 1738/10000 [14:49<1:06:50,  2.06step/s]
+Training:  17%|█▋        | 1741/10000 [14:50<1:06:49,  2.06step/s]
+Training:  17%|█▋        | 1744/10000 [14:51<1:06:48,  2.06step/s]
+Training:  17%|█▋        | 1747/10000 [14:53<1:06:45,  2.06step/s]
+Training:  18%|█▊        | 1750/10000 [14:54<1:06:45,  2.06step/s]INFO 2026-10-28 16:44:15 ot_train.py:972 step:12K smpl:94K ep:167 epch:2.39 loss:0.250 grdn:16.454 lr:1.0e-05 data_s:0.003 prep_s:0.000 updt_s:0.481 step_s:0.486 smp/s:16 mem_gb:3.73 l1_loss:0.212 kld_loss:0.004
+
+Training:  18%|█▊        | 1753/10000 [14:56<1:06:44,  2.06step/s]
+Training:  18%|█▊        | 1756/10000 [14:57<1:06:43,  2.06step/s]
+Training:  18%|█▊        | 1759/10000 [14:59<1:06:41,  2.06step/s]
+Training:  18%|█▊        | 1762/10000 [15:00<1:06:41,  2.06step/s]
+Training:  18%|█▊        | 1765/10000 [15:02<1:06:39,  2.06step/s]
+Training:  18%|█▊        | 1768/10000 [15:03<1:06:38,  2.06step/s]
+Training:  18%|█▊        | 1771/10000 [15:05<1:06:36,  2.06step/s]
+Training:  18%|█▊        | 1774/10000 [15:06<1:06:35,  2.06step/s]
+Training:  18%|█▊        | 1777/10000 [15:07<1:06:34,  2.06step/s]
+Training:  18%|█▊        | 1780/10000 [15:09<1:06:32,  2.06step/s]
+Training:  18%|█▊        | 1783/10000 [15:10<1:06:30,  2.06step/s]
+Training:  18%|█▊        | 1786/10000 [15:12<1:06:29,  2.06step/s]
+Training:  18%|█▊        | 1789/10000 [15:13<1:06:25,  2.06step/s]
+Training:  18%|█▊        | 1792/10000 [15:15<1:06:27,  2.06step/s]
+Training:  18%|█▊        | 1795/10000 [15:16<1:06:25,  2.06step/s]
+Training:  18%|█▊        | 1798/10000 [15:18<1:06:23,  2.06step/s]
+Training:  18%|█▊        | 1801/10000 [15:19<1:06:20,  2.06step/s]
+Training:  18%|█▊        | 1804/10000 [15:21<1:06:20,  2.06step/s]
+Training:  18%|█▊        | 1807/10000 [15:22<1:06:16,  2.06step/s]
+Training:  18%|█▊        | 1810/10000 [15:24<1:06:15,  2.06step/s]
+Training:  18%|█▊        | 1813/10000 [15:25<1:06:10,  2.06step/s]
+Training:  18%|█▊        | 1816/10000 [15:26<1:06:10,  2.06step/s]
+Training:  18%|█▊        | 1819/10000 [15:28<1:06:10,  2.06step/s]
+Training:  18%|█▊        | 1822/10000 [15:29<1:06:08,  2.06step/s]
+Training:  18%|█▊        | 1825/10000 [15:31<1:06:07,  2.06step/s]
+Training:  18%|█▊        | 1828/10000 [15:32<1:06:04,  2.06step/s]
+Training:  18%|█▊        | 1831/10000 [15:34<1:06:03,  2.06step/s]
+Training:  18%|█▊        | 1834/10000 [15:35<1:06:02,  2.06step/s]
+Training:  18%|█▊        | 1837/10000 [15:37<1:05:59,  2.06step/s]
+Training:  18%|█▊        | 1840/10000 [15:38<1:05:56,  2.06step/s]
+Training:  18%|█▊        | 1843/10000 [15:40<1:05:57,  2.06step/s]
+Training:  18%|█▊        | 1846/10000 [15:41<1:05:57,  2.06step/s]
+Training:  18%|█▊        | 1849/10000 [15:42<1:05:56,  2.06step/s]
+Training:  19%|█▊        | 1852/10000 [15:44<1:05:55,  2.06step/s]
+Training:  19%|█▊        | 1855/10000 [15:45<1:05:53,  2.06step/s]
+Training:  19%|█▊        | 1858/10000 [15:47<1:05:51,  2.06step/s]
+Training:  19%|█▊        | 1861/10000 [15:48<1:05:47,  2.06step/s]
+Training:  19%|█▊        | 1864/10000 [15:50<1:05:46,  2.06step/s]
+Training:  19%|█▊        | 1867/10000 [15:51<1:05:47,  2.06step/s]
+Training:  19%|█▊        | 1870/10000 [15:53<1:05:43,  2.06step/s]
+Training:  19%|█▊        | 1873/10000 [15:54<1:05:43,  2.06step/s]
+Training:  19%|█▉        | 1876/10000 [15:56<1:05:41,  2.06step/s]
+Training:  19%|█▉        | 1879/10000 [15:57<1:05:37,  2.06step/s]
+Training:  19%|█▉        | 1882/10000 [15:58<1:05:35,  2.06step/s]
+Training:  19%|█▉        | 1885/10000 [16:00<1:05:36,  2.06step/s]
+Training:  19%|█▉        | 1888/10000 [16:01<1:05:36,  2.06step/s]
+Training:  19%|█▉        | 1891/10000 [16:03<1:05:34,  2.06step/s]
+Training:  19%|█▉        | 1894/10000 [16:04<1:05:30,  2.06step/s]
+Training:  19%|█▉        | 1897/10000 [16:06<1:05:33,  2.06step/s]
+Training:  19%|█▉        | 1900/10000 [16:07<1:05:33,  2.06step/s]
+Training:  19%|█▉        | 1903/10000 [16:09<1:05:34,  2.06step/s]
+Training:  19%|█▉        | 1906/10000 [16:10<1:05:32,  2.06step/s]
+Training:  19%|█▉        | 1909/10000 [16:12<1:05:31,  2.06step/s]
+Training:  19%|█▉        | 1912/10000 [16:13<1:05:30,  2.06step/s]
+Training:  19%|█▉        | 1915/10000 [16:14<1:05:29,  2.06step/s]
+Training:  19%|█▉        | 1918/10000 [16:16<1:05:27,  2.06step/s]
+Training:  19%|█▉        | 1921/10000 [16:17<1:05:25,  2.06step/s]
+Training:  19%|█▉        | 1924/10000 [16:19<1:05:20,  2.06step/s]
+Training:  19%|█▉        | 1927/10000 [16:20<1:05:19,  2.06step/s]
+Training:  19%|█▉        | 1930/10000 [16:22<1:05:18,  2.06step/s]
+Training:  19%|█▉        | 1933/10000 [16:23<1:05:16,  2.06step/s]
+Training:  19%|█▉        | 1936/10000 [16:25<1:05:13,  2.06step/s]
+Training:  19%|█▉        | 1939/10000 [16:26<1:05:13,  2.06step/s]
+Training:  19%|█▉        | 1942/10000 [16:28<1:05:11,  2.06step/s]
+Training:  19%|█▉        | 1945/10000 [16:29<1:05:11,  2.06step/s]
+Training:  19%|█▉        | 1948/10000 [16:30<1:05:11,  2.06step/s]
+Training:  20%|█▉        | 1951/10000 [16:32<1:05:09,  2.06step/s]
+Training:  20%|█▉        | 1954/10000 [16:33<1:05:08,  2.06step/s]
+Training:  20%|█▉        | 1957/10000 [16:35<1:05:04,  2.06step/s]
+Training:  20%|█▉        | 1960/10000 [16:36<1:05:02,  2.06step/s]
+Training:  20%|█▉        | 1963/10000 [16:38<1:04:59,  2.06step/s]
+Training:  20%|█▉        | 1966/10000 [16:39<1:04:59,  2.06step/s]
+Training:  20%|█▉        | 1969/10000 [16:41<1:04:56,  2.06step/s]
+Training:  20%|█▉        | 1972/10000 [16:42<1:07:29,  1.98step/s]
+Training:  20%|█▉        | 1975/10000 [16:44<1:06:39,  2.01step/s]
+Training:  20%|█▉        | 1978/10000 [16:45<1:06:07,  2.02step/s]
+Training:  20%|█▉        | 1981/10000 [16:47<1:05:43,  2.03step/s]
+Training:  20%|█▉        | 1984/10000 [16:48<1:05:28,  2.04step/s]
+Training:  20%|█▉        | 1987/10000 [16:50<1:05:17,  2.05step/s]
+Training:  20%|█▉        | 1990/10000 [16:51<1:05:06,  2.05step/s]
+Training:  20%|█▉        | 1993/10000 [16:53<1:04:57,  2.05step/s]
+Training:  20%|█▉        | 1996/10000 [16:54<1:04:52,  2.06step/s]
+Training:  20%|█▉        | 1999/10000 [16:55<1:04:51,  2.06step/s]INFO 2026-10-28 16:46:16 ot_train.py:972 step:12K smpl:96K ep:171 epch:2.44 loss:0.249 grdn:16.662 lr:1.0e-05 data_s:0.003 prep_s:0.000 updt_s:0.482 step_s:0.486 smp/s:16 mem_gb:3.73 l1_loss:0.211 kld_loss:0.004
+
+Training:  20%|██        | 2002/10000 [16:57<1:04:49,  2.06step/s]
+Training:  20%|██        | 2005/10000 [16:58<1:04:45,  2.06step/s]
+Training:  20%|██        | 2008/10000 [17:00<1:04:44,  2.06step/s]
+Training:  20%|██        | 2011/10000 [17:01<1:04:41,  2.06step/s]
+Training:  20%|██        | 2014/10000 [17:03<1:04:36,  2.06step/s]
+Training:  20%|██        | 2017/10000 [17:04<1:04:34,  2.06step/s]
+Training:  20%|██        | 2020/10000 [17:06<1:04:34,  2.06step/s]
+Training:  20%|██        | 2023/10000 [17:07<1:04:33,  2.06step/s]
+Training:  20%|██        | 2026/10000 [17:09<1:04:31,  2.06step/s]
+Training:  20%|██        | 2029/10000 [17:10<1:04:30,  2.06step/s]
+Training:  20%|██        | 2032/10000 [17:11<1:04:27,  2.06step/s]
+Training:  20%|██        | 2035/10000 [17:13<1:04:25,  2.06step/s]
+Training:  20%|██        | 2038/10000 [17:14<1:04:22,  2.06step/s]
+Training:  20%|██        | 2041/10000 [17:16<1:04:19,  2.06step/s]
+Training:  20%|██        | 2044/10000 [17:17<1:04:20,  2.06step/s]
+Training:  20%|██        | 2047/10000 [17:19<1:04:17,  2.06step/s]
+Training:  20%|██        | 2050/10000 [17:20<1:04:16,  2.06step/s]
+Training:  21%|██        | 2053/10000 [17:22<1:04:14,  2.06step/s]
+Training:  21%|██        | 2056/10000 [17:23<1:04:10,  2.06step/s]
+Training:  21%|██        | 2059/10000 [17:25<1:04:09,  2.06step/s]
+Training:  21%|██        | 2062/10000 [17:26<1:04:10,  2.06step/s]
+Training:  21%|██        | 2065/10000 [17:27<1:04:09,  2.06step/s]
+Training:  21%|██        | 2068/10000 [17:29<1:04:08,  2.06step/s]
+Training:  21%|██        | 2071/10000 [17:30<1:04:07,  2.06step/s]
+Training:  21%|██        | 2074/10000 [17:32<1:04:05,  2.06step/s]
+Training:  21%|██        | 2077/10000 [17:33<1:04:06,  2.06step/s]
+Training:  21%|██        | 2080/10000 [17:35<1:04:01,  2.06step/s]
+Training:  21%|██        | 2083/10000 [17:36<1:04:01,  2.06step/s]
+Training:  21%|██        | 2086/10000 [17:38<1:04:00,  2.06step/s]
+Training:  21%|██        | 2089/10000 [17:39<1:03:57,  2.06step/s]
+Training:  21%|██        | 2092/10000 [17:41<1:03:55,  2.06step/s]
+Training:  21%|██        | 2095/10000 [17:42<1:03:52,  2.06step/s]
+Training:  21%|██        | 2098/10000 [17:43<1:03:50,  2.06step/s]
+Training:  21%|██        | 2101/10000 [17:45<1:03:49,  2.06step/s]
+Training:  21%|██        | 2104/10000 [17:46<1:03:50,  2.06step/s]
+Training:  21%|██        | 2107/10000 [17:48<1:03:48,  2.06step/s]
+Training:  21%|██        | 2110/10000 [17:49<1:03:48,  2.06step/s]
+Training:  21%|██        | 2113/10000 [17:51<1:03:49,  2.06step/s]
+Training:  21%|██        | 2116/10000 [17:52<1:03:49,  2.06step/s]
+Training:  21%|██        | 2119/10000 [17:54<1:03:46,  2.06step/s]
+Training:  21%|██        | 2122/10000 [17:55<1:03:44,  2.06step/s]
+Training:  21%|██▏       | 2125/10000 [17:57<1:03:41,  2.06step/s]
+Training:  21%|██▏       | 2128/10000 [17:58<1:03:40,  2.06step/s]
+Training:  21%|██▏       | 2131/10000 [17:59<1:03:36,  2.06step/s]
+Training:  21%|██▏       | 2134/10000 [18:01<1:03:35,  2.06step/s]
+Training:  21%|██▏       | 2137/10000 [18:02<1:03:34,  2.06step/s]
+Training:  21%|██▏       | 2140/10000 [18:04<1:03:34,  2.06step/s]
+Training:  21%|██▏       | 2143/10000 [18:05<1:03:35,  2.06step/s]
+Training:  21%|██▏       | 2146/10000 [18:07<1:03:32,  2.06step/s]
+Training:  21%|██▏       | 2149/10000 [18:08<1:03:28,  2.06step/s]
+Training:  22%|██▏       | 2152/10000 [18:10<1:03:28,  2.06step/s]
+Training:  22%|██▏       | 2155/10000 [18:11<1:03:28,  2.06step/s]
+Training:  22%|██▏       | 2158/10000 [18:13<1:03:25,  2.06step/s]
+Training:  22%|██▏       | 2161/10000 [18:14<1:03:24,  2.06step/s]
+Training:  22%|██▏       | 2164/10000 [18:15<1:03:23,  2.06step/s]
+Training:  22%|██▏       | 2167/10000 [18:17<1:03:21,  2.06step/s]
+Training:  22%|██▏       | 2170/10000 [18:18<1:03:19,  2.06step/s]
+Training:  22%|██▏       | 2173/10000 [18:20<1:03:17,  2.06step/s]
+Training:  22%|██▏       | 2176/10000 [18:21<1:03:15,  2.06step/s]
+Training:  22%|██▏       | 2179/10000 [18:23<1:03:14,  2.06step/s]
+Training:  22%|██▏       | 2182/10000 [18:24<1:03:10,  2.06step/s]
+Training:  22%|██▏       | 2185/10000 [18:26<1:03:11,  2.06step/s]
+Training:  22%|██▏       | 2188/10000 [18:27<1:03:10,  2.06step/s]
+Training:  22%|██▏       | 2191/10000 [18:29<1:03:11,  2.06step/s]
+Training:  22%|██▏       | 2194/10000 [18:30<1:03:12,  2.06step/s]
+Training:  22%|██▏       | 2197/10000 [18:32<1:03:09,  2.06step/s]
+Training:  22%|██▏       | 2200/10000 [18:33<1:03:06,  2.06step/s]
+Training:  22%|██▏       | 2203/10000 [18:34<1:03:03,  2.06step/s]
+Training:  22%|██▏       | 2206/10000 [18:36<1:03:03,  2.06step/s]
+Training:  22%|██▏       | 2209/10000 [18:37<1:02:59,  2.06step/s]
+Training:  22%|██▏       | 2212/10000 [18:39<1:02:59,  2.06step/s]
+Training:  22%|██▏       | 2215/10000 [18:40<1:02:58,  2.06step/s]
+Training:  22%|██▏       | 2218/10000 [18:42<1:02:53,  2.06step/s]
+Training:  22%|██▏       | 2221/10000 [18:43<1:02:53,  2.06step/s]
+Training:  22%|██▏       | 2224/10000 [18:45<1:02:49,  2.06step/s]
+Training:  22%|██▏       | 2227/10000 [18:46<1:02:48,  2.06step/s]
+Training:  22%|██▏       | 2230/10000 [18:48<1:02:48,  2.06step/s]
+Training:  22%|██▏       | 2233/10000 [18:49<1:02:46,  2.06step/s]
+Training:  22%|██▏       | 2236/10000 [18:50<1:02:45,  2.06step/s]
+Training:  22%|██▏       | 2239/10000 [18:52<1:02:45,  2.06step/s]
+Training:  22%|██▏       | 2242/10000 [18:53<1:02:43,  2.06step/s]
+Training:  22%|██▏       | 2245/10000 [18:55<1:02:44,  2.06step/s]
+Training:  22%|██▏       | 2248/10000 [18:56<1:02:39,  2.06step/s]INFO 2026-10-28 16:48:18 ot_train.py:972 step:12K smpl:98K ep:174 epch:2.49 loss:0.241 grdn:15.839 lr:1.0e-05 data_s:0.003 prep_s:0.000 updt_s:0.481 step_s:0.485 smp/s:16 mem_gb:3.73 l1_loss:0.207 kld_loss:0.003
+
+Training:  23%|██▎       | 2251/10000 [18:58<1:02:41,  2.06step/s]
+Training:  23%|██▎       | 2254/10000 [18:59<1:02:40,  2.06step/s]
+Training:  23%|██▎       | 2257/10000 [19:01<1:02:38,  2.06step/s]
+Training:  23%|██▎       | 2260/10000 [19:02<1:02:37,  2.06step/s]
+Training:  23%|██▎       | 2263/10000 [19:04<1:02:33,  2.06step/s]
+Training:  23%|██▎       | 2266/10000 [19:05<1:02:29,  2.06step/s]
+Training:  23%|██▎       | 2269/10000 [19:06<1:02:30,  2.06step/s]
+Training:  23%|██▎       | 2272/10000 [19:08<1:02:29,  2.06step/s]
+Training:  23%|██▎       | 2275/10000 [19:09<1:02:26,  2.06step/s]
+Training:  23%|██▎       | 2278/10000 [19:11<1:02:24,  2.06step/s]
+Training:  23%|██▎       | 2281/10000 [19:12<1:02:22,  2.06step/s]
+Training:  23%|██▎       | 2284/10000 [19:14<1:02:21,  2.06step/s]
+Training:  23%|██▎       | 2287/10000 [19:15<1:02:19,  2.06step/s]
+Training:  23%|██▎       | 2290/10000 [19:17<1:02:21,  2.06step/s]
+Training:  23%|██▎       | 2293/10000 [19:18<1:02:22,  2.06step/s]
+Training:  23%|██▎       | 2296/10000 [19:20<1:02:17,  2.06step/s]
+Training:  23%|██▎       | 2299/10000 [19:21<1:02:16,  2.06step/s]
+Training:  23%|██▎       | 2302/10000 [19:22<1:02:15,  2.06step/s]
+Training:  23%|██▎       | 2305/10000 [19:24<1:02:12,  2.06step/s]
+Training:  23%|██▎       | 2308/10000 [19:25<1:02:12,  2.06step/s]
+Training:  23%|██▎       | 2311/10000 [19:27<1:02:10,  2.06step/s]
+Training:  23%|██▎       | 2314/10000 [19:28<1:02:07,  2.06step/s]
+Training:  23%|██▎       | 2317/10000 [19:30<1:02:08,  2.06step/s]
+Training:  23%|██▎       | 2320/10000 [19:31<1:02:08,  2.06step/s]
+Training:  23%|██▎       | 2323/10000 [19:33<1:02:09,  2.06step/s]
+Training:  23%|██▎       | 2326/10000 [19:34<1:02:07,  2.06step/s]
+Training:  23%|██▎       | 2329/10000 [19:36<1:02:04,  2.06step/s]
+Training:  23%|██▎       | 2332/10000 [19:37<1:02:04,  2.06step/s]
+Training:  23%|██▎       | 2335/10000 [19:38<1:02:02,  2.06step/s]
+Training:  23%|██▎       | 2338/10000 [19:40<1:01:59,  2.06step/s]
+Training:  23%|██▎       | 2341/10000 [19:41<1:01:59,  2.06step/s]
+Training:  23%|██▎       | 2344/10000 [19:43<1:01:56,  2.06step/s]
+Training:  23%|██▎       | 2347/10000 [19:44<1:01:55,  2.06step/s]
+Training:  24%|██▎       | 2350/10000 [19:46<1:01:54,  2.06step/s]
+Training:  24%|██▎       | 2353/10000 [19:47<1:01:53,  2.06step/s]
+Training:  24%|██▎       | 2356/10000 [19:49<1:01:53,  2.06step/s]
+Training:  24%|██▎       | 2359/10000 [19:50<1:01:51,  2.06step/s]
+Training:  24%|██▎       | 2362/10000 [19:52<1:01:51,  2.06step/s]
+Training:  24%|██▎       | 2365/10000 [19:53<1:01:49,  2.06step/s]
+Training:  24%|██▎       | 2368/10000 [19:55<1:01:49,  2.06step/s]
+Training:  24%|██▎       | 2371/10000 [19:56<1:01:49,  2.06step/s]
+Training:  24%|██▎       | 2374/10000 [19:57<1:01:46,  2.06step/s]
+Training:  24%|██▍       | 2377/10000 [19:59<1:01:44,  2.06step/s]
+Training:  24%|██▍       | 2380/10000 [20:00<1:01:43,  2.06step/s]
+Training:  24%|██▍       | 2383/10000 [20:02<1:01:42,  2.06step/s]
+Training:  24%|██▍       | 2386/10000 [20:03<1:01:38,  2.06step/s]
+Training:  24%|██▍       | 2389/10000 [20:05<1:01:40,  2.06step/s]
+Training:  24%|██▍       | 2392/10000 [20:06<1:01:38,  2.06step/s]
+Training:  24%|██▍       | 2395/10000 [20:08<1:01:35,  2.06step/s]
+Training:  24%|██▍       | 2398/10000 [20:09<1:01:33,  2.06step/s]
+Training:  24%|██▍       | 2401/10000 [20:11<1:01:31,  2.06step/s]
+Training:  24%|██▍       | 2404/10000 [20:12<1:01:29,  2.06step/s]
+Training:  24%|██▍       | 2407/10000 [20:13<1:01:25,  2.06step/s]
+Training:  24%|██▍       | 2410/10000 [20:15<1:01:22,  2.06step/s]
+Training:  24%|██▍       | 2413/10000 [20:16<1:01:21,  2.06step/s]
+Training:  24%|██▍       | 2416/10000 [20:18<1:01:21,  2.06step/s]
+Training:  24%|██▍       | 2419/10000 [20:19<1:01:17,  2.06step/s]
+Training:  24%|██▍       | 2422/10000 [20:21<1:01:15,  2.06step/s]
+Training:  24%|██▍       | 2425/10000 [20:22<1:01:15,  2.06step/s]
+Training:  24%|██▍       | 2428/10000 [20:24<1:01:13,  2.06step/s]
+Training:  24%|██▍       | 2431/10000 [20:25<1:01:13,  2.06step/s]
+Training:  24%|██▍       | 2434/10000 [20:27<1:01:08,  2.06step/s]
+Training:  24%|██▍       | 2437/10000 [20:28<1:01:08,  2.06step/s]
+Training:  24%|██▍       | 2440/10000 [20:29<1:01:06,  2.06step/s]
+Training:  24%|██▍       | 2443/10000 [20:31<1:01:04,  2.06step/s]
+Training:  24%|██▍       | 2446/10000 [20:32<1:01:05,  2.06step/s]
+Training:  24%|██▍       | 2449/10000 [20:34<1:01:02,  2.06step/s]
+Training:  25%|██▍       | 2452/10000 [20:35<1:01:02,  2.06step/s]
+Training:  25%|██▍       | 2455/10000 [20:37<1:01:00,  2.06step/s]
+Training:  25%|██▍       | 2458/10000 [20:38<1:00:59,  2.06step/s]
+Training:  25%|██▍       | 2461/10000 [20:40<1:00:56,  2.06step/s]
+Training:  25%|██▍       | 2464/10000 [20:41<1:00:54,  2.06step/s]
+Training:  25%|██▍       | 2467/10000 [20:43<1:00:55,  2.06step/s]
+Training:  25%|██▍       | 2470/10000 [20:44<1:00:51,  2.06step/s]
+Training:  25%|██▍       | 2473/10000 [20:45<1:00:49,  2.06step/s]
+Training:  25%|██▍       | 2476/10000 [20:47<1:00:49,  2.06step/s]
+Training:  25%|██▍       | 2479/10000 [20:48<1:00:48,  2.06step/s]
+Training:  25%|██▍       | 2482/10000 [20:50<1:00:46,  2.06step/s]
+Training:  25%|██▍       | 2485/10000 [20:51<1:00:43,  2.06step/s]
+Training:  25%|██▍       | 2488/10000 [20:53<1:00:40,  2.06step/s]
+Training:  25%|██▍       | 2491/10000 [20:54<1:00:41,  2.06step/s]
+Training:  25%|██▍       | 2494/10000 [20:56<1:00:40,  2.06step/s]
+Training:  25%|██▍       | 2497/10000 [20:57<1:00:41,  2.06step/s]
+Training:  25%|██▌       | 2500/10000 [20:59<1:00:41,  2.06step/s]INFO 2026-10-28 16:50:19 ot_train.py:972 step:12K smpl:100K ep:178 epch:2.54 loss:0.236 grdn:15.787 lr:1.0e-05 data_s:0.003 prep_s:0.000 updt_s:0.481 step_s:0.485 smp/s:16 mem_gb:3.73 l1_loss:0.202 kld_loss:0.003
+INFO 2026-10-28 16:50:19 t_train.py:1014 Checkpoint policy after step 12500
+INFO 2026-10-28 16:50:19 n/_torch.py:299 Model weights successfully saved to outputs/train/2026-10-28/16-29-10_resume/checkpoints/012500/pretrained_model!
+
+Training:  25%|██▌       | 2503/10000 [21:06<2:21:23,  1.13s/step]
+Training:  25%|██▌       | 2506/10000 [21:08<1:57:02,  1.07step/s]
+Training:  25%|██▌       | 2509/10000 [21:09<1:39:59,  1.25step/s]
+Training:  25%|██▌       | 2512/10000 [21:11<1:28:07,  1.42step/s]
+Training:  25%|██▌       | 2515/10000 [21:12<1:19:46,  1.56step/s]
+Training:  25%|██▌       | 2518/10000 [21:14<1:13:55,  1.69step/s]
+Training:  25%|██▌       | 2521/10000 [21:15<1:09:47,  1.79step/s]
+Training:  25%|██▌       | 2524/10000 [21:17<1:06:56,  1.86step/s]
+Training:  25%|██▌       | 2527/10000 [21:18<1:04:56,  1.92step/s]
+Training:  25%|██▌       | 2530/10000 [21:20<1:03:31,  1.96step/s]
+Training:  25%|██▌       | 2533/10000 [21:21<1:02:29,  1.99step/s]
+Training:  25%|██▌       | 2536/10000 [21:22<1:01:46,  2.01step/s]
+Training:  25%|██▌       | 2539/10000 [21:24<1:01:17,  2.03step/s]
+Training:  25%|██▌       | 2542/10000 [21:25<1:00:56,  2.04step/s]
+Training:  25%|██▌       | 2545/10000 [21:27<1:00:41,  2.05step/s]
+Training:  25%|██▌       | 2548/10000 [21:28<1:00:28,  2.05step/s]
+Training:  26%|██▌       | 2551/10000 [21:30<1:00:25,  2.05step/s]
+Training:  26%|██▌       | 2554/10000 [21:31<1:00:19,  2.06step/s]
+Training:  26%|██▌       | 2557/10000 [21:33<1:00:12,  2.06step/s]
+Training:  26%|██▌       | 2560/10000 [21:34<1:00:09,  2.06step/s]
+Training:  26%|██▌       | 2563/10000 [21:36<1:00:07,  2.06step/s]
+Training:  26%|██▌       | 2566/10000 [21:37<1:00:04,  2.06step/s]
+Training:  26%|██▌       | 2569/10000 [21:38<1:00:03,  2.06step/s]
+Training:  26%|██▌       | 2572/10000 [21:40<1:00:03,  2.06step/s]
+Training:  26%|██▌       | 2575/10000 [21:41<1:00:01,  2.06step/s]
+Training:  26%|██▌       | 2578/10000 [21:43<59:59,  2.06step/s]  
+Training:  26%|██▌       | 2581/10000 [21:44<59:55,  2.06step/s]
+Training:  26%|██▌       | 2584/10000 [21:46<59:54,  2.06step/s]
+Training:  26%|██▌       | 2587/10000 [21:47<59:53,  2.06step/s]
+Training:  26%|██▌       | 2590/10000 [21:49<59:52,  2.06step/s]
+Training:  26%|██▌       | 2593/10000 [21:50<59:51,  2.06step/s]
+Training:  26%|██▌       | 2596/10000 [21:52<59:50,  2.06step/s]
+Training:  26%|██▌       | 2599/10000 [21:53<59:48,  2.06step/s]
+Training:  26%|██▌       | 2602/10000 [21:54<59:47,  2.06step/s]
+Training:  26%|██▌       | 2605/10000 [21:56<59:49,  2.06step/s]
+Training:  26%|██▌       | 2608/10000 [21:57<59:49,  2.06step/s]
+Training:  26%|██▌       | 2611/10000 [21:59<59:47,  2.06step/s]
+Training:  26%|██▌       | 2614/10000 [22:00<59:45,  2.06step/s]
+Training:  26%|██▌       | 2617/10000 [22:02<59:44,  2.06step/s]
+Training:  26%|██▌       | 2620/10000 [22:03<59:44,  2.06step/s]
+Training:  26%|██▌       | 2623/10000 [22:05<59:43,  2.06step/s]
+Training:  26%|██▋       | 2626/10000 [22:06<59:40,  2.06step/s]
+Training:  26%|██▋       | 2629/10000 [22:08<59:36,  2.06step/s]
+Training:  26%|██▋       | 2632/10000 [22:09<59:34,  2.06step/s]
+Training:  26%|██▋       | 2635/10000 [22:10<59:32,  2.06step/s]
+Training:  26%|██▋       | 2638/10000 [22:12<59:30,  2.06step/s]
+Training:  26%|██▋       | 2641/10000 [22:13<59:27,  2.06step/s]
+Training:  26%|██▋       | 2644/10000 [22:15<59:28,  2.06step/s]
+Training:  26%|██▋       | 2647/10000 [22:16<59:26,  2.06step/s]
+Training:  26%|██▋       | 2650/10000 [22:18<59:26,  2.06step/s]
+Training:  27%|██▋       | 2653/10000 [22:19<59:28,  2.06step/s]
+Training:  27%|██▋       | 2656/10000 [22:21<59:25,  2.06step/s]
+Training:  27%|██▋       | 2659/10000 [22:22<59:22,  2.06step/s]
+Training:  27%|██▋       | 2662/10000 [22:24<59:20,  2.06step/s]
+Training:  27%|██▋       | 2665/10000 [22:25<59:18,  2.06step/s]
+Training:  27%|██▋       | 2668/10000 [22:26<59:18,  2.06step/s]
+Training:  27%|██▋       | 2671/10000 [22:28<59:16,  2.06step/s]
+Training:  27%|██▋       | 2674/10000 [22:29<59:15,  2.06step/s]
+Training:  27%|██▋       | 2677/10000 [22:31<59:12,  2.06step/s]
+Training:  27%|██▋       | 2680/10000 [22:32<59:11,  2.06step/s]
+Training:  27%|██▋       | 2683/10000 [22:34<59:10,  2.06step/s]
+Training:  27%|██▋       | 2686/10000 [22:35<59:07,  2.06step/s]
+Training:  27%|██▋       | 2689/10000 [22:37<59:07,  2.06step/s]
+Training:  27%|██▋       | 2692/10000 [22:38<59:04,  2.06step/s]
+Training:  27%|██▋       | 2695/10000 [22:40<59:04,  2.06step/s]
+Training:  27%|██▋       | 2698/10000 [22:41<59:04,  2.06step/s]
+Training:  27%|██▋       | 2701/10000 [22:42<59:03,  2.06step/s]
+Training:  27%|██▋       | 2704/10000 [22:44<59:01,  2.06step/s]
+Training:  27%|██▋       | 2707/10000 [22:45<58:59,  2.06step/s]
+Training:  27%|██▋       | 2710/10000 [22:47<58:57,  2.06step/s]
+Training:  27%|██▋       | 2713/10000 [22:48<58:57,  2.06step/s]
+Training:  27%|██▋       | 2716/10000 [22:50<58:55,  2.06step/s]
+Training:  27%|██▋       | 2719/10000 [22:51<58:52,  2.06step/s]
+Training:  27%|██▋       | 2722/10000 [22:53<58:50,  2.06step/s]
+Training:  27%|██▋       | 2725/10000 [22:54<58:46,  2.06step/s]
+Training:  27%|██▋       | 2728/10000 [22:56<58:47,  2.06step/s]
+Training:  27%|██▋       | 2731/10000 [22:57<58:48,  2.06step/s]
+Training:  27%|██▋       | 2734/10000 [22:58<58:46,  2.06step/s]
+Training:  27%|██▋       | 2737/10000 [23:00<58:43,  2.06step/s]
+Training:  27%|██▋       | 2740/10000 [23:01<58:43,  2.06step/s]
+Training:  27%|██▋       | 2743/10000 [23:03<58:39,  2.06step/s]
+Training:  27%|██▋       | 2746/10000 [23:04<58:37,  2.06step/s]
+Training:  27%|██▋       | 2749/10000 [23:06<58:38,  2.06step/s]INFO 2026-10-28 16:52:27 ot_train.py:972 step:13K smpl:102K ep:181 epch:2.59 loss:0.236 grdn:15.998 lr:1.0e-05 data_s:0.003 prep_s:0.000 updt_s:0.480 step_s:0.485 smp/s:17 mem_gb:3.73 l1_loss:0.203 kld_loss:0.003
+
+Training:  28%|██▊       | 2752/10000 [23:07<58:37,  2.06step/s]
+Training:  28%|██▊       | 2755/10000 [23:09<58:36,  2.06step/s]
+Training:  28%|██▊       | 2758/10000 [23:10<58:33,  2.06step/s]
+Training:  28%|██▊       | 2761/10000 [23:12<58:32,  2.06step/s]
+Training:  28%|██▊       | 2764/10000 [23:13<58:31,  2.06step/s]
+Training:  28%|██▊       | 2767/10000 [23:15<58:28,  2.06step/s]
+Training:  28%|██▊       | 2770/10000 [23:16<58:28,  2.06step/s]
+Training:  28%|██▊       | 2773/10000 [23:17<58:27,  2.06step/s]
+Training:  28%|██▊       | 2776/10000 [23:19<58:25,  2.06step/s]
+Training:  28%|██▊       | 2779/10000 [23:20<58:23,  2.06step/s]
+Training:  28%|██▊       | 2782/10000 [23:22<58:22,  2.06step/s]
+Training:  28%|██▊       | 2785/10000 [23:23<58:20,  2.06step/s]
+Training:  28%|██▊       | 2788/10000 [23:25<58:18,  2.06step/s]
+Training:  28%|██▊       | 2791/10000 [23:26<58:16,  2.06step/s]
+Training:  28%|██▊       | 2794/10000 [23:28<58:16,  2.06step/s]
+Training:  28%|██▊       | 2797/10000 [23:29<58:16,  2.06step/s]
+Training:  28%|██▊       | 2800/10000 [23:31<58:15,  2.06step/s]
+Training:  28%|██▊       | 2803/10000 [23:32<58:14,  2.06step/s]
+Training:  28%|██▊       | 2806/10000 [23:33<58:12,  2.06step/s]
+Training:  28%|██▊       | 2809/10000 [23:35<58:09,  2.06step/s]
+Training:  28%|██▊       | 2812/10000 [23:36<58:09,  2.06step/s]
+Training:  28%|██▊       | 2815/10000 [23:38<58:08,  2.06step/s]
+Training:  28%|██▊       | 2818/10000 [23:39<58:04,  2.06step/s]
+Training:  28%|██▊       | 2821/10000 [23:41<58:03,  2.06step/s]
+Training:  28%|██▊       | 2824/10000 [23:42<58:03,  2.06step/s]
+Training:  28%|██▊       | 2827/10000 [23:44<57:59,  2.06step/s]
+Training:  28%|██▊       | 2830/10000 [23:45<57:58,  2.06step/s]
+Training:  28%|██▊       | 2833/10000 [23:47<57:56,  2.06step/s]
+Training:  28%|██▊       | 2836/10000 [23:48<57:55,  2.06step/s]
+Training:  28%|██▊       | 2839/10000 [23:49<57:54,  2.06step/s]
+Training:  28%|██▊       | 2842/10000 [23:51<57:54,  2.06step/s]
+Training:  28%|██▊       | 2845/10000 [23:52<57:52,  2.06step/s]
+Training:  28%|██▊       | 2848/10000 [23:54<57:51,  2.06step/s]
+Training:  29%|██▊       | 2851/10000 [23:55<57:49,  2.06step/s]
+Training:  29%|██▊       | 2854/10000 [23:57<57:47,  2.06step/s]
+Training:  29%|██▊       | 2857/10000 [23:58<57:48,  2.06step/s]
+Training:  29%|██▊       | 2860/10000 [24:00<57:46,  2.06step/s]
+Training:  29%|██▊       | 2863/10000 [24:01<57:46,  2.06step/s]
+Training:  29%|██▊       | 2866/10000 [24:03<57:45,  2.06step/s]
+Training:  29%|██▊       | 2869/10000 [24:04<57:42,  2.06step/s]
+Training:  29%|██▊       | 2872/10000 [24:05<57:40,  2.06step/s]
+Training:  29%|██▉       | 2875/10000 [24:07<57:41,  2.06step/s]
+Training:  29%|██▉       | 2878/10000 [24:08<57:40,  2.06step/s]
+Training:  29%|██▉       | 2881/10000 [24:10<57:38,  2.06step/s]
+Training:  29%|██▉       | 2884/10000 [24:11<57:38,  2.06step/s]
+Training:  29%|██▉       | 2887/10000 [24:13<57:36,  2.06step/s]
+Training:  29%|██▉       | 2890/10000 [24:14<57:33,  2.06step/s]
+Training:  29%|██▉       | 2893/10000 [24:16<57:30,  2.06step/s]
+Training:  29%|██▉       | 2896/10000 [24:17<57:29,  2.06step/s]
+Training:  29%|██▉       | 2899/10000 [24:19<57:29,  2.06step/s]
+Training:  29%|██▉       | 2902/10000 [24:20<57:28,  2.06step/s]
+Training:  29%|██▉       | 2905/10000 [24:22<57:27,  2.06step/s]
+Training:  29%|██▉       | 2908/10000 [24:23<57:26,  2.06step/s]
+Training:  29%|██▉       | 2911/10000 [24:24<57:22,  2.06step/s]
+Training:  29%|██▉       | 2914/10000 [24:26<57:20,  2.06step/s]
+Training:  29%|██▉       | 2917/10000 [24:27<57:15,  2.06step/s]
+Training:  29%|██▉       | 2920/10000 [24:29<57:14,  2.06step/s]
+Training:  29%|██▉       | 2923/10000 [24:30<57:14,  2.06step/s]
+Training:  29%|██▉       | 2926/10000 [24:32<57:10,  2.06step/s]
+Training:  29%|██▉       | 2929/10000 [24:33<57:10,  2.06step/s]
+Training:  29%|██▉       | 2932/10000 [24:35<57:07,  2.06step/s]
+Training:  29%|██▉       | 2935/10000 [24:36<57:06,  2.06step/s]
+Training:  29%|██▉       | 2938/10000 [24:38<57:07,  2.06step/s]
+Training:  29%|██▉       | 2941/10000 [24:39<57:06,  2.06step/s]
+Training:  29%|██▉       | 2944/10000 [24:40<57:05,  2.06step/s]
+Training:  29%|██▉       | 2947/10000 [24:42<57:05,  2.06step/s]
+Training:  30%|██▉       | 2950/10000 [24:43<57:02,  2.06step/s]
+Training:  30%|██▉       | 2953/10000 [24:45<56:58,  2.06step/s]
+Training:  30%|██▉       | 2956/10000 [24:46<56:56,  2.06step/s]
+Training:  30%|██▉       | 2959/10000 [24:48<56:56,  2.06step/s]
+Training:  30%|██▉       | 2962/10000 [24:49<56:54,  2.06step/s]
+Training:  30%|██▉       | 2965/10000 [24:51<56:51,  2.06step/s]
+Training:  30%|██▉       | 2968/10000 [24:52<56:50,  2.06step/s]
+Training:  30%|██▉       | 2971/10000 [24:54<56:49,  2.06step/s]
+Training:  30%|██▉       | 2974/10000 [24:55<56:46,  2.06step/s]
+Training:  30%|██▉       | 2977/10000 [24:56<56:44,  2.06step/s]
+Training:  30%|██▉       | 2980/10000 [24:58<56:43,  2.06step/s]
+Training:  30%|██▉       | 2983/10000 [24:59<56:40,  2.06step/s]
+Training:  30%|██▉       | 2986/10000 [25:01<56:39,  2.06step/s]
+Training:  30%|██▉       | 2989/10000 [25:02<56:37,  2.06step/s]
+Training:  30%|██▉       | 2992/10000 [25:04<56:35,  2.06step/s]
+Training:  30%|██▉       | 2995/10000 [25:05<56:38,  2.06step/s]
+Training:  30%|██▉       | 2998/10000 [25:07<56:36,  2.06step/s]INFO 2026-10-28 16:54:28 ot_train.py:972 step:13K smpl:104K ep:185 epch:2.64 loss:0.230 grdn:15.337 lr:1.0e-05 data_s:0.003 prep_s:0.001 updt_s:0.481 step_s:0.485 smp/s:16 mem_gb:3.73 l1_loss:0.198 kld_loss:0.003
+
+Training:  30%|███       | 3001/10000 [25:08<56:37,  2.06step/s]
+Training:  30%|███       | 3004/10000 [25:10<56:34,  2.06step/s]
+Training:  30%|███       | 3007/10000 [25:11<56:32,  2.06step/s]
+Training:  30%|███       | 3010/10000 [25:12<56:28,  2.06step/s]
+Training:  30%|███       | 3013/10000 [25:14<56:28,  2.06step/s]
+Training:  30%|███       | 3016/10000 [25:15<56:26,  2.06step/s]
+Training:  30%|███       | 3019/10000 [25:17<56:27,  2.06step/s]
+Training:  30%|███       | 3022/10000 [25:18<56:26,  2.06step/s]
+Training:  30%|███       | 3025/10000 [25:20<56:25,  2.06step/s]
+Training:  30%|███       | 3028/10000 [25:21<56:24,  2.06step/s]
+Training:  30%|███       | 3031/10000 [25:23<56:22,  2.06step/s]
+Training:  30%|███       | 3034/10000 [25:24<56:21,  2.06step/s]
+Training:  30%|███       | 3037/10000 [25:26<56:21,  2.06step/s]
+Training:  30%|███       | 3040/10000 [25:27<56:17,  2.06step/s]
+Training:  30%|███       | 3043/10000 [25:28<56:13,  2.06step/s]
+Training:  30%|███       | 3046/10000 [25:30<56:13,  2.06step/s]
+Training:  30%|███       | 3049/10000 [25:31<56:11,  2.06step/s]
+Training:  31%|███       | 3052/10000 [25:33<56:10,  2.06step/s]
+Training:  31%|███       | 3055/10000 [25:34<56:06,  2.06step/s]
+Training:  31%|███       | 3058/10000 [25:36<56:05,  2.06step/s]
+Training:  31%|███       | 3061/10000 [25:37<56:04,  2.06step/s]
+Training:  31%|███       | 3064/10000 [25:39<56:04,  2.06step/s]
+Training:  31%|███       | 3067/10000 [25:40<56:03,  2.06step/s]
+Training:  31%|███       | 3070/10000 [25:42<56:03,  2.06step/s]
+Training:  31%|███       | 3073/10000 [25:43<56:01,  2.06step/s]
+Training:  31%|███       | 3076/10000 [25:44<55:58,  2.06step/s]
+Training:  31%|███       | 3079/10000 [25:46<55:58,  2.06step/s]
+Training:  31%|███       | 3082/10000 [25:47<55:55,  2.06step/s]
+Training:  31%|███       | 3085/10000 [25:49<55:54,  2.06step/s]
+Training:  31%|███       | 3088/10000 [25:50<55:50,  2.06step/s]
+Training:  31%|███       | 3091/10000 [25:52<55:50,  2.06step/s]
+Training:  31%|███       | 3094/10000 [25:53<55:48,  2.06step/s]
+Training:  31%|███       | 3097/10000 [25:55<55:50,  2.06step/s]
+Training:  31%|███       | 3100/10000 [25:56<55:47,  2.06step/s]
+Training:  31%|███       | 3103/10000 [25:58<55:48,  2.06step/s]
+Training:  31%|███       | 3106/10000 [25:59<55:45,  2.06step/s]
+Training:  31%|███       | 3109/10000 [26:00<55:46,  2.06step/s]
+Training:  31%|███       | 3112/10000 [26:02<55:45,  2.06step/s]
+Training:  31%|███       | 3115/10000 [26:03<55:45,  2.06step/s]
+Training:  31%|███       | 3118/10000 [26:05<55:46,  2.06step/s]
+Training:  31%|███       | 3121/10000 [26:06<55:44,  2.06step/s]
+Training:  31%|███       | 3124/10000 [26:08<55:42,  2.06step/s]
+Training:  31%|███▏      | 3127/10000 [26:09<55:38,  2.06step/s]
+Training:  31%|███▏      | 3130/10000 [26:11<55:34,  2.06step/s]
+Training:  31%|███▏      | 3133/10000 [26:12<55:32,  2.06step/s]
+Training:  31%|███▏      | 3136/10000 [26:14<55:29,  2.06step/s]
+Training:  31%|███▏      | 3139/10000 [26:15<55:27,  2.06step/s]
+Training:  31%|███▏      | 3142/10000 [26:16<55:25,  2.06step/s]
+Training:  31%|███▏      | 3145/10000 [26:18<55:23,  2.06step/s]
+Training:  31%|███▏      | 3148/10000 [26:19<55:23,  2.06step/s]
+Training:  32%|███▏      | 3151/10000 [26:21<55:23,  2.06step/s]
+Training:  32%|███▏      | 3154/10000 [26:22<55:23,  2.06step/s]
+Training:  32%|███▏      | 3157/10000 [26:24<55:22,  2.06step/s]
+Training:  32%|███▏      | 3160/10000 [26:25<55:22,  2.06step/s]
+Training:  32%|███▏      | 3163/10000 [26:27<55:20,  2.06step/s]
+Training:  32%|███▏      | 3166/10000 [26:28<55:19,  2.06step/s]
+Training:  32%|███▏      | 3169/10000 [26:30<55:17,  2.06step/s]
+Training:  32%|███▏      | 3172/10000 [26:31<55:16,  2.06step/s]
+Training:  32%|███▏      | 3175/10000 [26:33<55:14,  2.06step/s]
+Training:  32%|███▏      | 3178/10000 [26:34<55:14,  2.06step/s]
+Training:  32%|███▏      | 3181/10000 [26:35<55:13,  2.06step/s]
+Training:  32%|███▏      | 3184/10000 [26:37<55:12,  2.06step/s]
+Training:  32%|███▏      | 3187/10000 [26:38<55:08,  2.06step/s]
+Training:  32%|███▏      | 3190/10000 [26:40<55:06,  2.06step/s]
+Training:  32%|███▏      | 3193/10000 [26:41<55:02,  2.06step/s]
+Training:  32%|███▏      | 3196/10000 [26:43<55:00,  2.06step/s]
+Training:  32%|███▏      | 3199/10000 [26:44<54:58,  2.06step/s]
+Training:  32%|███▏      | 3202/10000 [26:46<54:55,  2.06step/s]
+Training:  32%|███▏      | 3205/10000 [26:47<54:55,  2.06step/s]
+Training:  32%|███▏      | 3208/10000 [26:49<54:56,  2.06step/s]
+Training:  32%|███▏      | 3211/10000 [26:50<54:55,  2.06step/s]
+Training:  32%|███▏      | 3214/10000 [26:51<54:52,  2.06step/s]
+Training:  32%|███▏      | 3217/10000 [26:53<54:50,  2.06step/s]
+Training:  32%|███▏      | 3220/10000 [26:54<54:49,  2.06step/s]
+Training:  32%|███▏      | 3223/10000 [26:56<54:47,  2.06step/s]
+Training:  32%|███▏      | 3226/10000 [26:57<54:47,  2.06step/s]
+Training:  32%|███▏      | 3229/10000 [26:59<54:47,  2.06step/s]
+Training:  32%|███▏      | 3232/10000 [27:00<54:48,  2.06step/s]
+Training:  32%|███▏      | 3235/10000 [27:02<54:45,  2.06step/s]
+Training:  32%|███▏      | 3238/10000 [27:03<54:42,  2.06step/s]
+Training:  32%|███▏      | 3241/10000 [27:05<54:38,  2.06step/s]
+Training:  32%|███▏      | 3244/10000 [27:06<54:37,  2.06step/s]
+Training:  32%|███▏      | 3247/10000 [27:07<54:35,  2.06step/s]
+Training:  32%|███▎      | 3250/10000 [27:09<54:32,  2.06step/s]INFO 2026-10-28 16:56:29 ot_train.py:972 step:13K smpl:106K ep:188 epch:2.69 loss:0.230 grdn:15.654 lr:1.0e-05 data_s:0.003 prep_s:0.000 updt_s:0.481 step_s:0.485 smp/s:16 mem_gb:3.73 l1_loss:0.198 kld_loss:0.003
+
+Training:  33%|███▎      | 3253/10000 [27:10<54:33,  2.06step/s]
+Training:  33%|███▎      | 3256/10000 [27:12<54:30,  2.06step/s]
+Training:  33%|███▎      | 3259/10000 [27:13<54:29,  2.06step/s]
+Training:  33%|███▎      | 3262/10000 [27:15<54:25,  2.06step/s]
+Training:  33%|███▎      | 3265/10000 [27:16<54:26,  2.06step/s]
+Training:  33%|███▎      | 3268/10000 [27:18<54:28,  2.06step/s]
+Training:  33%|███▎      | 3271/10000 [27:19<54:27,  2.06step/s]
+Training:  33%|███▎      | 3274/10000 [27:21<54:26,  2.06step/s]
+Training:  33%|███▎      | 3277/10000 [27:22<54:24,  2.06step/s]
+Training:  33%|███▎      | 3280/10000 [27:23<54:23,  2.06step/s]
+Training:  33%|███▎      | 3283/10000 [27:25<54:20,  2.06step/s]
+Training:  33%|███▎      | 3286/10000 [27:26<54:18,  2.06step/s]
+Training:  33%|███▎      | 3289/10000 [27:28<54:17,  2.06step/s]
+Training:  33%|███▎      | 3292/10000 [27:29<54:15,  2.06step/s]
+Training:  33%|███▎      | 3295/10000 [27:31<54:15,  2.06step/s]
+Training:  33%|███▎      | 3298/10000 [27:32<54:14,  2.06step/s]
+Training:  33%|███▎      | 3301/10000 [27:34<54:13,  2.06step/s]
+Training:  33%|███▎      | 3304/10000 [27:35<54:12,  2.06step/s]
+Training:  33%|███▎      | 3307/10000 [27:37<54:11,  2.06step/s]
+Training:  33%|███▎      | 3310/10000 [27:38<54:08,  2.06step/s]
+Training:  33%|███▎      | 3313/10000 [27:39<54:08,  2.06step/s]
+Training:  33%|███▎      | 3316/10000 [27:41<54:07,  2.06step/s]
+Training:  33%|███▎      | 3319/10000 [27:42<54:04,  2.06step/s]
+Training:  33%|███▎      | 3322/10000 [27:44<54:02,  2.06step/s]
+Training:  33%|███▎      | 3325/10000 [27:45<54:00,  2.06step/s]
+Training:  33%|███▎      | 3328/10000 [27:47<53:58,  2.06step/s]
+Training:  33%|███▎      | 3331/10000 [27:48<53:57,  2.06step/s]
+Training:  33%|███▎      | 3334/10000 [27:50<53:55,  2.06step/s]
+Training:  33%|███▎      | 3337/10000 [27:51<53:54,  2.06step/s]
+Training:  33%|███▎      | 3340/10000 [27:53<53:54,  2.06step/s]
+Training:  33%|███▎      | 3343/10000 [27:54<53:52,  2.06step/s]
+Training:  33%|███▎      | 3346/10000 [27:56<53:53,  2.06step/s]
+Training:  33%|███▎      | 3349/10000 [27:57<53:51,  2.06step/s]
+Training:  34%|███▎      | 3352/10000 [27:58<53:48,  2.06step/s]
+Training:  34%|███▎      | 3355/10000 [28:00<53:46,  2.06step/s]
+Training:  34%|███▎      | 3358/10000 [28:01<53:43,  2.06step/s]
+Training:  34%|███▎      | 3361/10000 [28:03<53:42,  2.06step/s]
+Training:  34%|███▎      | 3364/10000 [28:04<53:40,  2.06step/s]
+Training:  34%|███▎      | 3367/10000 [28:06<53:39,  2.06step/s]
+Training:  34%|███▎      | 3370/10000 [28:07<53:37,  2.06step/s]
+Training:  34%|███▎      | 3373/10000 [28:09<53:37,  2.06step/s]
+Training:  34%|███▍      | 3376/10000 [28:10<53:34,  2.06step/s]
+Training:  34%|███▍      | 3379/10000 [28:12<53:35,  2.06step/s]
+Training:  34%|███▍      | 3382/10000 [28:13<53:34,  2.06step/s]
+Training:  34%|███▍      | 3385/10000 [28:14<53:32,  2.06step/s]
+Training:  34%|███▍      | 3388/10000 [28:16<53:33,  2.06step/s]
+Training:  34%|███▍      | 3391/10000 [28:17<53:30,  2.06step/s]
+Training:  34%|███▍      | 3394/10000 [28:19<53:28,  2.06step/s]
+Training:  34%|███▍      | 3397/10000 [28:20<53:24,  2.06step/s]
+Training:  34%|███▍      | 3400/10000 [28:22<53:23,  2.06step/s]
+Training:  34%|███▍      | 3403/10000 [28:23<53:21,  2.06step/s]
+Training:  34%|███▍      | 3406/10000 [28:25<53:19,  2.06step/s]
+Training:  34%|███▍      | 3409/10000 [28:26<53:20,  2.06step/s]
+Training:  34%|███▍      | 3412/10000 [28:28<53:20,  2.06step/s]
+Training:  34%|███▍      | 3415/10000 [28:29<53:19,  2.06step/s]
+Training:  34%|███▍      | 3418/10000 [28:30<53:17,  2.06step/s]
+Training:  34%|███▍      | 3421/10000 [28:32<53:16,  2.06step/s]
+Training:  34%|███▍      | 3424/10000 [28:33<53:14,  2.06step/s]
+Training:  34%|███▍      | 3427/10000 [28:35<53:13,  2.06step/s]
+Training:  34%|███▍      | 3430/10000 [28:36<53:11,  2.06step/s]
+Training:  34%|███▍      | 3433/10000 [28:38<53:09,  2.06step/s]
+Training:  34%|███▍      | 3436/10000 [28:39<53:08,  2.06step/s]
+Training:  34%|███▍      | 3439/10000 [28:41<55:17,  1.98step/s]
+Training:  34%|███▍      | 3442/10000 [28:42<54:39,  2.00step/s]
+Training:  34%|███▍      | 3445/10000 [28:44<54:09,  2.02step/s]
+Training:  34%|███▍      | 3448/10000 [28:45<53:48,  2.03step/s]
+Training:  35%|███▍      | 3451/10000 [28:47<53:33,  2.04step/s]
+Training:  35%|███▍      | 3454/10000 [28:48<53:22,  2.04step/s]
+Training:  35%|███▍      | 3457/10000 [28:50<53:12,  2.05step/s]
+Training:  35%|███▍      | 3460/10000 [28:51<53:08,  2.05step/s]
+Training:  35%|███▍      | 3463/10000 [28:53<53:04,  2.05step/s]
+Training:  35%|███▍      | 3466/10000 [28:54<53:01,  2.05step/s]
+Training:  35%|███▍      | 3469/10000 [28:55<52:57,  2.06step/s]
+Training:  35%|███▍      | 3472/10000 [28:57<52:51,  2.06step/s]
+Training:  35%|███▍      | 3475/10000 [28:58<52:51,  2.06step/s]
+Training:  35%|███▍      | 3478/10000 [29:00<52:48,  2.06step/s]
+Training:  35%|███▍      | 3481/10000 [29:01<52:47,  2.06step/s]
+Training:  35%|███▍      | 3484/10000 [29:03<52:43,  2.06step/s]
+Training:  35%|███▍      | 3487/10000 [29:04<52:42,  2.06step/s]
+Training:  35%|███▍      | 3490/10000 [29:06<52:41,  2.06step/s]
+Training:  35%|███▍      | 3493/10000 [29:07<52:40,  2.06step/s]
+Training:  35%|███▍      | 3496/10000 [29:09<52:38,  2.06step/s]
+Training:  35%|███▍      | 3499/10000 [29:10<52:37,  2.06step/s]INFO 2026-10-28 16:58:31 ot_train.py:972 step:14K smpl:108K ep:192 epch:2.74 loss:0.227 grdn:15.487 lr:1.0e-05 data_s:0.003 prep_s:0.001 updt_s:0.482 step_s:0.486 smp/s:16 mem_gb:3.73 l1_loss:0.196 kld_loss:0.003
+
+Training:  35%|███▌      | 3502/10000 [29:11<52:37,  2.06step/s]
+Training:  35%|███▌      | 3505/10000 [29:13<52:36,  2.06step/s]
+Training:  35%|███▌      | 3508/10000 [29:14<52:34,  2.06step/s]
+Training:  35%|███▌      | 3511/10000 [29:16<52:33,  2.06step/s]
+Training:  35%|███▌      | 3514/10000 [29:17<52:30,  2.06step/s]
+Training:  35%|███▌      | 3517/10000 [29:19<52:27,  2.06step/s]
+Training:  35%|███▌      | 3520/10000 [29:20<52:23,  2.06step/s]
+Training:  35%|███▌      | 3523/10000 [29:22<52:24,  2.06step/s]
+Training:  35%|███▌      | 3526/10000 [29:23<52:25,  2.06step/s]
+Training:  35%|███▌      | 3529/10000 [29:25<52:25,  2.06step/s]
+Training:  35%|███▌      | 3532/10000 [29:26<52:23,  2.06step/s]
+Training:  35%|███▌      | 3535/10000 [29:28<52:22,  2.06step/s]
+Training:  35%|███▌      | 3538/10000 [29:29<52:19,  2.06step/s]
+Training:  35%|███▌      | 3541/10000 [29:30<52:17,  2.06step/s]
+Training:  35%|███▌      | 3544/10000 [29:32<52:15,  2.06step/s]
+Training:  35%|███▌      | 3547/10000 [29:33<52:14,  2.06step/s]
+Training:  36%|███▌      | 3550/10000 [29:35<52:11,  2.06step/s]
+Training:  36%|███▌      | 3553/10000 [29:36<52:09,  2.06step/s]
+Training:  36%|███▌      | 3556/10000 [29:38<52:08,  2.06step/s]
+Training:  36%|███▌      | 3559/10000 [29:39<52:05,  2.06step/s]
+Training:  36%|███▌      | 3562/10000 [29:41<52:03,  2.06step/s]
+Training:  36%|███▌      | 3565/10000 [29:42<52:04,  2.06step/s]
+Training:  36%|███▌      | 3568/10000 [29:44<52:04,  2.06step/s]
+Training:  36%|███▌      | 3571/10000 [29:45<52:03,  2.06step/s]
+Training:  36%|███▌      | 3574/10000 [29:46<52:00,  2.06step/s]
+Training:  36%|███▌      | 3577/10000 [29:48<51:57,  2.06step/s]
+Training:  36%|███▌      | 3580/10000 [29:49<51:58,  2.06step/s]
+Training:  36%|███▌      | 3583/10000 [29:51<51:56,  2.06step/s]
+Training:  36%|███▌      | 3586/10000 [29:52<51:54,  2.06step/s]
+Training:  36%|███▌      | 3589/10000 [29:54<51:54,  2.06step/s]
+Training:  36%|███▌      | 3592/10000 [29:55<51:51,  2.06step/s]
+Training:  36%|███▌      | 3595/10000 [29:57<51:51,  2.06step/s]
+Training:  36%|███▌      | 3598/10000 [29:58<51:50,  2.06step/s]
+Training:  36%|███▌      | 3601/10000 [30:00<51:48,  2.06step/s]
+Training:  36%|███▌      | 3604/10000 [30:01<51:47,  2.06step/s]
+Training:  36%|███▌      | 3607/10000 [30:02<51:44,  2.06step/s]
+Training:  36%|███▌      | 3610/10000 [30:04<51:43,  2.06step/s]
+Training:  36%|███▌      | 3613/10000 [30:05<51:42,  2.06step/s]
+Training:  36%|███▌      | 3616/10000 [30:07<51:40,  2.06step/s]
+Training:  36%|███▌      | 3619/10000 [30:08<51:35,  2.06step/s]
+Training:  36%|███▌      | 3622/10000 [30:10<51:34,  2.06step/s]
+Training:  36%|███▋      | 3625/10000 [30:11<51:35,  2.06step/s]
+Training:  36%|███▋      | 3628/10000 [30:13<51:32,  2.06step/s]
+Training:  36%|███▋      | 3631/10000 [30:14<51:29,  2.06step/s]
+Training:  36%|███▋      | 3634/10000 [30:16<51:27,  2.06step/s]
+Training:  36%|███▋      | 3637/10000 [30:17<51:28,  2.06step/s]
+Training:  36%|███▋      | 3640/10000 [30:18<51:26,  2.06step/s]
+Training:  36%|███▋      | 3643/10000 [30:20<51:22,  2.06step/s]
+Training:  36%|███▋      | 3646/10000 [30:21<51:19,  2.06step/s]
+Training:  36%|███▋      | 3649/10000 [30:23<51:20,  2.06step/s]
+Training:  37%|███▋      | 3652/10000 [30:24<51:19,  2.06step/s]
+Training:  37%|███▋      | 3655/10000 [30:26<51:17,  2.06step/s]
+Training:  37%|███▋      | 3658/10000 [30:27<51:17,  2.06step/s]
+Training:  37%|███▋      | 3661/10000 [30:29<51:17,  2.06step/s]
+Training:  37%|███▋      | 3664/10000 [30:30<51:14,  2.06step/s]
+Training:  37%|███▋      | 3667/10000 [30:32<51:10,  2.06step/s]
+Training:  37%|███▋      | 3670/10000 [30:33<51:11,  2.06step/s]
+Training:  37%|███▋      | 3673/10000 [30:35<51:12,  2.06step/s]
+Training:  37%|███▋      | 3676/10000 [30:36<51:11,  2.06step/s]
+Training:  37%|███▋      | 3679/10000 [30:37<51:10,  2.06step/s]
+Training:  37%|███▋      | 3682/10000 [30:39<51:08,  2.06step/s]
+Training:  37%|███▋      | 3685/10000 [30:40<51:05,  2.06step/s]
+Training:  37%|███▋      | 3688/10000 [30:42<51:04,  2.06step/s]
+Training:  37%|███▋      | 3691/10000 [30:43<51:03,  2.06step/s]
+Training:  37%|███▋      | 3694/10000 [30:45<51:01,  2.06step/s]
+Training:  37%|███▋      | 3697/10000 [30:46<51:01,  2.06step/s]
+Training:  37%|███▋      | 3700/10000 [30:48<51:00,  2.06step/s]
+Training:  37%|███▋      | 3703/10000 [30:49<51:01,  2.06step/s]
+Training:  37%|███▋      | 3706/10000 [30:51<50:58,  2.06step/s]
+Training:  37%|███▋      | 3709/10000 [30:52<50:56,  2.06step/s]
+Training:  37%|███▋      | 3712/10000 [30:53<50:56,  2.06step/s]
+Training:  37%|███▋      | 3715/10000 [30:55<50:54,  2.06step/s]
+Training:  37%|███▋      | 3718/10000 [30:56<50:52,  2.06step/s]
+Training:  37%|███▋      | 3721/10000 [30:58<50:48,  2.06step/s]
+Training:  37%|███▋      | 3724/10000 [30:59<50:49,  2.06step/s]
+Training:  37%|███▋      | 3727/10000 [31:01<50:46,  2.06step/s]
+Training:  37%|███▋      | 3730/10000 [31:02<50:43,  2.06step/s]
+Training:  37%|███▋      | 3733/10000 [31:04<50:42,  2.06step/s]
+Training:  37%|███▋      | 3736/10000 [31:05<50:41,  2.06step/s]
+Training:  37%|███▋      | 3739/10000 [31:07<50:38,  2.06step/s]
+Training:  37%|███▋      | 3742/10000 [31:08<50:37,  2.06step/s]
+Training:  37%|███▋      | 3745/10000 [31:09<50:38,  2.06step/s]
+Training:  37%|███▋      | 3748/10000 [31:11<50:36,  2.06step/s]INFO 2026-10-28 17:00:32 ot_train.py:972 step:14K smpl:110K ep:196 epch:2.79 loss:0.222 grdn:15.063 lr:1.0e-05 data_s:0.003 prep_s:0.000 updt_s:0.481 step_s:0.485 smp/s:16 mem_gb:3.73 l1_loss:0.192 kld_loss:0.003
+
+Training:  38%|███▊      | 3751/10000 [31:12<50:33,  2.06step/s]
+Training:  38%|███▊      | 3754/10000 [31:14<50:30,  2.06step/s]
+Training:  38%|███▊      | 3757/10000 [31:15<50:30,  2.06step/s]
+Training:  38%|███▊      | 3760/10000 [31:17<50:29,  2.06step/s]
+Training:  38%|███▊      | 3763/10000 [31:18<50:28,  2.06step/s]
+Training:  38%|███▊      | 3766/10000 [31:20<50:27,  2.06step/s]
+Training:  38%|███▊      | 3769/10000 [31:21<50:27,  2.06step/s]
+Training:  38%|███▊      | 3772/10000 [31:23<50:26,  2.06step/s]
+Training:  38%|███▊      | 3775/10000 [31:24<50:21,  2.06step/s]
+Training:  38%|███▊      | 3778/10000 [31:25<50:20,  2.06step/s]
+Training:  38%|███▊      | 3781/10000 [31:27<50:15,  2.06step/s]
+Training:  38%|███▊      | 3784/10000 [31:28<50:15,  2.06step/s]
+Training:  38%|███▊      | 3787/10000 [31:30<50:13,  2.06step/s]
+Training:  38%|███▊      | 3790/10000 [31:31<50:11,  2.06step/s]
+Training:  38%|███▊      | 3793/10000 [31:33<50:09,  2.06step/s]
+Training:  38%|███▊      | 3796/10000 [31:34<50:09,  2.06step/s]
+Training:  38%|███▊      | 3799/10000 [31:36<50:07,  2.06step/s]
+Training:  38%|███▊      | 3802/10000 [31:37<50:06,  2.06step/s]
+Training:  38%|███▊      | 3805/10000 [31:39<50:05,  2.06step/s]
+Training:  38%|███▊      | 3808/10000 [31:40<50:04,  2.06step/s]
+Training:  38%|███▊      | 3811/10000 [31:42<50:02,  2.06step/s]
+Training:  38%|███▊      | 3814/10000 [31:43<50:01,  2.06step/s]
+Training:  38%|███▊      | 3817/10000 [31:44<49:58,  2.06step/s]
+Training:  38%|███▊      | 3820/10000 [31:46<49:58,  2.06step/s]
+Training:  38%|███▊      | 3823/10000 [31:47<49:58,  2.06step/s]
+Training:  38%|███▊      | 3826/10000 [31:49<49:56,  2.06step/s]
+Training:  38%|███▊      | 3829/10000 [31:50<49:54,  2.06step/s]
+Training:  38%|███▊      | 3832/10000 [31:52<49:53,  2.06step/s]
+Training:  38%|███▊      | 3835/10000 [31:53<49:52,  2.06step/s]
+Training:  38%|███▊      | 3838/10000 [31:55<49:50,  2.06step/s]
+Training:  38%|███▊      | 3841/10000 [31:56<49:50,  2.06step/s]
+Training:  38%|███▊      | 3844/10000 [31:58<49:49,  2.06step/s]
+Training:  38%|███▊      | 3847/10000 [31:59<49:49,  2.06step/s]
+Training:  38%|███▊      | 3850/10000 [32:00<49:49,  2.06step/s]
+Training:  39%|███▊      | 3853/10000 [32:02<49:47,  2.06step/s]
+Training:  39%|███▊      | 3856/10000 [32:03<49:44,  2.06step/s]
+Training:  39%|███▊      | 3859/10000 [32:05<49:44,  2.06step/s]
+Training:  39%|███▊      | 3862/10000 [32:06<49:43,  2.06step/s]
+Training:  39%|███▊      | 3865/10000 [32:08<49:42,  2.06step/s]
+Training:  39%|███▊      | 3868/10000 [32:09<49:40,  2.06step/s]
+Training:  39%|███▊      | 3871/10000 [32:11<49:38,  2.06step/s]
+Training:  39%|███▊      | 3874/10000 [32:12<49:36,  2.06step/s]
+Training:  39%|███▉      | 3877/10000 [32:14<49:34,  2.06step/s]
+Training:  39%|███▉      | 3880/10000 [32:15<49:32,  2.06step/s]
+Training:  39%|███▉      | 3883/10000 [32:16<49:30,  2.06step/s]
+Training:  39%|███▉      | 3886/10000 [32:18<49:30,  2.06step/s]
+Training:  39%|███▉      | 3889/10000 [32:19<49:27,  2.06step/s]
+Training:  39%|███▉      | 3892/10000 [32:21<49:26,  2.06step/s]
+Training:  39%|███▉      | 3895/10000 [32:22<49:23,  2.06step/s]
+Training:  39%|███▉      | 3898/10000 [32:24<49:24,  2.06step/s]
+Training:  39%|███▉      | 3901/10000 [32:25<49:23,  2.06step/s]
+Training:  39%|███▉      | 3904/10000 [32:27<49:21,  2.06step/s]
+Training:  39%|███▉      | 3907/10000 [32:28<49:20,  2.06step/s]
+Training:  39%|███▉      | 3910/10000 [32:30<49:18,  2.06step/s]
+Training:  39%|███▉      | 3913/10000 [32:31<49:14,  2.06step/s]
+Training:  39%|███▉      | 3916/10000 [32:32<49:12,  2.06step/s]
+Training:  39%|███▉      | 3919/10000 [32:34<49:11,  2.06step/s]
+Training:  39%|███▉      | 3922/10000 [32:35<49:10,  2.06step/s]
+Training:  39%|███▉      | 3925/10000 [32:37<49:08,  2.06step/s]
+Training:  39%|███▉      | 3928/10000 [32:38<49:07,  2.06step/s]
+Training:  39%|███▉      | 3931/10000 [32:40<49:09,  2.06step/s]
+Training:  39%|███▉      | 3934/10000 [32:41<49:08,  2.06step/s]
+Training:  39%|███▉      | 3937/10000 [32:43<49:03,  2.06step/s]
+Training:  39%|███▉      | 3940/10000 [32:44<49:02,  2.06step/s]
+Training:  39%|███▉      | 3943/10000 [32:46<49:00,  2.06step/s]
+Training:  39%|███▉      | 3946/10000 [32:47<48:57,  2.06step/s]
+Training:  39%|███▉      | 3949/10000 [32:49<48:56,  2.06step/s]
+Training:  40%|███▉      | 3952/10000 [32:50<48:53,  2.06step/s]
+Training:  40%|███▉      | 3955/10000 [32:51<48:53,  2.06step/s]
+Training:  40%|███▉      | 3958/10000 [32:53<48:53,  2.06step/s]
+Training:  40%|███▉      | 3961/10000 [32:54<48:52,  2.06step/s]
+Training:  40%|███▉      | 3964/10000 [32:56<48:51,  2.06step/s]
+Training:  40%|███▉      | 3967/10000 [32:57<48:50,  2.06step/s]
+Training:  40%|███▉      | 3970/10000 [32:59<48:48,  2.06step/s]
+Training:  40%|███▉      | 3973/10000 [33:00<48:45,  2.06step/s]
+Training:  40%|███▉      | 3976/10000 [33:02<48:44,  2.06step/s]
+Training:  40%|███▉      | 3979/10000 [33:03<48:41,  2.06step/s]
+Training:  40%|███▉      | 3982/10000 [33:05<48:40,  2.06step/s]
+Training:  40%|███▉      | 3985/10000 [33:06<48:40,  2.06step/s]
+Training:  40%|███▉      | 3988/10000 [33:07<48:40,  2.06step/s]
+Training:  40%|███▉      | 3991/10000 [33:09<48:38,  2.06step/s]
+Training:  40%|███▉      | 3994/10000 [33:10<48:36,  2.06step/s]
+Training:  40%|███▉      | 3997/10000 [33:12<48:36,  2.06step/s]
+Training:  40%|████      | 4000/10000 [33:13<48:33,  2.06step/s]INFO 2026-10-28 17:02:34 ot_train.py:972 step:14K smpl:112K ep:199 epch:2.84 loss:0.216 grdn:14.927 lr:1.0e-05 data_s:0.003 prep_s:0.000 updt_s:0.481 step_s:0.485 smp/s:16 mem_gb:3.73 l1_loss:0.188 kld_loss:0.003
+
+Training:  40%|████      | 4003/10000 [33:15<48:32,  2.06step/s]
+Training:  40%|████      | 4006/10000 [33:16<48:31,  2.06step/s]
+Training:  40%|████      | 4009/10000 [33:18<48:30,  2.06step/s]
+Training:  40%|████      | 4012/10000 [33:19<48:29,  2.06step/s]
+Training:  40%|████      | 4015/10000 [33:21<48:28,  2.06step/s]
+Training:  40%|████      | 4018/10000 [33:22<48:27,  2.06step/s]
+Training:  40%|████      | 4021/10000 [33:23<48:22,  2.06step/s]
+Training:  40%|████      | 4024/10000 [33:25<48:20,  2.06step/s]
+Training:  40%|████      | 4027/10000 [33:26<48:18,  2.06step/s]
+Training:  40%|████      | 4030/10000 [33:28<48:19,  2.06step/s]
+Training:  40%|████      | 4033/10000 [33:29<48:19,  2.06step/s]
+Training:  40%|████      | 4036/10000 [33:31<48:16,  2.06step/s]
+Training:  40%|████      | 4039/10000 [33:32<48:14,  2.06step/s]
+Training:  40%|████      | 4042/10000 [33:34<48:12,  2.06step/s]
+Training:  40%|████      | 4045/10000 [33:35<48:10,  2.06step/s]
+Training:  40%|████      | 4048/10000 [33:37<48:08,  2.06step/s]
+Training:  41%|████      | 4051/10000 [33:38<48:08,  2.06step/s]
+Training:  41%|████      | 4054/10000 [33:40<48:06,  2.06step/s]
+Training:  41%|████      | 4057/10000 [33:41<48:06,  2.06step/s]
+Training:  41%|████      | 4060/10000 [33:42<48:05,  2.06step/s]
+Training:  41%|████      | 4063/10000 [33:44<48:01,  2.06step/s]
+Training:  41%|████      | 4066/10000 [33:45<47:57,  2.06step/s]
+Training:  41%|████      | 4069/10000 [33:47<47:57,  2.06step/s]
+Training:  41%|████      | 4072/10000 [33:48<47:57,  2.06step/s]
+Training:  41%|████      | 4075/10000 [33:50<47:58,  2.06step/s]
+Training:  41%|████      | 4078/10000 [33:51<47:57,  2.06step/s]
+Training:  41%|████      | 4081/10000 [33:53<47:55,  2.06step/s]
+Training:  41%|████      | 4084/10000 [33:54<47:52,  2.06step/s]
+Training:  41%|████      | 4087/10000 [33:56<47:48,  2.06step/s]
+Training:  41%|████      | 4090/10000 [33:57<47:46,  2.06step/s]
+Training:  41%|████      | 4093/10000 [33:58<47:47,  2.06step/s]
+Training:  41%|████      | 4096/10000 [34:00<47:46,  2.06step/s]
+Training:  41%|████      | 4099/10000 [34:01<47:45,  2.06step/s]
+Training:  41%|████      | 4102/10000 [34:03<47:41,  2.06step/s]
+Training:  41%|████      | 4105/10000 [34:04<47:40,  2.06step/s]
+Training:  41%|████      | 4108/10000 [34:06<47:37,  2.06step/s]
+Training:  41%|████      | 4111/10000 [34:07<47:36,  2.06step/s]
+Training:  41%|████      | 4114/10000 [34:09<47:36,  2.06step/s]
+Training:  41%|████      | 4117/10000 [34:10<47:36,  2.06step/s]
+Training:  41%|████      | 4120/10000 [34:12<47:36,  2.06step/s]
+Training:  41%|████      | 4123/10000 [34:13<47:34,  2.06step/s]
+Training:  41%|████▏     | 4126/10000 [34:14<47:32,  2.06step/s]
+Training:  41%|████▏     | 4129/10000 [34:16<47:31,  2.06step/s]
+Training:  41%|████▏     | 4132/10000 [34:17<47:30,  2.06step/s]
+Training:  41%|████▏     | 4135/10000 [34:19<47:27,  2.06step/s]
+Training:  41%|████▏     | 4138/10000 [34:20<47:25,  2.06step/s]
+Training:  41%|████▏     | 4141/10000 [34:22<47:23,  2.06step/s]
+Training:  41%|████▏     | 4144/10000 [34:23<47:20,  2.06step/s]
+Training:  41%|████▏     | 4147/10000 [34:25<47:21,  2.06step/s]
+Training:  42%|████▏     | 4150/10000 [34:26<47:19,  2.06step/s]
+Training:  42%|████▏     | 4153/10000 [34:28<47:19,  2.06step/s]
+Training:  42%|████▏     | 4156/10000 [34:29<47:17,  2.06step/s]
+Training:  42%|████▏     | 4159/10000 [34:30<47:16,  2.06step/s]
+Training:  42%|████▏     | 4162/10000 [34:32<47:15,  2.06step/s]
+Training:  42%|████▏     | 4165/10000 [34:33<47:14,  2.06step/s]
+Training:  42%|████▏     | 4168/10000 [34:35<47:11,  2.06step/s]
+Training:  42%|████▏     | 4171/10000 [34:36<47:11,  2.06step/s]
+Training:  42%|████▏     | 4174/10000 [34:38<47:11,  2.06step/s]
+Training:  42%|████▏     | 4177/10000 [34:39<47:09,  2.06step/s]
+Training:  42%|████▏     | 4180/10000 [34:41<47:07,  2.06step/s]
+Training:  42%|████▏     | 4183/10000 [34:42<47:05,  2.06step/s]
+Training:  42%|████▏     | 4186/10000 [34:44<47:03,  2.06step/s]
+Training:  42%|████▏     | 4189/10000 [34:45<47:01,  2.06step/s]
+Training:  42%|████▏     | 4192/10000 [34:47<47:01,  2.06step/s]
+Training:  42%|████▏     | 4195/10000 [34:48<46:58,  2.06step/s]
+Training:  42%|████▏     | 4198/10000 [34:49<46:57,  2.06step/s]
+Training:  42%|████▏     | 4201/10000 [34:51<46:55,  2.06step/s]
+Training:  42%|████▏     | 4204/10000 [34:52<46:53,  2.06step/s]
+Training:  42%|████▏     | 4207/10000 [34:54<46:51,  2.06step/s]
+Training:  42%|████▏     | 4210/10000 [34:55<46:51,  2.06step/s]
+Training:  42%|████▏     | 4213/10000 [34:57<46:49,  2.06step/s]
+Training:  42%|████▏     | 4216/10000 [34:58<46:49,  2.06step/s]
+Training:  42%|████▏     | 4219/10000 [35:00<46:48,  2.06step/s]
+Training:  42%|████▏     | 4222/10000 [35:01<46:46,  2.06step/s]
+Training:  42%|████▏     | 4225/10000 [35:03<46:43,  2.06step/s]
+Training:  42%|████▏     | 4228/10000 [35:04<46:41,  2.06step/s]
+Training:  42%|████▏     | 4231/10000 [35:05<46:38,  2.06step/s]
+Training:  42%|████▏     | 4234/10000 [35:07<46:38,  2.06step/s]
+Training:  42%|████▏     | 4237/10000 [35:08<46:38,  2.06step/s]
+Training:  42%|████▏     | 4240/10000 [35:10<46:37,  2.06step/s]
+Training:  42%|████▏     | 4243/10000 [35:11<46:37,  2.06step/s]
+Training:  42%|████▏     | 4246/10000 [35:13<46:34,  2.06step/s]
+Training:  42%|████▏     | 4249/10000 [35:14<46:35,  2.06step/s]INFO 2026-10-28 17:04:35 ot_train.py:972 step:14K smpl:114K ep:203 epch:2.90 loss:0.215 grdn:14.826 lr:1.0e-05 data_s:0.003 prep_s:0.000 updt_s:0.481 step_s:0.485 smp/s:16 mem_gb:3.73 l1_loss:0.187 kld_loss:0.003
+
+Training:  43%|████▎     | 4252/10000 [35:16<46:34,  2.06step/s]
+Training:  43%|████▎     | 4255/10000 [35:17<46:31,  2.06step/s]
+Training:  43%|████▎     | 4258/10000 [35:19<46:30,  2.06step/s]
+Training:  43%|████▎     | 4261/10000 [35:20<46:26,  2.06step/s]
+Training:  43%|████▎     | 4264/10000 [35:21<46:25,  2.06step/s]
+Training:  43%|████▎     | 4267/10000 [35:23<46:23,  2.06step/s]
+Training:  43%|████▎     | 4270/10000 [35:24<46:22,  2.06step/s]
+Training:  43%|████▎     | 4273/10000 [35:26<46:22,  2.06step/s]
+Training:  43%|████▎     | 4276/10000 [35:27<46:20,  2.06step/s]
+Training:  43%|████▎     | 4279/10000 [35:29<46:19,  2.06step/s]
+Training:  43%|████▎     | 4282/10000 [35:30<46:17,  2.06step/s]
+Training:  43%|████▎     | 4285/10000 [35:32<46:15,  2.06step/s]
+Training:  43%|████▎     | 4288/10000 [35:33<46:14,  2.06step/s]
+Training:  43%|████▎     | 4291/10000 [35:35<46:12,  2.06step/s]
+Training:  43%|████▎     | 4294/10000 [35:36<46:10,  2.06step/s]
+Training:  43%|████▎     | 4297/10000 [35:38<46:07,  2.06step/s]
+Training:  43%|████▎     | 4300/10000 [35:39<46:04,  2.06step/s]
+Training:  43%|████▎     | 4303/10000 [35:40<46:03,  2.06step/s]
+Training:  43%|████▎     | 4306/10000 [35:42<46:03,  2.06step/s]
+Training:  43%|████▎     | 4309/10000 [35:43<46:02,  2.06step/s]
+Training:  43%|████▎     | 4312/10000 [35:45<46:02,  2.06step/s]
+Training:  43%|████▎     | 4315/10000 [35:46<46:01,  2.06step/s]
+Training:  43%|████▎     | 4318/10000 [35:48<45:59,  2.06step/s]
+Training:  43%|████▎     | 4321/10000 [35:49<45:57,  2.06step/s]
+Training:  43%|████▎     | 4324/10000 [35:51<45:56,  2.06step/s]
+Training:  43%|████▎     | 4327/10000 [35:52<45:55,  2.06step/s]
+Training:  43%|████▎     | 4330/10000 [35:54<45:54,  2.06step/s]
+Training:  43%|████▎     | 4333/10000 [35:55<45:53,  2.06step/s]
+Training:  43%|████▎     | 4336/10000 [35:56<45:52,  2.06step/s]
+Training:  43%|████▎     | 4339/10000 [35:58<45:49,  2.06step/s]
+Training:  43%|████▎     | 4342/10000 [35:59<45:48,  2.06step/s]
+Training:  43%|████▎     | 4345/10000 [36:01<45:45,  2.06step/s]
+Training:  43%|████▎     | 4348/10000 [36:02<45:45,  2.06step/s]
+Training:  44%|████▎     | 4351/10000 [36:04<45:40,  2.06step/s]
+Training:  44%|████▎     | 4354/10000 [36:05<45:39,  2.06step/s]
+Training:  44%|████▎     | 4357/10000 [36:07<45:41,  2.06step/s]
+Training:  44%|████▎     | 4360/10000 [36:08<45:40,  2.06step/s]
+Training:  44%|████▎     | 4363/10000 [36:10<45:38,  2.06step/s]
+Training:  44%|████▎     | 4366/10000 [36:11<45:37,  2.06step/s]
+Training:  44%|████▎     | 4369/10000 [36:12<45:36,  2.06step/s]
+Training:  44%|████▎     | 4372/10000 [36:14<45:33,  2.06step/s]
+Training:  44%|████▍     | 4375/10000 [36:15<45:31,  2.06step/s]
+Training:  44%|████▍     | 4378/10000 [36:17<45:29,  2.06step/s]
+Training:  44%|████▍     | 4381/10000 [36:18<45:29,  2.06step/s]
+Training:  44%|████▍     | 4384/10000 [36:20<45:26,  2.06step/s]
+Training:  44%|████▍     | 4387/10000 [36:21<45:25,  2.06step/s]
+Training:  44%|████▍     | 4390/10000 [36:23<45:24,  2.06step/s]
+Training:  44%|████▍     | 4393/10000 [36:24<45:20,  2.06step/s]
+Training:  44%|████▍     | 4396/10000 [36:26<45:17,  2.06step/s]
+Training:  44%|████▍     | 4399/10000 [36:27<45:15,  2.06step/s]
+Training:  44%|████▍     | 4402/10000 [36:28<45:16,  2.06step/s]
+Training:  44%|████▍     | 4405/10000 [36:30<45:15,  2.06step/s]
+Training:  44%|████▍     | 4408/10000 [36:31<45:13,  2.06step/s]
+Training:  44%|████▍     | 4411/10000 [36:33<45:10,  2.06step/s]
+Training:  44%|████▍     | 4414/10000 [36:34<45:11,  2.06step/s]
+Training:  44%|████▍     | 4417/10000 [36:36<45:11,  2.06step/s]
+Training:  44%|████▍     | 4420/10000 [36:37<45:10,  2.06step/s]
+Training:  44%|████▍     | 4423/10000 [36:39<45:09,  2.06step/s]
+Training:  44%|████▍     | 4426/10000 [36:40<45:07,  2.06step/s]
+Training:  44%|████▍     | 4429/10000 [36:42<45:07,  2.06step/s]
+Training:  44%|████▍     | 4432/10000 [36:43<45:06,  2.06step/s]
+Training:  44%|████▍     | 4435/10000 [36:45<45:04,  2.06step/s]
+Training:  44%|████▍     | 4438/10000 [36:46<45:02,  2.06step/s]
+Training:  44%|████▍     | 4441/10000 [36:47<45:00,  2.06step/s]
+Training:  44%|████▍     | 4444/10000 [36:49<44:58,  2.06step/s]
+Training:  44%|████▍     | 4447/10000 [36:50<44:57,  2.06step/s]
+Training:  44%|████▍     | 4450/10000 [36:52<44:55,  2.06step/s]
+Training:  45%|████▍     | 4453/10000 [36:53<44:54,  2.06step/s]
+Training:  45%|████▍     | 4456/10000 [36:55<44:50,  2.06step/s]
+Training:  45%|████▍     | 4459/10000 [36:56<44:49,  2.06step/s]
+Training:  45%|████▍     | 4462/10000 [36:58<44:49,  2.06step/s]
+Training:  45%|████▍     | 4465/10000 [36:59<44:48,  2.06step/s]
+Training:  45%|████▍     | 4468/10000 [37:01<44:46,  2.06step/s]
+Training:  45%|████▍     | 4471/10000 [37:02<44:42,  2.06step/s]
+Training:  45%|████▍     | 4474/10000 [37:03<44:41,  2.06step/s]
+Training:  45%|████▍     | 4477/10000 [37:05<44:40,  2.06step/s]
+Training:  45%|████▍     | 4480/10000 [37:06<44:39,  2.06step/s]
+Training:  45%|████▍     | 4483/10000 [37:08<44:36,  2.06step/s]
+Training:  45%|████▍     | 4486/10000 [37:09<44:34,  2.06step/s]
+Training:  45%|████▍     | 4489/10000 [37:11<44:35,  2.06step/s]
+Training:  45%|████▍     | 4492/10000 [37:12<44:37,  2.06step/s]
+Training:  45%|████▍     | 4495/10000 [37:14<44:35,  2.06step/s]
+Training:  45%|████▍     | 4498/10000 [37:15<44:33,  2.06step/s]INFO 2026-10-28 17:06:37 ot_train.py:972 step:14K smpl:116K ep:206 epch:2.95 loss:0.212 grdn:14.555 lr:1.0e-05 data_s:0.003 prep_s:0.000 updt_s:0.481 step_s:0.486 smp/s:16 mem_gb:3.73 l1_loss:0.184 kld_loss:0.003
+
+Training:  45%|████▌     | 4501/10000 [37:17<44:31,  2.06step/s]
+Training:  45%|████▌     | 4504/10000 [37:18<44:30,  2.06step/s]
+Training:  45%|████▌     | 4507/10000 [37:19<44:26,  2.06step/s]
+Training:  45%|████▌     | 4510/10000 [37:21<44:24,  2.06step/s]
+Training:  45%|████▌     | 4513/10000 [37:22<44:22,  2.06step/s]
+Training:  45%|████▌     | 4516/10000 [37:24<44:22,  2.06step/s]
+Training:  45%|████▌     | 4519/10000 [37:25<44:20,  2.06step/s]
+Training:  45%|████▌     | 4522/10000 [37:27<44:19,  2.06step/s]
+Training:  45%|████▌     | 4525/10000 [37:28<44:17,  2.06step/s]
+Training:  45%|████▌     | 4528/10000 [37:30<44:16,  2.06step/s]
+Training:  45%|████▌     | 4531/10000 [37:31<44:14,  2.06step/s]
+Training:  45%|████▌     | 4534/10000 [37:33<44:14,  2.06step/s]
+Training:  45%|████▌     | 4537/10000 [37:34<44:12,  2.06step/s]
+Training:  45%|████▌     | 4540/10000 [37:35<44:11,  2.06step/s]
+Training:  45%|████▌     | 4543/10000 [37:37<44:09,  2.06step/s]
+Training:  45%|████▌     | 4546/10000 [37:38<44:06,  2.06step/s]
+Training:  45%|████▌     | 4549/10000 [37:40<44:05,  2.06step/s]
+Training:  46%|████▌     | 4552/10000 [37:41<44:04,  2.06step/s]
+Training:  46%|████▌     | 4555/10000 [37:43<44:03,  2.06step/s]
+Training:  46%|████▌     | 4558/10000 [37:44<44:02,  2.06step/s]
+Training:  46%|████▌     | 4561/10000 [37:46<44:01,  2.06step/s]
+Training:  46%|████▌     | 4564/10000 [37:47<44:00,  2.06step/s]
+Training:  46%|████▌     | 4567/10000 [37:49<43:59,  2.06step/s]
+Training:  46%|████▌     | 4570/10000 [37:50<43:57,  2.06step/s]
+Training:  46%|████▌     | 4573/10000 [37:52<43:56,  2.06step/s]
+Training:  46%|████▌     | 4576/10000 [37:53<43:56,  2.06step/s]
+Training:  46%|████▌     | 4579/10000 [37:54<43:55,  2.06step/s]
+Training:  46%|████▌     | 4582/10000 [37:56<43:53,  2.06step/s]
+Training:  46%|████▌     | 4585/10000 [37:57<43:52,  2.06step/s]
+Training:  46%|████▌     | 4588/10000 [37:59<43:50,  2.06step/s]
+Training:  46%|████▌     | 4591/10000 [38:00<43:47,  2.06step/s]
+Training:  46%|████▌     | 4594/10000 [38:02<43:47,  2.06step/s]
+Training:  46%|████▌     | 4597/10000 [38:03<43:45,  2.06step/s]
+Training:  46%|████▌     | 4600/10000 [38:05<43:44,  2.06step/s]
+Training:  46%|████▌     | 4603/10000 [38:06<43:42,  2.06step/s]
+Training:  46%|████▌     | 4606/10000 [38:08<43:41,  2.06step/s]
+Training:  46%|████▌     | 4609/10000 [38:09<43:40,  2.06step/s]
+Training:  46%|████▌     | 4612/10000 [38:10<43:38,  2.06step/s]
+Training:  46%|████▌     | 4615/10000 [38:12<43:36,  2.06step/s]
+Training:  46%|████▌     | 4618/10000 [38:13<43:37,  2.06step/s]
+Training:  46%|████▌     | 4621/10000 [38:15<43:35,  2.06step/s]
+Training:  46%|████▌     | 4624/10000 [38:16<43:33,  2.06step/s]
+Training:  46%|████▋     | 4627/10000 [38:18<43:32,  2.06step/s]
+Training:  46%|████▋     | 4630/10000 [38:19<43:31,  2.06step/s]
+Training:  46%|████▋     | 4633/10000 [38:21<43:28,  2.06step/s]
+Training:  46%|████▋     | 4636/10000 [38:22<43:26,  2.06step/s]
+Training:  46%|████▋     | 4639/10000 [38:24<43:23,  2.06step/s]
+Training:  46%|████▋     | 4642/10000 [38:25<43:22,  2.06step/s]
+Training:  46%|████▋     | 4645/10000 [38:27<43:20,  2.06step/s]
+Training:  46%|████▋     | 4648/10000 [38:28<43:20,  2.06step/s]
+Training:  47%|████▋     | 4651/10000 [38:29<43:19,  2.06step/s]
+Training:  47%|████▋     | 4654/10000 [38:31<43:19,  2.06step/s]
+Training:  47%|████▋     | 4657/10000 [38:32<43:16,  2.06step/s]
+Training:  47%|████▋     | 4660/10000 [38:34<43:16,  2.06step/s]
+Training:  47%|████▋     | 4663/10000 [38:35<43:13,  2.06step/s]
+Training:  47%|████▋     | 4666/10000 [38:37<43:12,  2.06step/s]
+Training:  47%|████▋     | 4669/10000 [38:38<43:11,  2.06step/s]
+Training:  47%|████▋     | 4672/10000 [38:40<43:10,  2.06step/s]
+Training:  47%|████▋     | 4675/10000 [38:41<43:08,  2.06step/s]
+Training:  47%|████▋     | 4678/10000 [38:43<43:06,  2.06step/s]
+Training:  47%|████▋     | 4681/10000 [38:44<43:04,  2.06step/s]
+Training:  47%|████▋     | 4684/10000 [38:45<43:04,  2.06step/s]
+Training:  47%|████▋     | 4687/10000 [38:47<43:02,  2.06step/s]
+Training:  47%|████▋     | 4690/10000 [38:48<43:00,  2.06step/s]
+Training:  47%|████▋     | 4693/10000 [38:50<42:59,  2.06step/s]
+Training:  47%|████▋     | 4696/10000 [38:51<42:58,  2.06step/s]
+Training:  47%|████▋     | 4699/10000 [38:53<42:57,  2.06step/s]
+Training:  47%|████▋     | 4702/10000 [38:54<42:55,  2.06step/s]
+Training:  47%|████▋     | 4705/10000 [38:56<42:53,  2.06step/s]
+Training:  47%|████▋     | 4708/10000 [38:57<42:52,  2.06step/s]
+Training:  47%|████▋     | 4711/10000 [38:59<42:49,  2.06step/s]
+Training:  47%|████▋     | 4714/10000 [39:00<42:48,  2.06step/s]
+Training:  47%|████▋     | 4717/10000 [39:02<42:47,  2.06step/s]
+Training:  47%|████▋     | 4720/10000 [39:03<42:45,  2.06step/s]
+Training:  47%|████▋     | 4723/10000 [39:04<42:44,  2.06step/s]
+Training:  47%|████▋     | 4726/10000 [39:06<42:42,  2.06step/s]
+Training:  47%|████▋     | 4729/10000 [39:07<42:40,  2.06step/s]
+Training:  47%|████▋     | 4732/10000 [39:09<42:39,  2.06step/s]
+Training:  47%|████▋     | 4735/10000 [39:10<42:38,  2.06step/s]
+Training:  47%|████▋     | 4738/10000 [39:12<42:36,  2.06step/s]
+Training:  47%|████▋     | 4741/10000 [39:13<42:34,  2.06step/s]
+Training:  47%|████▋     | 4744/10000 [39:15<42:33,  2.06step/s]
+Training:  47%|████▋     | 4747/10000 [39:16<42:32,  2.06step/s]
+Training:  48%|████▊     | 4750/10000 [39:18<42:31,  2.06step/s]INFO 2026-10-28 17:08:38 ot_train.py:972 step:15K smpl:118K ep:210 epch:3.00 loss:0.208 grdn:14.468 lr:1.0e-05 data_s:0.003 prep_s:0.000 updt_s:0.481 step_s:0.486 smp/s:16 mem_gb:3.73 l1_loss:0.181 kld_loss:0.003
+
+Training:  48%|████▊     | 4753/10000 [39:19<42:29,  2.06step/s]
+Training:  48%|████▊     | 4756/10000 [39:20<42:28,  2.06step/s]
+Training:  48%|████▊     | 4759/10000 [39:22<42:26,  2.06step/s]
+Training:  48%|████▊     | 4762/10000 [39:23<42:25,  2.06step/s]
+Training:  48%|████▊     | 4765/10000 [39:25<42:24,  2.06step/s]
+Training:  48%|████▊     | 4768/10000 [39:29<1:07:11,  1.30step/s]
+Training:  48%|████▊     | 4771/10000 [39:31<59:43,  1.46step/s]  
+Training:  48%|████▊     | 4774/10000 [39:32<54:29,  1.60step/s]
+Training:  48%|████▊     | 4777/10000 [39:34<50:48,  1.71step/s]
+Training:  48%|████▊     | 4780/10000 [39:35<48:12,  1.80step/s]
+Training:  48%|████▊     | 4783/10000 [39:36<46:24,  1.87step/s]
+Training:  48%|████▊     | 4786/10000 [39:38<45:06,  1.93step/s]
+Training:  48%|████▊     | 4789/10000 [39:39<44:14,  1.96step/s]
+Training:  48%|████▊     | 4792/10000 [39:41<43:35,  1.99step/s]
+Training:  48%|████▊     | 4795/10000 [39:42<43:07,  2.01step/s]
+Training:  48%|████▊     | 4798/10000 [39:44<42:49,  2.02step/s]
+Training:  48%|████▊     | 4801/10000 [39:45<42:34,  2.03step/s]
+Training:  48%|████▊     | 4804/10000 [39:47<42:25,  2.04step/s]
+Training:  48%|████▊     | 4807/10000 [39:48<42:17,  2.05step/s]
+Training:  48%|████▊     | 4810/10000 [39:50<42:11,  2.05step/s]
+Training:  48%|████▊     | 4813/10000 [39:51<42:06,  2.05step/s]
+Training:  48%|████▊     | 4816/10000 [39:52<42:02,  2.05step/s]
+Training:  48%|████▊     | 4819/10000 [39:54<41:59,  2.06step/s]
+Training:  48%|████▊     | 4822/10000 [39:55<41:57,  2.06step/s]
+Training:  48%|████▊     | 4825/10000 [39:57<41:55,  2.06step/s]
+Training:  48%|████▊     | 4828/10000 [39:58<41:52,  2.06step/s]
+Training:  48%|████▊     | 4831/10000 [40:00<41:51,  2.06step/s]
+Training:  48%|████▊     | 4834/10000 [40:01<41:49,  2.06step/s]
+Training:  48%|████▊     | 4837/10000 [40:03<41:48,  2.06step/s]
+Training:  48%|████▊     | 4840/10000 [40:04<41:46,  2.06step/s]
+Training:  48%|████▊     | 4843/10000 [40:06<41:46,  2.06step/s]
+Training:  48%|████▊     | 4846/10000 [40:07<41:45,  2.06step/s]
+Training:  48%|████▊     | 4849/10000 [40:08<41:44,  2.06step/s]
+Training:  49%|████▊     | 4852/10000 [40:10<41:42,  2.06step/s]
+Training:  49%|████▊     | 4855/10000 [40:11<41:40,  2.06step/s]
+Training:  49%|████▊     | 4858/10000 [40:13<41:38,  2.06step/s]
+Training:  49%|████▊     | 4861/10000 [40:14<41:37,  2.06step/s]
+Training:  49%|████▊     | 4864/10000 [40:16<41:35,  2.06step/s]
+Training:  49%|████▊     | 4867/10000 [40:17<41:33,  2.06step/s]
+Training:  49%|████▊     | 4870/10000 [40:19<41:31,  2.06step/s]
+Training:  49%|████▊     | 4873/10000 [40:20<41:32,  2.06step/s]
+Training:  49%|████▉     | 4876/10000 [40:22<41:29,  2.06step/s]
+Training:  49%|████▉     | 4879/10000 [40:23<41:28,  2.06step/s]
+Training:  49%|████▉     | 4882/10000 [40:25<41:27,  2.06step/s]
+Training:  49%|████▉     | 4885/10000 [40:26<41:25,  2.06step/s]
+Training:  49%|████▉     | 4888/10000 [40:27<41:25,  2.06step/s]
+Training:  49%|████▉     | 4891/10000 [40:29<41:24,  2.06step/s]
+Training:  49%|████▉     | 4894/10000 [40:30<41:21,  2.06step/s]
+Training:  49%|████▉     | 4897/10000 [40:32<41:20,  2.06step/s]
+Training:  49%|████▉     | 4900/10000 [40:33<41:18,  2.06step/s]
+Training:  49%|████▉     | 4903/10000 [40:35<41:18,  2.06step/s]
+Training:  49%|████▉     | 4906/10000 [40:36<41:16,  2.06step/s]
+Training:  49%|████▉     | 4909/10000 [40:38<41:15,  2.06step/s]
+Training:  49%|████▉     | 4912/10000 [40:39<41:13,  2.06step/s]
+Training:  49%|████▉     | 4915/10000 [40:41<42:53,  1.98step/s]
+Training:  49%|████▉     | 4918/10000 [40:42<42:23,  2.00step/s]
+Training:  49%|████▉     | 4921/10000 [40:44<41:58,  2.02step/s]
+Training:  49%|████▉     | 4924/10000 [40:45<41:41,  2.03step/s]
+Training:  49%|████▉     | 4927/10000 [40:47<41:31,  2.04step/s]
+Training:  49%|████▉     | 4930/10000 [40:48<41:21,  2.04step/s]
+Training:  49%|████▉     | 4933/10000 [40:50<41:14,  2.05step/s]
+Training:  49%|████▉     | 4936/10000 [40:51<41:09,  2.05step/s]
+Training:  49%|████▉     | 4939/10000 [40:52<41:04,  2.05step/s]
+Training:  49%|████▉     | 4942/10000 [40:54<41:01,  2.05step/s]
+Training:  49%|████▉     | 4945/10000 [40:55<40:59,  2.06step/s]
+Training:  49%|████▉     | 4948/10000 [40:57<40:57,  2.06step/s]
+Training:  50%|████▉     | 4951/10000 [40:58<40:56,  2.06step/s]
+Training:  50%|████▉     | 4954/10000 [41:00<40:52,  2.06step/s]
+Training:  50%|████▉     | 4957/10000 [41:01<40:51,  2.06step/s]
+Training:  50%|████▉     | 4960/10000 [41:03<40:49,  2.06step/s]
+Training:  50%|████▉     | 4963/10000 [41:04<40:48,  2.06step/s]
+Training:  50%|████▉     | 4966/10000 [41:06<40:47,  2.06step/s]
+Training:  50%|████▉     | 4969/10000 [41:07<40:45,  2.06step/s]
+Training:  50%|████▉     | 4972/10000 [41:08<40:43,  2.06step/s]
+Training:  50%|████▉     | 4975/10000 [41:10<40:42,  2.06step/s]
+Training:  50%|████▉     | 4978/10000 [41:11<40:41,  2.06step/s]
+Training:  50%|████▉     | 4981/10000 [41:13<40:40,  2.06step/s]
+Training:  50%|████▉     | 4984/10000 [41:14<40:38,  2.06step/s]
+Training:  50%|████▉     | 4987/10000 [41:16<40:36,  2.06step/s]
+Training:  50%|████▉     | 4990/10000 [41:17<40:35,  2.06step/s]
+Training:  50%|████▉     | 4993/10000 [41:19<40:34,  2.06step/s]
+Training:  50%|████▉     | 4996/10000 [41:20<40:32,  2.06step/s]
+Training:  50%|████▉     | 4999/10000 [41:22<40:30,  2.06step/s]INFO 2026-10-28 17:10:43 ot_train.py:972 step:15K smpl:120K ep:213 epch:3.05 loss:0.203 grdn:14.648 lr:1.0e-05 data_s:0.004 prep_s:0.000 updt_s:0.493 step_s:0.498 smp/s:16 mem_gb:3.74 l1_loss:0.177 kld_loss:0.003
+INFO 2026-10-28 17:10:43 t_train.py:1014 Checkpoint policy after step 15000
+INFO 2026-10-28 17:10:43 n/_torch.py:299 Model weights successfully saved to outputs/train/2026-10-28/16-29-10_resume/checkpoints/015000/pretrained_model!
+
+Training:  50%|█████     | 5002/10000 [41:28<1:24:42,  1.02s/step]
+Training:  50%|█████     | 5005/10000 [41:30<1:11:21,  1.17step/s]
+Training:  50%|█████     | 5008/10000 [41:31<1:01:59,  1.34step/s]
+Training:  50%|█████     | 5011/10000 [41:33<55:25,  1.50step/s]  
+Training:  50%|█████     | 5014/10000 [41:34<50:50,  1.63step/s]
+Training:  50%|█████     | 5017/10000 [41:36<47:39,  1.74step/s]
+Training:  50%|█████     | 5020/10000 [41:37<45:25,  1.83step/s]
+Training:  50%|█████     | 5023/10000 [41:39<43:51,  1.89step/s]
+Training:  50%|█████     | 5026/10000 [41:40<42:43,  1.94step/s]
+Training:  50%|█████     | 5029/10000 [41:41<41:58,  1.97step/s]
+Training:  50%|█████     | 5032/10000 [41:43<41:23,  2.00step/s]
+Training:  50%|█████     | 5035/10000 [41:44<41:00,  2.02step/s]
+Training:  50%|█████     | 5038/10000 [41:46<40:43,  2.03step/s]
+Training:  50%|█████     | 5041/10000 [41:47<40:31,  2.04step/s]
+Training:  50%|█████     | 5044/10000 [41:49<40:22,  2.05step/s]
+Training:  50%|█████     | 5047/10000 [41:50<40:14,  2.05step/s]
+Training:  50%|█████     | 5050/10000 [41:52<40:10,  2.05step/s]
+Training:  51%|█████     | 5053/10000 [41:53<40:06,  2.06step/s]
+Training:  51%|█████     | 5056/10000 [41:55<40:01,  2.06step/s]
+Training:  51%|█████     | 5059/10000 [41:56<40:00,  2.06step/s]
+Training:  51%|█████     | 5062/10000 [41:57<39:57,  2.06step/s]
+Training:  51%|█████     | 5065/10000 [41:59<39:55,  2.06step/s]
+Training:  51%|█████     | 5068/10000 [42:00<39:54,  2.06step/s]
+Training:  51%|█████     | 5071/10000 [42:02<39:54,  2.06step/s]
+Training:  51%|█████     | 5074/10000 [42:03<39:53,  2.06step/s]
+Training:  51%|█████     | 5077/10000 [42:05<39:52,  2.06step/s]
+Training:  51%|█████     | 5080/10000 [42:06<39:50,  2.06step/s]
+Training:  51%|█████     | 5083/10000 [42:08<39:49,  2.06step/s]
+Training:  51%|█████     | 5086/10000 [42:09<39:47,  2.06step/s]
+Training:  51%|█████     | 5089/10000 [42:11<39:46,  2.06step/s]
+Training:  51%|█████     | 5092/10000 [42:12<39:44,  2.06step/s]
+Training:  51%|█████     | 5095/10000 [42:13<39:42,  2.06step/s]
+Training:  51%|█████     | 5098/10000 [42:15<39:41,  2.06step/s]
+Training:  51%|█████     | 5101/10000 [42:16<39:39,  2.06step/s]
+Training:  51%|█████     | 5104/10000 [42:18<39:38,  2.06step/s]
+Training:  51%|█████     | 5107/10000 [42:19<39:36,  2.06step/s]
+Training:  51%|█████     | 5110/10000 [42:21<39:34,  2.06step/s]
+Training:  51%|█████     | 5113/10000 [42:22<39:33,  2.06step/s]
+Training:  51%|█████     | 5116/10000 [42:24<39:32,  2.06step/s]
+Training:  51%|█████     | 5119/10000 [42:25<39:30,  2.06step/s]
+Training:  51%|█████     | 5122/10000 [42:27<39:29,  2.06step/s]
+Training:  51%|█████▏    | 5125/10000 [42:28<39:27,  2.06step/s]
+Training:  51%|█████▏    | 5128/10000 [42:30<39:27,  2.06step/s]
+Training:  51%|█████▏    | 5131/10000 [42:31<39:25,  2.06step/s]
+Training:  51%|█████▏    | 5134/10000 [42:32<39:24,  2.06step/s]
+Training:  51%|█████▏    | 5137/10000 [42:34<39:23,  2.06step/s]
+Training:  51%|█████▏    | 5140/10000 [42:35<39:20,  2.06step/s]
+Training:  51%|█████▏    | 5143/10000 [42:37<39:20,  2.06step/s]
+Training:  51%|█████▏    | 5146/10000 [42:38<39:19,  2.06step/s]
+Training:  51%|█████▏    | 5149/10000 [42:40<39:18,  2.06step/s]
+Training:  52%|█████▏    | 5152/10000 [42:41<39:17,  2.06step/s]
+Training:  52%|█████▏    | 5155/10000 [42:43<39:15,  2.06step/s]
+Training:  52%|█████▏    | 5158/10000 [42:44<39:13,  2.06step/s]
+Training:  52%|█████▏    | 5161/10000 [42:46<39:12,  2.06step/s]
+Training:  52%|█████▏    | 5164/10000 [42:47<39:10,  2.06step/s]
+Training:  52%|█████▏    | 5167/10000 [42:48<39:09,  2.06step/s]
+Training:  52%|█████▏    | 5170/10000 [42:50<39:08,  2.06step/s]
+Training:  52%|█████▏    | 5173/10000 [42:51<39:05,  2.06step/s]
+Training:  52%|█████▏    | 5176/10000 [42:53<39:02,  2.06step/s]
+Training:  52%|█████▏    | 5179/10000 [42:54<39:01,  2.06step/s]
+Training:  52%|█████▏    | 5182/10000 [42:56<39:00,  2.06step/s]
+Training:  52%|█████▏    | 5185/10000 [42:57<38:59,  2.06step/s]
+Training:  52%|█████▏    | 5188/10000 [42:59<38:56,  2.06step/s]
+Training:  52%|█████▏    | 5191/10000 [43:00<38:54,  2.06step/s]
+Training:  52%|█████▏    | 5194/10000 [43:02<38:52,  2.06step/s]
+Training:  52%|█████▏    | 5197/10000 [43:03<38:50,  2.06step/s]
+Training:  52%|█████▏    | 5200/10000 [43:04<38:50,  2.06step/s]
+Training:  52%|█████▏    | 5203/10000 [43:06<38:49,  2.06step/s]
+Training:  52%|█████▏    | 5206/10000 [43:07<38:48,  2.06step/s]
+Training:  52%|█████▏    | 5209/10000 [43:09<38:47,  2.06step/s]
+Training:  52%|█████▏    | 5212/10000 [43:10<38:46,  2.06step/s]
+Training:  52%|█████▏    | 5215/10000 [43:12<38:44,  2.06step/s]
+Training:  52%|█████▏    | 5218/10000 [43:13<38:42,  2.06step/s]
+Training:  52%|█████▏    | 5221/10000 [43:15<38:40,  2.06step/s]
+Training:  52%|█████▏    | 5224/10000 [43:16<38:38,  2.06step/s]
+Training:  52%|█████▏    | 5227/10000 [43:18<38:36,  2.06step/s]
+Training:  52%|█████▏    | 5230/10000 [43:19<38:36,  2.06step/s]
+Training:  52%|█████▏    | 5233/10000 [43:21<38:35,  2.06step/s]
+Training:  52%|█████▏    | 5236/10000 [43:22<38:34,  2.06step/s]
+Training:  52%|█████▏    | 5239/10000 [43:23<38:33,  2.06step/s]
+Training:  52%|█████▏    | 5242/10000 [43:25<38:30,  2.06step/s]
+Training:  52%|█████▏    | 5245/10000 [43:26<38:29,  2.06step/s]
+Training:  52%|█████▏    | 5248/10000 [43:28<38:28,  2.06step/s]INFO 2026-10-28 17:12:49 ot_train.py:972 step:15K smpl:122K ep:217 epch:3.10 loss:0.201 grdn:14.375 lr:1.0e-05 data_s:0.003 prep_s:0.000 updt_s:0.481 step_s:0.485 smp/s:16 mem_gb:3.73 l1_loss:0.176 kld_loss:0.002
+
+Training:  53%|█████▎    | 5251/10000 [43:29<38:26,  2.06step/s]
+Training:  53%|█████▎    | 5254/10000 [43:31<38:24,  2.06step/s]
+Training:  53%|█████▎    | 5257/10000 [43:32<38:24,  2.06step/s]
+Training:  53%|█████▎    | 5260/10000 [43:34<38:22,  2.06step/s]
+Training:  53%|█████▎    | 5263/10000 [43:35<38:20,  2.06step/s]
+Training:  53%|█████▎    | 5266/10000 [43:37<38:19,  2.06step/s]
+Training:  53%|█████▎    | 5269/10000 [43:38<38:17,  2.06step/s]
+Training:  53%|█████▎    | 5272/10000 [43:39<38:15,  2.06step/s]
+Training:  53%|█████▎    | 5275/10000 [43:41<38:14,  2.06step/s]
+Training:  53%|█████▎    | 5278/10000 [43:42<38:13,  2.06step/s]
+Training:  53%|█████▎    | 5281/10000 [43:44<38:11,  2.06step/s]
+Training:  53%|█████▎    | 5284/10000 [43:45<38:11,  2.06step/s]
+Training:  53%|█████▎    | 5287/10000 [43:47<38:09,  2.06step/s]
+Training:  53%|█████▎    | 5290/10000 [43:48<38:07,  2.06step/s]
+Training:  53%|█████▎    | 5293/10000 [43:50<38:06,  2.06step/s]
+Training:  53%|█████▎    | 5296/10000 [43:51<38:03,  2.06step/s]
+Training:  53%|█████▎    | 5299/10000 [43:53<38:02,  2.06step/s]
+Training:  53%|█████▎    | 5302/10000 [43:54<38:02,  2.06step/s]
+Training:  53%|█████▎    | 5305/10000 [43:56<38:02,  2.06step/s]
+Training:  53%|█████▎    | 5308/10000 [43:57<38:03,  2.06step/s]
+Training:  53%|█████▎    | 5311/10000 [43:58<38:00,  2.06step/s]
+Training:  53%|█████▎    | 5314/10000 [44:00<38:00,  2.06step/s]
+Training:  53%|█████▎    | 5317/10000 [44:01<37:58,  2.06step/s]
+Training:  53%|█████▎    | 5320/10000 [44:03<37:55,  2.06step/s]
+Training:  53%|█████▎    | 5323/10000 [44:04<37:52,  2.06step/s]
+Training:  53%|█████▎    | 5326/10000 [44:06<37:49,  2.06step/s]
+Training:  53%|█████▎    | 5329/10000 [44:07<37:49,  2.06step/s]
+Training:  53%|█████▎    | 5332/10000 [44:09<37:48,  2.06step/s]
+Training:  53%|█████▎    | 5335/10000 [44:10<37:48,  2.06step/s]
+Training:  53%|█████▎    | 5338/10000 [44:12<37:46,  2.06step/s]
+Training:  53%|█████▎    | 5341/10000 [44:13<37:44,  2.06step/s]
+Training:  53%|█████▎    | 5344/10000 [44:14<37:42,  2.06step/s]
+Training:  53%|█████▎    | 5347/10000 [44:16<37:40,  2.06step/s]
+Training:  54%|█████▎    | 5350/10000 [44:17<37:38,  2.06step/s]
+Training:  54%|█████▎    | 5353/10000 [44:19<37:37,  2.06step/s]
+Training:  54%|█████▎    | 5356/10000 [44:20<37:35,  2.06step/s]
+Training:  54%|█████▎    | 5359/10000 [44:22<37:33,  2.06step/s]
+Training:  54%|█████▎    | 5362/10000 [44:23<37:31,  2.06step/s]
+Training:  54%|█████▎    | 5365/10000 [44:25<37:31,  2.06step/s]
+Training:  54%|█████▎    | 5368/10000 [44:26<37:29,  2.06step/s]
+Training:  54%|█████▎    | 5371/10000 [44:28<37:29,  2.06step/s]
+Training:  54%|█████▎    | 5374/10000 [44:29<37:27,  2.06step/s]
+Training:  54%|█████▍    | 5377/10000 [44:30<37:25,  2.06step/s]
+Training:  54%|█████▍    | 5380/10000 [44:32<37:26,  2.06step/s]
+Training:  54%|█████▍    | 5383/10000 [44:33<37:24,  2.06step/s]
+Training:  54%|█████▍    | 5386/10000 [44:35<37:22,  2.06step/s]
+Training:  54%|█████▍    | 5389/10000 [44:36<37:21,  2.06step/s]
+Training:  54%|█████▍    | 5392/10000 [44:38<37:19,  2.06step/s]
+Training:  54%|█████▍    | 5395/10000 [44:39<37:15,  2.06step/s]
+Training:  54%|█████▍    | 5398/10000 [44:41<37:15,  2.06step/s]
+Training:  54%|█████▍    | 5401/10000 [44:42<37:13,  2.06step/s]
+Training:  54%|█████▍    | 5404/10000 [44:44<37:12,  2.06step/s]
+Training:  54%|█████▍    | 5407/10000 [44:45<37:12,  2.06step/s]
+Training:  54%|█████▍    | 5410/10000 [44:47<37:11,  2.06step/s]
+Training:  54%|█████▍    | 5413/10000 [44:48<37:10,  2.06step/s]
+Training:  54%|█████▍    | 5416/10000 [44:49<37:06,  2.06step/s]
+Training:  54%|█████▍    | 5419/10000 [44:51<37:04,  2.06step/s]
+Training:  54%|█████▍    | 5422/10000 [44:52<37:04,  2.06step/s]
+Training:  54%|█████▍    | 5425/10000 [44:54<37:03,  2.06step/s]
+Training:  54%|█████▍    | 5428/10000 [44:55<37:01,  2.06step/s]
+Training:  54%|█████▍    | 5431/10000 [44:57<36:59,  2.06step/s]
+Training:  54%|█████▍    | 5434/10000 [44:58<36:58,  2.06step/s]
+Training:  54%|█████▍    | 5437/10000 [45:00<36:55,  2.06step/s]
+Training:  54%|█████▍    | 5440/10000 [45:01<36:52,  2.06step/s]
+Training:  54%|█████▍    | 5443/10000 [45:03<36:51,  2.06step/s]
+Training:  54%|█████▍    | 5446/10000 [45:04<36:51,  2.06step/s]
+Training:  54%|█████▍    | 5449/10000 [45:05<36:50,  2.06step/s]
+Training:  55%|█████▍    | 5452/10000 [45:07<36:49,  2.06step/s]
+Training:  55%|█████▍    | 5455/10000 [45:08<36:48,  2.06step/s]
+Training:  55%|█████▍    | 5458/10000 [45:10<36:48,  2.06step/s]
+Training:  55%|█████▍    | 5461/10000 [45:11<36:45,  2.06step/s]
+Training:  55%|█████▍    | 5464/10000 [45:13<36:44,  2.06step/s]
+Training:  55%|█████▍    | 5467/10000 [45:14<36:44,  2.06step/s]
+Training:  55%|█████▍    | 5470/10000 [45:16<36:42,  2.06step/s]
+Training:  55%|█████▍    | 5473/10000 [45:17<36:41,  2.06step/s]
+Training:  55%|█████▍    | 5476/10000 [45:19<36:38,  2.06step/s]
+Training:  55%|█████▍    | 5479/10000 [45:20<36:36,  2.06step/s]
+Training:  55%|█████▍    | 5482/10000 [45:22<36:34,  2.06step/s]
+Training:  55%|█████▍    | 5485/10000 [45:23<36:34,  2.06step/s]
+Training:  55%|█████▍    | 5488/10000 [45:24<36:33,  2.06step/s]
+Training:  55%|█████▍    | 5491/10000 [45:26<36:31,  2.06step/s]
+Training:  55%|█████▍    | 5494/10000 [45:27<36:28,  2.06step/s]
+Training:  55%|█████▍    | 5497/10000 [45:29<36:26,  2.06step/s]
+Training:  55%|█████▌    | 5500/10000 [45:30<36:24,  2.06step/s]INFO 2026-10-28 17:14:51 ot_train.py:972 step:16K smpl:124K ep:220 epch:3.15 loss:0.198 grdn:13.914 lr:1.0e-05 data_s:0.003 prep_s:0.000 updt_s:0.481 step_s:0.486 smp/s:16 mem_gb:3.73 l1_loss:0.174 kld_loss:0.002
+
+Training:  55%|█████▌    | 5503/10000 [45:32<36:23,  2.06step/s]
+Training:  55%|█████▌    | 5506/10000 [45:33<36:23,  2.06step/s]
+Training:  55%|█████▌    | 5509/10000 [45:35<36:20,  2.06step/s]
+Training:  55%|█████▌    | 5512/10000 [45:36<36:18,  2.06step/s]
+Training:  55%|█████▌    | 5515/10000 [45:38<36:16,  2.06step/s]
+Training:  55%|█████▌    | 5518/10000 [45:39<36:16,  2.06step/s]
+Training:  55%|█████▌    | 5521/10000 [45:40<36:14,  2.06step/s]
+Training:  55%|█████▌    | 5524/10000 [45:42<36:14,  2.06step/s]
+Training:  55%|█████▌    | 5527/10000 [45:43<36:12,  2.06step/s]
+Training:  55%|█████▌    | 5530/10000 [45:45<36:10,  2.06step/s]
+Training:  55%|█████▌    | 5533/10000 [45:46<36:09,  2.06step/s]
+Training:  55%|█████▌    | 5536/10000 [45:48<36:08,  2.06step/s]
+Training:  55%|█████▌    | 5539/10000 [45:49<36:07,  2.06step/s]
+Training:  55%|█████▌    | 5542/10000 [45:51<36:04,  2.06step/s]
+Training:  55%|█████▌    | 5545/10000 [45:52<36:03,  2.06step/s]
+Training:  55%|█████▌    | 5548/10000 [45:54<36:02,  2.06step/s]
+Training:  56%|█████▌    | 5551/10000 [45:55<36:00,  2.06step/s]
+Training:  56%|█████▌    | 5554/10000 [45:56<35:59,  2.06step/s]
+Training:  56%|█████▌    | 5557/10000 [45:58<35:57,  2.06step/s]
+Training:  56%|█████▌    | 5560/10000 [45:59<35:56,  2.06step/s]
+Training:  56%|█████▌    | 5563/10000 [46:01<35:55,  2.06step/s]
+Training:  56%|█████▌    | 5566/10000 [46:02<35:53,  2.06step/s]
+Training:  56%|█████▌    | 5569/10000 [46:04<35:51,  2.06step/s]
+Training:  56%|█████▌    | 5572/10000 [46:05<35:50,  2.06step/s]
+Training:  56%|█████▌    | 5575/10000 [46:07<35:48,  2.06step/s]
+Training:  56%|█████▌    | 5578/10000 [46:08<35:46,  2.06step/s]
+Training:  56%|█████▌    | 5581/10000 [46:10<35:44,  2.06step/s]
+Training:  56%|█████▌    | 5584/10000 [46:11<35:44,  2.06step/s]
+Training:  56%|█████▌    | 5587/10000 [46:13<35:44,  2.06step/s]
+Training:  56%|█████▌    | 5590/10000 [46:14<35:44,  2.06step/s]
+Training:  56%|█████▌    | 5593/10000 [46:15<35:43,  2.06step/s]
+Training:  56%|█████▌    | 5596/10000 [46:17<35:42,  2.06step/s]
+Training:  56%|█████▌    | 5599/10000 [46:18<35:40,  2.06step/s]
+Training:  56%|█████▌    | 5602/10000 [46:20<35:38,  2.06step/s]
+Training:  56%|█████▌    | 5605/10000 [46:21<35:36,  2.06step/s]
+Training:  56%|█████▌    | 5608/10000 [46:23<35:34,  2.06step/s]
+Training:  56%|█████▌    | 5611/10000 [46:24<35:32,  2.06step/s]
+Training:  56%|█████▌    | 5614/10000 [46:26<35:31,  2.06step/s]
+Training:  56%|█████▌    | 5617/10000 [46:27<35:31,  2.06step/s]
+Training:  56%|█████▌    | 5620/10000 [46:29<35:29,  2.06step/s]
+Training:  56%|█████▌    | 5623/10000 [46:30<35:27,  2.06step/s]
+Training:  56%|█████▋    | 5626/10000 [46:31<35:25,  2.06step/s]
+Training:  56%|█████▋    | 5629/10000 [46:33<35:23,  2.06step/s]
+Training:  56%|█████▋    | 5632/10000 [46:34<35:21,  2.06step/s]
+Training:  56%|█████▋    | 5635/10000 [46:36<35:20,  2.06step/s]
+Training:  56%|█████▋    | 5638/10000 [46:37<35:18,  2.06step/s]
+Training:  56%|█████▋    | 5641/10000 [46:39<35:17,  2.06step/s]
+Training:  56%|█████▋    | 5644/10000 [46:40<35:16,  2.06step/s]
+Training:  56%|█████▋    | 5647/10000 [46:42<35:14,  2.06step/s]
+Training:  56%|█████▋    | 5650/10000 [46:43<35:13,  2.06step/s]
+Training:  57%|█████▋    | 5653/10000 [46:45<35:11,  2.06step/s]
+Training:  57%|█████▋    | 5656/10000 [46:46<35:09,  2.06step/s]
+Training:  57%|█████▋    | 5659/10000 [46:47<35:08,  2.06step/s]
+Training:  57%|█████▋    | 5662/10000 [46:49<35:08,  2.06step/s]
+Training:  57%|█████▋    | 5665/10000 [46:50<35:06,  2.06step/s]
+Training:  57%|█████▋    | 5668/10000 [46:52<35:04,  2.06step/s]
+Training:  57%|█████▋    | 5671/10000 [46:53<35:03,  2.06step/s]
+Training:  57%|█████▋    | 5674/10000 [46:55<35:02,  2.06step/s]
+Training:  57%|█████▋    | 5677/10000 [46:56<35:01,  2.06step/s]
+Training:  57%|█████▋    | 5680/10000 [46:58<35:00,  2.06step/s]
+Training:  57%|█████▋    | 5683/10000 [46:59<34:58,  2.06step/s]
+Training:  57%|█████▋    | 5686/10000 [47:01<34:56,  2.06step/s]
+Training:  57%|█████▋    | 5689/10000 [47:02<34:54,  2.06step/s]
+Training:  57%|█████▋    | 5692/10000 [47:04<34:53,  2.06step/s]
+Training:  57%|█████▋    | 5695/10000 [47:05<34:51,  2.06step/s]
+Training:  57%|█████▋    | 5698/10000 [47:06<34:50,  2.06step/s]
+Training:  57%|█████▋    | 5701/10000 [47:08<34:49,  2.06step/s]
+Training:  57%|█████▋    | 5704/10000 [47:09<34:48,  2.06step/s]
+Training:  57%|█████▋    | 5707/10000 [47:11<34:47,  2.06step/s]
+Training:  57%|█████▋    | 5710/10000 [47:12<34:45,  2.06step/s]
+Training:  57%|█████▋    | 5713/10000 [47:14<34:43,  2.06step/s]
+Training:  57%|█████▋    | 5716/10000 [47:15<34:41,  2.06step/s]
+Training:  57%|█████▋    | 5719/10000 [47:17<34:40,  2.06step/s]
+Training:  57%|█████▋    | 5722/10000 [47:18<34:39,  2.06step/s]
+Training:  57%|█████▋    | 5725/10000 [47:20<34:39,  2.06step/s]
+Training:  57%|█████▋    | 5728/10000 [47:21<34:38,  2.06step/s]
+Training:  57%|█████▋    | 5731/10000 [47:22<34:37,  2.06step/s]
+Training:  57%|█████▋    | 5734/10000 [47:24<34:35,  2.06step/s]
+Training:  57%|█████▋    | 5737/10000 [47:25<34:33,  2.06step/s]
+Training:  57%|█████▋    | 5740/10000 [47:27<34:32,  2.06step/s]
+Training:  57%|█████▋    | 5743/10000 [47:28<34:29,  2.06step/s]
+Training:  57%|█████▋    | 5746/10000 [47:30<34:28,  2.06step/s]
+Training:  57%|█████▋    | 5749/10000 [47:31<34:27,  2.06step/s]INFO 2026-10-28 17:16:52 ot_train.py:972 step:16K smpl:126K ep:224 epch:3.20 loss:0.194 grdn:13.585 lr:1.0e-05 data_s:0.003 prep_s:0.000 updt_s:0.481 step_s:0.486 smp/s:16 mem_gb:3.73 l1_loss:0.171 kld_loss:0.002
+
+Training:  58%|█████▊    | 5752/10000 [47:33<34:26,  2.06step/s]
+Training:  58%|█████▊    | 5755/10000 [47:34<34:24,  2.06step/s]
+Training:  58%|█████▊    | 5758/10000 [47:36<34:22,  2.06step/s]
+Training:  58%|█████▊    | 5761/10000 [47:37<34:20,  2.06step/s]
+Training:  58%|█████▊    | 5764/10000 [47:39<34:18,  2.06step/s]
+Training:  58%|█████▊    | 5767/10000 [47:40<34:17,  2.06step/s]
+Training:  58%|█████▊    | 5770/10000 [47:41<34:15,  2.06step/s]
+Training:  58%|█████▊    | 5773/10000 [47:43<34:14,  2.06step/s]
+Training:  58%|█████▊    | 5776/10000 [47:44<34:12,  2.06step/s]
+Training:  58%|█████▊    | 5779/10000 [47:46<34:10,  2.06step/s]
+Training:  58%|█████▊    | 5782/10000 [47:47<34:09,  2.06step/s]
+Training:  58%|█████▊    | 5785/10000 [47:49<34:08,  2.06step/s]
+Training:  58%|█████▊    | 5788/10000 [47:50<34:07,  2.06step/s]
+Training:  58%|█████▊    | 5791/10000 [47:52<34:06,  2.06step/s]
+Training:  58%|█████▊    | 5794/10000 [47:53<34:03,  2.06step/s]
+Training:  58%|█████▊    | 5797/10000 [47:55<34:02,  2.06step/s]
+Training:  58%|█████▊    | 5800/10000 [47:56<34:01,  2.06step/s]
+Training:  58%|█████▊    | 5803/10000 [47:57<34:00,  2.06step/s]
+Training:  58%|█████▊    | 5806/10000 [47:59<33:59,  2.06step/s]
+Training:  58%|█████▊    | 5809/10000 [48:00<33:56,  2.06step/s]
+Training:  58%|█████▊    | 5812/10000 [48:02<33:55,  2.06step/s]
+Training:  58%|█████▊    | 5815/10000 [48:03<33:53,  2.06step/s]
+Training:  58%|█████▊    | 5818/10000 [48:05<33:51,  2.06step/s]
+Training:  58%|█████▊    | 5821/10000 [48:06<33:50,  2.06step/s]
+Training:  58%|█████▊    | 5824/10000 [48:08<33:48,  2.06step/s]
+Training:  58%|█████▊    | 5827/10000 [48:09<33:46,  2.06step/s]
+Training:  58%|█████▊    | 5830/10000 [48:11<33:45,  2.06step/s]
+Training:  58%|█████▊    | 5833/10000 [48:12<33:44,  2.06step/s]
+Training:  58%|█████▊    | 5836/10000 [48:14<33:42,  2.06step/s]
+Training:  58%|█████▊    | 5839/10000 [48:15<33:41,  2.06step/s]
+Training:  58%|█████▊    | 5842/10000 [48:16<33:39,  2.06step/s]
+Training:  58%|█████▊    | 5845/10000 [48:18<33:38,  2.06step/s]
+Training:  58%|█████▊    | 5848/10000 [48:19<33:36,  2.06step/s]
+Training:  59%|█████▊    | 5851/10000 [48:21<33:35,  2.06step/s]
+Training:  59%|█████▊    | 5854/10000 [48:22<33:35,  2.06step/s]
+Training:  59%|█████▊    | 5857/10000 [48:24<33:32,  2.06step/s]
+Training:  59%|█████▊    | 5860/10000 [48:25<33:30,  2.06step/s]
+Training:  59%|█████▊    | 5863/10000 [48:27<33:27,  2.06step/s]
+Training:  59%|█████▊    | 5866/10000 [48:28<33:27,  2.06step/s]
+Training:  59%|█████▊    | 5869/10000 [48:30<33:27,  2.06step/s]
+Training:  59%|█████▊    | 5872/10000 [48:31<33:26,  2.06step/s]
+Training:  59%|█████▉    | 5875/10000 [48:32<33:26,  2.06step/s]
+Training:  59%|█████▉    | 5878/10000 [48:34<33:25,  2.06step/s]
+Training:  59%|█████▉    | 5881/10000 [48:35<33:23,  2.06step/s]
+Training:  59%|█████▉    | 5884/10000 [48:37<33:22,  2.06step/s]
+Training:  59%|█████▉    | 5887/10000 [48:38<33:20,  2.06step/s]
+Training:  59%|█████▉    | 5890/10000 [48:40<33:18,  2.06step/s]
+Training:  59%|█████▉    | 5893/10000 [48:41<33:16,  2.06step/s]
+Training:  59%|█████▉    | 5896/10000 [48:43<33:15,  2.06step/s]
+Training:  59%|█████▉    | 5899/10000 [48:44<33:12,  2.06step/s]
+Training:  59%|█████▉    | 5902/10000 [48:46<33:11,  2.06step/s]
+Training:  59%|█████▉    | 5905/10000 [48:47<33:09,  2.06step/s]
+Training:  59%|█████▉    | 5908/10000 [48:49<33:08,  2.06step/s]
+Training:  59%|█████▉    | 5911/10000 [48:50<33:07,  2.06step/s]
+Training:  59%|█████▉    | 5914/10000 [48:51<33:05,  2.06step/s]
+Training:  59%|█████▉    | 5917/10000 [48:53<33:04,  2.06step/s]
+Training:  59%|█████▉    | 5920/10000 [48:54<33:02,  2.06step/s]
+Training:  59%|█████▉    | 5923/10000 [48:56<33:00,  2.06step/s]
+Training:  59%|█████▉    | 5926/10000 [48:57<32:58,  2.06step/s]
+Training:  59%|█████▉    | 5929/10000 [48:59<32:57,  2.06step/s]
+Training:  59%|█████▉    | 5932/10000 [49:00<32:56,  2.06step/s]
+Training:  59%|█████▉    | 5935/10000 [49:02<32:55,  2.06step/s]
+Training:  59%|█████▉    | 5938/10000 [49:03<32:53,  2.06step/s]
+Training:  59%|█████▉    | 5941/10000 [49:05<32:52,  2.06step/s]
+Training:  59%|█████▉    | 5944/10000 [49:06<32:51,  2.06step/s]
+Training:  59%|█████▉    | 5947/10000 [49:07<32:49,  2.06step/s]
+Training:  60%|█████▉    | 5950/10000 [49:09<32:48,  2.06step/s]
+Training:  60%|█████▉    | 5953/10000 [49:10<32:47,  2.06step/s]
+Training:  60%|█████▉    | 5956/10000 [49:12<32:45,  2.06step/s]
+Training:  60%|█████▉    | 5959/10000 [49:13<32:44,  2.06step/s]
+Training:  60%|█████▉    | 5962/10000 [49:15<32:42,  2.06step/s]
+Training:  60%|█████▉    | 5965/10000 [49:16<32:40,  2.06step/s]
+Training:  60%|█████▉    | 5968/10000 [49:18<32:39,  2.06step/s]
+Training:  60%|█████▉    | 5971/10000 [49:19<32:38,  2.06step/s]
+Training:  60%|█████▉    | 5974/10000 [49:21<32:37,  2.06step/s]
+Training:  60%|█████▉    | 5977/10000 [49:22<32:35,  2.06step/s]
+Training:  60%|█████▉    | 5980/10000 [49:24<32:34,  2.06step/s]
+Training:  60%|█████▉    | 5983/10000 [49:25<32:33,  2.06step/s]
+Training:  60%|█████▉    | 5986/10000 [49:26<32:31,  2.06step/s]
+Training:  60%|█████▉    | 5989/10000 [49:28<32:30,  2.06step/s]
+Training:  60%|█████▉    | 5992/10000 [49:29<32:29,  2.06step/s]
+Training:  60%|█████▉    | 5995/10000 [49:31<32:27,  2.06step/s]
+Training:  60%|█████▉    | 5998/10000 [49:32<32:25,  2.06step/s]INFO 2026-10-28 17:18:54 ot_train.py:972 step:16K smpl:128K ep:228 epch:3.25 loss:0.194 grdn:14.144 lr:1.0e-05 data_s:0.003 prep_s:0.000 updt_s:0.482 step_s:0.486 smp/s:16 mem_gb:3.73 l1_loss:0.172 kld_loss:0.002
+
+Training:  60%|██████    | 6001/10000 [49:34<32:24,  2.06step/s]
+Training:  60%|██████    | 6004/10000 [49:35<32:23,  2.06step/s]
+Training:  60%|██████    | 6007/10000 [49:37<32:22,  2.06step/s]
+Training:  60%|██████    | 6010/10000 [49:38<32:21,  2.06step/s]
+Training:  60%|██████    | 6013/10000 [49:40<32:18,  2.06step/s]
+Training:  60%|██████    | 6016/10000 [49:41<32:17,  2.06step/s]
+Training:  60%|██████    | 6019/10000 [49:42<32:16,  2.06step/s]
+Training:  60%|██████    | 6022/10000 [49:44<32:14,  2.06step/s]
+Training:  60%|██████    | 6025/10000 [49:45<32:13,  2.06step/s]
+Training:  60%|██████    | 6028/10000 [49:47<32:11,  2.06step/s]
+Training:  60%|██████    | 6031/10000 [49:48<32:08,  2.06step/s]
+Training:  60%|██████    | 6034/10000 [49:50<32:07,  2.06step/s]
+Training:  60%|██████    | 6037/10000 [49:51<32:07,  2.06step/s]
+Training:  60%|██████    | 6040/10000 [49:53<32:06,  2.06step/s]
+Training:  60%|██████    | 6043/10000 [49:54<32:02,  2.06step/s]
+Training:  60%|██████    | 6046/10000 [49:56<32:03,  2.06step/s]
+Training:  60%|██████    | 6049/10000 [49:57<32:00,  2.06step/s]
+Training:  61%|██████    | 6052/10000 [49:59<31:58,  2.06step/s]
+Training:  61%|██████    | 6055/10000 [50:00<31:57,  2.06step/s]
+Training:  61%|██████    | 6058/10000 [50:01<31:56,  2.06step/s]
+Training:  61%|██████    | 6061/10000 [50:03<31:55,  2.06step/s]
+Training:  61%|██████    | 6064/10000 [50:04<31:53,  2.06step/s]
+Training:  61%|██████    | 6067/10000 [50:06<31:52,  2.06step/s]
+Training:  61%|██████    | 6070/10000 [50:07<31:50,  2.06step/s]
+Training:  61%|██████    | 6073/10000 [50:09<31:49,  2.06step/s]
+Training:  61%|██████    | 6076/10000 [50:10<31:47,  2.06step/s]
+Training:  61%|██████    | 6079/10000 [50:12<31:45,  2.06step/s]
+Training:  61%|██████    | 6082/10000 [50:13<31:44,  2.06step/s]
+Training:  61%|██████    | 6085/10000 [50:15<31:43,  2.06step/s]
+Training:  61%|██████    | 6088/10000 [50:16<31:41,  2.06step/s]
+Training:  61%|██████    | 6091/10000 [50:17<31:39,  2.06step/s]
+Training:  61%|██████    | 6094/10000 [50:19<31:38,  2.06step/s]
+Training:  61%|██████    | 6097/10000 [50:20<31:37,  2.06step/s]
+Training:  61%|██████    | 6100/10000 [50:22<31:36,  2.06step/s]
+Training:  61%|██████    | 6103/10000 [50:23<31:34,  2.06step/s]
+Training:  61%|██████    | 6106/10000 [50:25<31:33,  2.06step/s]
+Training:  61%|██████    | 6109/10000 [50:26<31:31,  2.06step/s]
+Training:  61%|██████    | 6112/10000 [50:28<31:29,  2.06step/s]
+Training:  61%|██████    | 6115/10000 [50:29<31:28,  2.06step/s]
+Training:  61%|██████    | 6118/10000 [50:31<31:26,  2.06step/s]
+Training:  61%|██████    | 6121/10000 [50:32<31:25,  2.06step/s]
+Training:  61%|██████    | 6124/10000 [50:34<31:23,  2.06step/s]
+Training:  61%|██████▏   | 6127/10000 [50:35<31:22,  2.06step/s]
+Training:  61%|██████▏   | 6130/10000 [50:36<31:21,  2.06step/s]
+Training:  61%|██████▏   | 6133/10000 [50:38<31:20,  2.06step/s]
+Training:  61%|██████▏   | 6136/10000 [50:39<31:18,  2.06step/s]
+Training:  61%|██████▏   | 6139/10000 [50:41<31:18,  2.06step/s]
+Training:  61%|██████▏   | 6142/10000 [50:42<31:16,  2.06step/s]
+Training:  61%|██████▏   | 6145/10000 [50:44<31:14,  2.06step/s]
+Training:  61%|██████▏   | 6148/10000 [50:45<31:13,  2.06step/s]
+Training:  62%|██████▏   | 6151/10000 [50:47<31:11,  2.06step/s]
+Training:  62%|██████▏   | 6154/10000 [50:48<31:08,  2.06step/s]
+Training:  62%|██████▏   | 6157/10000 [50:50<31:07,  2.06step/s]
+Training:  62%|██████▏   | 6160/10000 [50:51<31:06,  2.06step/s]
+Training:  62%|██████▏   | 6163/10000 [50:52<31:04,  2.06step/s]
+Training:  62%|██████▏   | 6166/10000 [50:54<31:04,  2.06step/s]
+Training:  62%|██████▏   | 6169/10000 [50:55<31:03,  2.06step/s]
+Training:  62%|██████▏   | 6172/10000 [50:57<31:00,  2.06step/s]
+Training:  62%|██████▏   | 6175/10000 [50:58<30:59,  2.06step/s]
+Training:  62%|██████▏   | 6178/10000 [51:00<30:57,  2.06step/s]
+Training:  62%|██████▏   | 6181/10000 [51:01<30:55,  2.06step/s]
+Training:  62%|██████▏   | 6184/10000 [51:03<30:54,  2.06step/s]
+Training:  62%|██████▏   | 6187/10000 [51:04<30:52,  2.06step/s]
+Training:  62%|██████▏   | 6190/10000 [51:06<30:51,  2.06step/s]
+Training:  62%|██████▏   | 6193/10000 [51:07<30:50,  2.06step/s]
+Training:  62%|██████▏   | 6196/10000 [51:09<30:48,  2.06step/s]
+Training:  62%|██████▏   | 6199/10000 [51:10<30:46,  2.06step/s]
+Training:  62%|██████▏   | 6202/10000 [51:11<30:45,  2.06step/s]
+Training:  62%|██████▏   | 6205/10000 [51:13<30:44,  2.06step/s]
+Training:  62%|██████▏   | 6208/10000 [51:14<30:42,  2.06step/s]
+Training:  62%|██████▏   | 6211/10000 [51:16<30:41,  2.06step/s]
+Training:  62%|██████▏   | 6214/10000 [51:17<30:40,  2.06step/s]
+Training:  62%|██████▏   | 6217/10000 [51:19<30:38,  2.06step/s]
+Training:  62%|██████▏   | 6220/10000 [51:20<30:36,  2.06step/s]
+Training:  62%|██████▏   | 6223/10000 [51:22<30:35,  2.06step/s]
+Training:  62%|██████▏   | 6226/10000 [51:23<30:34,  2.06step/s]
+Training:  62%|██████▏   | 6229/10000 [51:25<30:32,  2.06step/s]
+Training:  62%|██████▏   | 6232/10000 [51:26<30:32,  2.06step/s]
+Training:  62%|██████▏   | 6235/10000 [51:27<30:30,  2.06step/s]
+Training:  62%|██████▏   | 6238/10000 [51:29<30:29,  2.06step/s]
+Training:  62%|██████▏   | 6241/10000 [51:30<30:27,  2.06step/s]
+Training:  62%|██████▏   | 6244/10000 [51:32<30:25,  2.06step/s]
+Training:  62%|██████▏   | 6247/10000 [51:33<30:24,  2.06step/s]
+Training:  62%|██████▎   | 6250/10000 [51:35<30:23,  2.06step/s]INFO 2026-10-28 17:20:55 ot_train.py:972 step:16K smpl:130K ep:231 epch:3.30 loss:0.193 grdn:13.644 lr:1.0e-05 data_s:0.003 prep_s:0.000 updt_s:0.482 step_s:0.486 smp/s:16 mem_gb:3.73 l1_loss:0.170 kld_loss:0.002
+
+Training:  63%|██████▎   | 6253/10000 [51:36<30:22,  2.06step/s]
+Training:  63%|██████▎   | 6256/10000 [51:38<30:20,  2.06step/s]
+Training:  63%|██████▎   | 6259/10000 [51:39<30:19,  2.06step/s]
+Training:  63%|██████▎   | 6262/10000 [51:41<30:17,  2.06step/s]
+Training:  63%|██████▎   | 6265/10000 [51:42<30:15,  2.06step/s]
+Training:  63%|██████▎   | 6268/10000 [51:44<30:15,  2.06step/s]
+Training:  63%|██████▎   | 6271/10000 [51:45<30:12,  2.06step/s]
+Training:  63%|██████▎   | 6274/10000 [51:46<30:11,  2.06step/s]
+Training:  63%|██████▎   | 6277/10000 [51:48<30:10,  2.06step/s]
+Training:  63%|██████▎   | 6280/10000 [51:49<30:09,  2.06step/s]
+Training:  63%|██████▎   | 6283/10000 [51:51<30:08,  2.06step/s]
+Training:  63%|██████▎   | 6286/10000 [51:52<30:06,  2.06step/s]
+Training:  63%|██████▎   | 6289/10000 [51:54<30:04,  2.06step/s]
+Training:  63%|██████▎   | 6292/10000 [51:55<30:03,  2.06step/s]
+Training:  63%|██████▎   | 6295/10000 [51:57<30:02,  2.06step/s]
+Training:  63%|██████▎   | 6298/10000 [51:58<30:00,  2.06step/s]
+Training:  63%|██████▎   | 6301/10000 [52:00<29:59,  2.06step/s]
+Training:  63%|██████▎   | 6304/10000 [52:01<29:58,  2.05step/s]
+Training:  63%|██████▎   | 6307/10000 [52:02<29:56,  2.06step/s]
+Training:  63%|██████▎   | 6310/10000 [52:04<29:54,  2.06step/s]
+Training:  63%|██████▎   | 6313/10000 [52:05<29:54,  2.05step/s]
+Training:  63%|██████▎   | 6316/10000 [52:07<29:52,  2.06step/s]
+Training:  63%|██████▎   | 6319/10000 [52:08<29:51,  2.06step/s]
+Training:  63%|██████▎   | 6322/10000 [52:10<31:02,  1.97step/s]
+Training:  63%|██████▎   | 6325/10000 [52:11<30:38,  2.00step/s]
+Training:  63%|██████▎   | 6328/10000 [52:13<30:21,  2.02step/s]
+Training:  63%|██████▎   | 6331/10000 [52:14<30:08,  2.03step/s]
